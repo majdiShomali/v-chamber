@@ -4,6 +4,9 @@ import axios from "axios";
 import { GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
 
 export default function LogIn() {
+
+const ApiUrl= process.env.REACT_APP_API_URL
+const ReactUrl= process.env.REACT_APP_API_REACT_URL
   const [email, setemail] = useState("");
   const [emailp, setemailp] = useState("");
   const [password, setpassword] = useState("");
@@ -31,11 +34,9 @@ const getGoogleLogin = async ()=>{
       });
   
       try {
-        const newUserResponse = await axios.post("http://localhost:5000/api/newUserGoogle", response.data);
-  
-        console.log("err");
+        const newUserResponse = await axios.post(`${ApiUrl}/newUserGoogle`, response.data);
         localStorage.setItem("auth", newUserResponse.data.token);
-        window.location.href = "http://localhost:3000/";
+        window.location.href = `${ReactUrl}/`;
       } catch (err) {
         console.log(err);
         setpasswordp(err.response.data.message);
@@ -65,13 +66,13 @@ getGoogleLogin()
     try {
       // Send the data to the server using an HTTP POST request
       const response = await axios.post(
-        "http://localhost:5000/api/usersLogin",
+        `${ApiUrl}/usersLogin`,
         userData
       );
       console.log(response.data.error);
       if (response.data.error !== "incorrect password" && response.data.error === undefined) {
         localStorage.setItem("auth", response.data.token);
-        window.location.href = "http://localhost:3000/";
+        window.location.href = `${ReactUrl}/`;
         setpasswordp("");
         setemailp("");
       } else {

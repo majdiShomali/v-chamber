@@ -5,6 +5,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export default function Signup() {
+  const ApiUrl= process.env.REACT_APP_API_URL
+  const ReactUrl= process.env.REACT_APP_API_REACT_URL
 
   const { type } = useParams();
 
@@ -45,12 +47,12 @@ export default function Signup() {
       try {
         // Send the data to the server using an HTTP POST request
         const response = await axios.post(
-          "http://localhost:5000/api/users",
+          `${ApiUrl}/users`,
           userData
         );
         setemailp(response.data.error)
         localStorage.setItem("auth", response.data.token);
-        window.location.href = "http://localhost:3000/";
+        window.location.href = `${ReactUrl}/`;
       } catch (error) {
         console.error("Error inserting data:", error);
       }

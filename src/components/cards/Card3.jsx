@@ -2,15 +2,32 @@ import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { CartContext } from "../../context/cartContext";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchItems } from "../../actions/GetItems";
+
 const Card3 = () => {
+
+  const ApiUrl= process.env.REACT_APP_API_URL
+  const ReactUrl= process.env.REACT_APP_API_REACT_URL
+  const ImagesUrl= process.env.REACT_APP_IMAGES_URL
+
+  const { loading, data, error } = useSelector((state) => state.fetchItems);
+  const dispatch = useDispatch();
+
+   useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
+
+
+
   const [items,setItems] = useState([])
   const [allItems,setItemsAllItems] = useState([])
-   const {cartNavRefresh,setCartNavRefresh} =useContext(CartContext)
+  const {cartNavRefresh,setCartNavRefresh} =useContext(CartContext)
  
 
   const getAll = async() =>{
 try {
-  const response = await axios.get('http://localhost:5000/api/allItems')
+  const response = await axios.get(`${ApiUrl}/allItems`)
   setItemsAllItems(response.data)
   console.log(response.data)
   localStorage.setItem('Allitems', JSON.stringify(response.data))  
@@ -86,7 +103,7 @@ try {
                           </button>
                         </div>
                         <img
-                          src={`http://localhost:5000/${card.image}`}
+                          src={`${ImagesUrl}/${card.image}`}
                           alt="Just a flower"
                           className=" w-full  h-full  object-fill  rounded-2xl"
                         />

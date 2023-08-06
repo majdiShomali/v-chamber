@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 import SneekPeeksShipping from "../../components/SneekPeeksShipping";
 
 const CartPage = () => {
+  const ApiUrl= process.env.REACT_APP_API_URL
+  const ReactUrl= process.env.REACT_APP_API_REACT_URL
+  const ImagesUrl= process.env.REACT_APP_IMAGES_URL
+
+
+
   const [totalPrice, setTotalPrice] = useState(0);
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -78,7 +84,7 @@ const CartPage = () => {
               return (
                 <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                   <img
-                    src={`http://localhost:5000/${item.image}`}
+                    src={`${ImagesUrl}/${item.image}`}
                     alt="product-image"
                     className="w-full rounded-lg sm:w-40"
                   />

@@ -15,7 +15,7 @@ import UserProfile from "./pages/user/UserProfile";
 import CartPage from "./pages/user/CartPage";
 import ForgetPassword from "./pages/registration/ForgetPassword"
 import Payment from "./pages/user/Payment";
-import Store from "./pages/user/Store";
+import ItemsStore from "./pages/user/ItemsStore";
 //---------------------provider-------------------------//
 import ProviderHome from "./pages/providerFiles/ProviderHome";
 function App() {
@@ -53,7 +53,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/UserProfile" element={<UserProfile />} />
           <Route path="/CartPage" element={<CartPage />} />
-          <Route path="/Store" element={<Store />} />
+          <Route path="/Store" element={<ItemsStore />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
