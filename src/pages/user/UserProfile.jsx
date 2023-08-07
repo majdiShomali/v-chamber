@@ -10,7 +10,7 @@ import ItemCard from "../../components/cards/ItemCard"
 
 const UserProfile = () => {
   const { user, setUser } = useContext(UserContext);
-
+const [favoriteItems,setFavoriteItems] =useState([])
   const {
     loading: isFavLoading,
     data: itemsFavData,
@@ -27,6 +27,13 @@ const UserProfile = () => {
       dispatch(fetchFavItems(user._id));
     }
   }, [dispatch]);
+
+  useEffect(() => {
+
+    setFavoriteItems(itemsFavData)
+
+  }, [itemsFavData]);
+
   return (
     <>
       <div className="h-full bg-gray-200 p-8">
@@ -131,7 +138,7 @@ const UserProfile = () => {
               <h4 className="text-xl text-gray-900 font-bold">Fav Products</h4>
               <div className="m-5">
               <ItemCard
-                Items={itemsFavData}
+                Items={favoriteItems}
                          />
               </div>
               <div className="mt-4">

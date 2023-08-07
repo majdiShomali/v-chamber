@@ -95,6 +95,7 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
       const UpdatedData = {
         UsersIdFavorite: UsersIdFavorite,
         CardId: card._id,
+        UserId:user._id,
       };
 
       dispatch(updateFavItems(UpdatedData)).then(() => {

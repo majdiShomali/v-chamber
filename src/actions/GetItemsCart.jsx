@@ -10,7 +10,6 @@ export const fetchItemsCart = createAsyncThunk(
         Ids:Ids
     }
     const response = await axios.post(`${ApiUrl}/allCartItems`,data);
-    console.log(response.data)
     return response.data;
   }
 );
