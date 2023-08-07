@@ -20,6 +20,11 @@ import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
 //---------------------provider-------------------------//
 import ProviderHome from "./pages/providerFiles/ProviderHome";
+
+
+
+import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
+
 function App() {
   const [hideRouterUser, setHideRouterUser] = useState(false);
   const [hideRouterProvider, setHideRouterProvider] = useState(true);
@@ -62,6 +67,7 @@ function App() {
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/Signup/:type" element={<SignUp />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
+          <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} />
           <Route path="/*" element={<NoPage404 />} />
         </Routes>
         <Footer/>
