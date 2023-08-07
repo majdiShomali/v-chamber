@@ -1,6 +1,7 @@
 import React from 'react'
 
 const ItemCard = ({Items}) => {
+  const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
     const handleAddToCart = (card) => {
         if(card.quantity){
@@ -61,7 +62,7 @@ const ItemCard = ({Items}) => {
                           </button>
                         </div>
                         <img
-                          src={`http://localhost:5000/${card.image}`}
+                          src={`${ImagesUrl}/${card.image}`}
                           alt="Just a flower"
                           className=" w-full  h-full  object-fill  rounded-2xl"
                         />

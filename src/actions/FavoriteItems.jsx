@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const ApiUrl = process.env.REACT_APP_API_URL;
+
 
 export const fetchFavItems = createAsyncThunk(
   "FavItems/fetchFavItems",
   async (id) => {
-    const response = await axios.get(`http://localhost:5000/api/favoriteItems/${id}`);
+    const response = await axios.get(`${ApiUrl}/favoriteItems/${id}`);
     return response.data;
   }
 );
@@ -13,7 +15,7 @@ export const updateFavItems = createAsyncThunk(
     "FavItems/updateFavItems",
     async (data) => {
       const UsersIdFavorite= data.UsersIdFavorite
-      const response = await axios.put(`http://localhost:5000/api/updateItemFav/${data.CardId}`,{UsersIdFavorite});
+      const response = await axios.put(`${ApiUrl}/updateItemFav/${data.CardId}`,{UsersIdFavorite});
       return response.data;
     }
   );

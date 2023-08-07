@@ -7,6 +7,11 @@ import { fetchItems } from "../../actions/GetItems";
 import { updateFavItems } from "../../actions/FavoriteItems";
 import { fetchFavItems } from "../../actions/FavoriteItems";
 import { UserContext } from "../../context/userContext";
+
+import { fetchItemsCart } from "../../actions/GetItemsCart";
+
+
+
 import Swal from "sweetalert2";
 const Card3 = () => {
   const ApiUrl = process.env.REACT_APP_API_URL;
@@ -15,6 +20,7 @@ const Card3 = () => {
 
   const { user, setUser } = useContext(UserContext);
 const [filterItems,setFilterItems]=useState([])
+const [refreshItems,setRefreshItems]=useState([])
   const {
     loading: isLoading,
     data: itemsData,
@@ -43,33 +49,32 @@ const [filterItems,setFilterItems]=useState([])
 
 
   const [items, setItems] = useState([]);
-  const [allItems, setItemsAllItems] = useState([]);
+  const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
   const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
 
   useEffect(() => {
     const storedItems = localStorage.getItem("items");
     if (storedItems) {
       setItems(JSON.parse(storedItems));
+      setItemsAllIdsInCart(JSON.parse(storedItems))
     }
   }, []);
 
   const handleAddToCart = (card) => {
-    // Check if the card is already in the cart
-    const existingCard = items.find((item) => item._id === card._id);
-  
+    const storedItems = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items"))  : [];                                          
+    const existingCard = storedItems.includes(card._id);
     if (existingCard) {
-      // If the card is already in the cart, remove it
-      const updatedItems = items.filter((item) => item._id !== card._id);
-      setItems(updatedItems);
-      setCartNavRefresh(updatedItems);
-      localStorage.setItem("items", JSON.stringify(updatedItems));
+      const allCardsIds = storedItems.filter((itemId) => { return itemId !== card._id});
+      dispatch(fetchItemsCart(allCardsIds)) 
+      setItemsAllIdsInCart(allCardsIds)
+      localStorage.setItem("items", JSON.stringify(allCardsIds));
     } else {
-      // If the card is not in the cart, add it with quantity 1
-      const allCards = [...(Array.isArray(items) ? items : []), { ...card, quantity: 1 }];
-      setItems(allCards);
-      setCartNavRefresh(allCards);
-      localStorage.setItem("items", JSON.stringify(allCards));
+      const allCardsIds = [...storedItems, card._id];
+      dispatch(fetchItemsCart(allCardsIds)) 
+      setItemsAllIdsInCart(allCardsIds)
+      localStorage.setItem("items", JSON.stringify(allCardsIds));
     }
+  
   };
   
 
@@ -268,7 +273,7 @@ const [filterItems,setFilterItems]=useState([])
                           </div>
                         </div> */}
                           <div className="flex space-x-2 text-sm font-medium justify-start">
-                            { items.some(item => item._id === card._id)    ? (
+                            { allIdsInCart.includes(card._id)    ? (
                               <button
                                 onClick={() => handleAddToCart(card)}
                                 className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 "

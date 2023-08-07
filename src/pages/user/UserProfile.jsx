@@ -2,9 +2,31 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import EditProfile from "./UserEditProfile";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFavItems } from "../../actions/FavoriteItems";
+import ItemCard from "../../components/cards/ItemCard"
+
+
 
 const UserProfile = () => {
   const { user, setUser } = useContext(UserContext);
+
+  const {
+    loading: isFavLoading,
+    data: itemsFavData,
+    error: fetchFavError,
+  } = useSelector((state) => state.FavoriteItems);
+
+
+  const dispatch = useDispatch();
+
+
+
+  useEffect(() => {
+    if(user){
+      dispatch(fetchFavItems(user._id));
+    }
+  }, [dispatch]);
   return (
     <>
       <div className="h-full bg-gray-200 p-8">

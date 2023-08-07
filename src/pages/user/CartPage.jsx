@@ -4,19 +4,48 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SneekPeeksShipping from "../../components/SneekPeeksShipping";
 
+import { useDispatch, useSelector } from "react-redux";
+import { fetchItemsCart } from "../../actions/GetItemsCart";
+
 const CartPage = () => {
   const ApiUrl= process.env.REACT_APP_API_URL
   const ReactUrl= process.env.REACT_APP_API_REACT_URL
   const ImagesUrl= process.env.REACT_APP_IMAGES_URL
 
+  const dispatch = useDispatch();
+
+  const {
+    loading: isCartLoading,
+    data: itemsCartData,
+    error: fetchCartError,
+  } = useSelector((state) => state.fetchItemsCart);
 
 
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [items, setItems] = useState([]);
   useEffect(() => {
     if (localStorage.items) {
       const items = JSON.parse(localStorage.getItem("items"));
-      const price = items.map((item) => {
+      if (items.length > 0) {
+      dispatch(fetchItemsCart(items)) } 
+      }
+    },[] ) 
+
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+
+    // const newArray = itemsCartData?.map((item) => ({  //error on load
+    //   quantity: item.quantity,
+    //   _id: item._id
+    // }));
+    // localStorage.setItem("itemsQ", JSON.stringify(newArray));
+
+    const storedItems = localStorage.getItem("itemsQ") ? JSON.parse(localStorage.getItem("itemsQ"))  : itemsCartData;                                          
+
+    setItems(storedItems)
+
+    if (localStorage.items) {
+      const price = itemsCartData.map((item) => {
         return parseInt(item.price, 10);
       });
       const sum = price.reduce(
@@ -24,14 +53,12 @@ const CartPage = () => {
         0
       );
       setTotalPrice(sum);
-
-      setItems(JSON.parse(localStorage.getItem("items")));
     }
-  }, []);
+
+  }, [itemsCartData]);
 
   useEffect(() => {
     if (items) {
-      //  const price =items.map((item) =>{return parseInt(item.price, 10)})
       const priceQ = items.map((item) => {
         return parseInt(item.price, 10) * item.quantity;
       });
@@ -39,6 +66,8 @@ const CartPage = () => {
         (accumulator, currentValue) => accumulator + currentValue,
         0
       );
+      console.log(sum)
+
       setTotalPrice(sum);
     }
   }, [items]);
@@ -47,7 +76,7 @@ const CartPage = () => {
     const updatedItems = items.map((item) =>
       item._id === itemId ? { ...item, quantity: item.quantity + 1 } : item
     );
-    localStorage.setItem("items", JSON.stringify(updatedItems));
+    localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
     setItems(updatedItems);
   };
 
@@ -57,14 +86,22 @@ const CartPage = () => {
         ? { ...item, quantity: item.quantity - 1 }
         : item
     );
-    localStorage.setItem("items", JSON.stringify(updatedItems));
+    localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
     setItems(updatedItems);
   };
 
   const handleRemove = (itemId) => {
-    const allCards = items.filter( (item) => {return item._id !== itemId} )
-      setItems(allCards);
-     localStorage.setItem('items', JSON.stringify(allCards)) 
+    // const allCards = items.filter( (item) => {return item._id !== itemId} )
+    //   setItems(allCards);
+    //  localStorage.setItem('items', JSON.stringify(allCards)) 
+
+     const storedItems = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items"))  : [];                                          
+
+     const allCardsIds = storedItems.filter((ItemId) => { return ItemId !== itemId});
+     console.log(allCardsIds)
+    //  dispatch(fetchItemsCart(allCardsIds)) 
+    //  setItemsAllIdsInCart(allCardsIds)
+    //  localStorage.setItem("items", JSON.stringify(allCardsIds));
   };
 
   return (
@@ -75,14 +112,16 @@ const CartPage = () => {
       <SneekPeeksShipping />
       <div className="flex p-5 flex-col lg:flex-row ">
         <div className=" w-full lg:w-1/2 lg:p-5 lg:m-5">
-          <p className="text-xl font-medium">Order Summary</p>
+          <p className="text-xl font-medium">Order Summary {totalPrice}$</p>
           <p className="text-gray-400">
             Check your items. And select a suitable shipping method.
           </p>
           <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6  overflow-y-auto">
             {items?.map((item) => {
               return (
-                <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                <div 
+                key={item._id}
+                className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                   <img
                     src={`${ImagesUrl}/${item.image}`}
                     alt="product-image"
