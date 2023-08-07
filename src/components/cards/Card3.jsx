@@ -93,26 +93,6 @@ const [refreshItems,setRefreshItems]=useState([])
   
   };
 
-  // const handleAddToCart = (card) => {
-  //   // Check if the card is already in the cart
-  //   const existingCard = items.find((item) => item._id === card._id);
-  
-  //   if (existingCard) {
-  //     // If the card is already in the cart, remove it
-  //     const updatedItems = items.filter((item) => item._id !== card._id);
-  //     setItems(updatedItems);
-  //     setCartNavRefresh(updatedItems);
-  //     localStorage.setItem("items", JSON.stringify(updatedItems));
-  //   } else {
-  //     // If the card is not in the cart, add it with quantity 1
-  //     const allCards = [...(Array.isArray(items) ? items : []), { ...card, quantity: 1 }];
-  //     setItems(allCards);
-  //     setCartNavRefresh(allCards);
-  //     localStorage.setItem("items", JSON.stringify(allCards));
-  //   }
-  // };
-  
-
 
   const handleFAv = async (card) => {
     let UsersIdFavorite = [...(card.UsersIdFavorite || [])];
@@ -152,10 +132,18 @@ const navigate =useNavigate();
   }
   return (
     <>
-      <div>
-        <div className="flex justify-center my-5">
-          <p className="text-2xl">all produncts</p>
-        </div>
+      <div className="py-5 lg:h-[90vh]">
+      <div className="mx-auto max-w-xl text-center">
+      <h1 className="text-3xl text-red-700 font-extrabold sm:text-5xl">
+      Products
+      </h1>
+      <p className="mt-4 text-black sm:text-xl/relaxed">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo
+        tenetur fuga ducimus numquam ea!
+      </p>
+      <div className="mt-8 flex flex-wrap justify-center gap-4">
+      </div>
+    </div>
 
         <div className="w-full flex flex-wrap gap-3 justify-center  h-[90vh]">
           {filterItems?.map((card, index) => {

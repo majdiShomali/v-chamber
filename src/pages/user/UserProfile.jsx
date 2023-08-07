@@ -77,7 +77,7 @@ const UserProfile = () => {
                 </svg>
               </span>
             </div>
-            <p className="text-gray-700">Welcome to arabic recipes</p>
+            <p className="text-gray-700">Welcome to V-Cahmber</p>
             <p className="text-sm text-gray-500">
               {user?.role === 0 ? "User" : "Provider"}
             </p>
@@ -128,26 +128,11 @@ const UserProfile = () => {
               </p>
             </div>
             <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
-              <h4 className="text-xl text-gray-900 font-bold">Fav Recipes</h4>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
-                {/* {userFavData?.map((e, i) => {
-                  return (
-                    <>
-                      <DyRecipeCardMeal
-                        key={e._id}
-                        Name={e.recipeName}
-                        card={e}
-                        index={i}
-                        SAMeals={favData}
-                        cardId={e._id}
-                        img={e.img}
-                        rate={e.rate}
-                        rating={e.rating}
-                        Recipe={e}
-                      />
-                    </>
-                  );
-                })} */}
+              <h4 className="text-xl text-gray-900 font-bold">Fav Products</h4>
+              <div className="m-5">
+              <ItemCard
+                Items={itemsFavData}
+                         />
               </div>
               <div className="mt-4">
                 <canvas

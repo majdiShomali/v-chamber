@@ -6,6 +6,7 @@ import { UserContext } from "./context/userContext";
 import NoPage404 from "./pages/NoPage404";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import Footer from "./components/Footer";
 //---------------------user-------------------------//
 import Home from "./pages/Home";
 import StickyNavbar from "./components/StickyNavbar";
@@ -63,6 +64,7 @@ function App() {
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/*" element={<NoPage404 />} />
         </Routes>
+        <Footer/>
       </Router>
     );
   };
