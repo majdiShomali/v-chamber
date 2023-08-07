@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { CartContext } from "../../context/cartContext";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "../../actions/GetItems";
 import { updateFavItems } from "../../actions/FavoriteItems";
@@ -10,7 +9,7 @@ import { UserContext } from "../../context/userContext";
 
 import { fetchItemsCart } from "../../actions/GetItemsCart";
 
-
+import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 const Card3 = () => {
@@ -31,6 +30,11 @@ const [refreshItems,setRefreshItems]=useState([])
     data: itemsFavData,
     error: fetchFavError,
   } = useSelector((state) => state.FavoriteItems);
+  const {
+    loading: isCartLoading,
+    data: itemsCartData,
+    error: fetchCartError,
+  } = useSelector((state) => state.fetchItemsCart);
 
 
   const dispatch = useDispatch();
@@ -44,6 +48,7 @@ const [refreshItems,setRefreshItems]=useState([])
 
   useEffect(() => {
   setFilterItems(itemsData)
+  
   }, [itemsData]);
 
 
@@ -56,26 +61,56 @@ const [refreshItems,setRefreshItems]=useState([])
     const storedItems = localStorage.getItem("items");
     if (storedItems) {
       setItems(JSON.parse(storedItems));
+      dispatch(fetchItemsCart(JSON.parse(storedItems)));
       setItemsAllIdsInCart(JSON.parse(storedItems))
     }
   }, []);
 
   const handleAddToCart = (card) => {
-    const storedItems = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items"))  : [];                                          
+    const storedItems = localStorage.getItem("items")   ? JSON.parse(localStorage.getItem("items"))   :   [];                                          
+    const storedItemsQ = localStorage.getItem("itemsQ") ? JSON.parse(localStorage.getItem("itemsQ"))  :   [];                                          
     const existingCard = storedItems.includes(card._id);
     if (existingCard) {
       const allCardsIds = storedItems.filter((itemId) => { return itemId !== card._id});
       dispatch(fetchItemsCart(allCardsIds)) 
       setItemsAllIdsInCart(allCardsIds)
       localStorage.setItem("items", JSON.stringify(allCardsIds));
+
+      const updatedItems = storedItemsQ.filter((item) => item._id !== card._id);
+      localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
+
+
     } else {
       const allCardsIds = [...storedItems, card._id];
       dispatch(fetchItemsCart(allCardsIds)) 
       setItemsAllIdsInCart(allCardsIds)
       localStorage.setItem("items", JSON.stringify(allCardsIds));
+
+
+      const allCards = [...(Array.isArray(storedItemsQ) ? itemsCartData : []), { ...card, quantity: 1 }];
+      localStorage.setItem("itemsQ", JSON.stringify(allCards));
     }
   
   };
+
+  // const handleAddToCart = (card) => {
+  //   // Check if the card is already in the cart
+  //   const existingCard = items.find((item) => item._id === card._id);
+  
+  //   if (existingCard) {
+  //     // If the card is already in the cart, remove it
+  //     const updatedItems = items.filter((item) => item._id !== card._id);
+  //     setItems(updatedItems);
+  //     setCartNavRefresh(updatedItems);
+  //     localStorage.setItem("items", JSON.stringify(updatedItems));
+  //   } else {
+  //     // If the card is not in the cart, add it with quantity 1
+  //     const allCards = [...(Array.isArray(items) ? items : []), { ...card, quantity: 1 }];
+  //     setItems(allCards);
+  //     setCartNavRefresh(allCards);
+  //     localStorage.setItem("items", JSON.stringify(allCards));
+  //   }
+  // };
   
 
 
@@ -110,6 +145,11 @@ const [refreshItems,setRefreshItems]=useState([])
     }).then(() => {});
   };
 
+const navigate =useNavigate();
+  const handleShowItem = (item) => {
+    console.log(item);
+    navigate(`/ProductPage/${item._id}`)
+  }
   return (
     <>
       <div>
@@ -290,8 +330,11 @@ const [refreshItems,setRefreshItems]=useState([])
                                 </button>
                               </>
                             )}
-
-                            <button className="transition ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
+                        
+                            <button
+                            onClick={()=>handleShowItem(card)}
+                            
+                            className="transition ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className=""

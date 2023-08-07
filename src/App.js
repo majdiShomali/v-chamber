@@ -16,6 +16,7 @@ import CartPage from "./pages/user/CartPage";
 import ForgetPassword from "./pages/registration/ForgetPassword"
 import Payment from "./pages/user/Payment";
 import ItemsStore from "./pages/user/ItemsStore";
+import ProductPage from "./pages/user/ProductPage";
 //---------------------provider-------------------------//
 import ProviderHome from "./pages/providerFiles/ProviderHome";
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/ProductPage/:id" element={<ProductPage />} />
           <Route path="/UserProfile" element={<UserProfile />} />
           <Route path="/CartPage" element={<CartPage />} />
           <Route path="/Store" element={<ItemsStore />} />
