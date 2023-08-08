@@ -4,7 +4,7 @@ import { HashLink } from 'react-router-hash-link';
 const HeroSection = () => {
   return (
     <Carousel
-      className="rounded-xl h-[90vh] "
+      className=" h-[90vh] "
       navigation={({ setActiveIndex, activeIndex, length }) => (
         <div className="absolute bottom-4 left-2/4 z-5 flex -translate-x-2/4 gap-2">
           {new Array(length).fill("").map((_, i) => (
@@ -26,7 +26,7 @@ const HeroSection = () => {
     <div className="mx-auto max-w-xl text-center">
       <h1 className="text-3xl text-white font-extrabold sm:text-5xl">
         V-Chamber.
-        <strong className="font-extrabold text-red-700 sm:block">
+        <strong className="font-extrabold text-purple-500 sm:block">
           Increase Conversion.
         </strong>
       </h1>
@@ -37,19 +37,21 @@ const HeroSection = () => {
       <div className="mt-8 flex flex-wrap justify-center gap-4">
             <HashLink smooth={true} to="#TopProducts" >
              <Button
-              className=" mb-10 border-solid border-red-700 border-2 text-white hover:bg-red-700 hover:text-[#ffffff]"
+              className=" mb-10 border-solid border-purple-500 border-2 text-white hover:bg-purple-500 hover:text-[#ffffff]"
               variant="text"
             >
               Products
             </Button>
             </HashLink>
+            <HashLink smooth={true} to="#SaleProducts">
             <Button
-              className="mb-10 border-solid border-red-700 border-2  bg-red-700 hover:bg-red-700 hover:scale-105 text-[#ffffff]"
+              className="mb-10 border-solid border-purple-500 border-2  bg-purple-500 hover:bg-purple-500 hover:scale-105 text-[#ffffff]"
               variant="text"
             >
               
               Top Sale
             </Button>
+            </HashLink>
         {/* <a
           className="block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto"
           href="/about"

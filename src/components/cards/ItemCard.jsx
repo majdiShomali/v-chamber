@@ -8,6 +8,7 @@ import { UserContext } from "../../context/userContext";
 import { fetchItemsCart } from "../../actions/GetItemsCart";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Card } from "@material-tailwind/react";
 const ItemCard = ({Items}) => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -123,9 +124,9 @@ const navigate =useNavigate();
     <div className="w-full flex flex-wrap gap-3 justify-center">   
     {Items?.map((card) => {
             return (
-              <div
+              <Card
                 key={card._id}
-                className=" flex flex-col items-center justify-center mx-2 h-96 w-72 mb-5"
+                className=" flex flex-col items-center justify-center mx-2 h-96 w-72 mb-5 hover:scale-105"
               >
                 <div className="container">
                   <div className=" w-full bg-gray-900  rounded-xl p-6">
@@ -185,7 +186,7 @@ const navigate =useNavigate();
                           <img
                             src={`${ImagesUrl}/${card.image}`}
                             alt="Just a flower"
-                            className=" w-full  h-full  object-fill  rounded-2xl"
+                            className=" w-full  h-full  object-fill  rounded-2xl "
                           />
                         </div>
                         <div className="flex-auto justify-evenly">
@@ -204,6 +205,7 @@ const navigate =useNavigate();
                               </span>
                               <span className="mr-2 text-gray-400">India</span>
                             </div>
+
                             <div className="flex items-center w-full justify-between min-w-0 ">
                               <h2 className="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">
                                 {card.Name}
@@ -220,11 +222,47 @@ const navigate =useNavigate();
                             
                             </div>
                           </div>
-                          <div className="text-xl text-white font-semibold mt-1">
-                            {card.price} $
+
+                          {card.price > card.salePrice ? 
+                          <div className="flex items-center">
+                          <span className="text-xl  font-semibold line-through text-gray-500 mr-3">{card.price} $</span>
+                          <span className="text-xl text-white font-bold">{card.salePrice} $</span>
                           </div>
+                          
+                          :
+                          <div className="text-xl text-white font-semibold mt-1">
+                          {card.price} $
+                           </div>                         
+                          }
+                         
           
-                          <div className="flex space-x-2 text-sm font-medium justify-start">
+                          <div className="flex space-x-2 text-sm font-medium justify-between mt-2">
+                          <button
+                            onClick={()=>handleShowItem(card)}
+                            
+                            className="transition ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className=""
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                />
+                              </svg>
+                            </button>
+
                           {card.totalQuantity !==0 ? <>
                             { allIdsInCart.includes(card._id)    ? (
                               <button
@@ -250,38 +288,14 @@ const navigate =useNavigate();
                          }
        
                         
-                            <button
-                            onClick={()=>handleShowItem(card)}
-                            
-                            className="transition ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className=""
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                />
-                              </svg>
-                            </button>
+                 
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             );
           })}
       </div>   

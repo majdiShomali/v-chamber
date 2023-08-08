@@ -15,6 +15,7 @@ const ProviderHome = () => {
     const [productImage, setProductImage] = useState(null);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
+    const [salePrice, setSalePrice] = useState("");
     const [Quantity, setQuantity] = useState(null);
     const [description, setDescription] = useState("");
 
@@ -27,6 +28,7 @@ const ProviderHome = () => {
         const formData = new FormData();
         formData.append("Name", name);
         formData.append("price", price);
+        formData.append("salePrice", salePrice);
         formData.append("description", description);
         formData.append("image", productImage);
         formData.append("ProviderId", user._id);
@@ -36,8 +38,6 @@ const ProviderHome = () => {
              } catch (error) {
             console.log(error.message)
              }
-
-
     }
 
   return (
@@ -49,21 +49,47 @@ const ProviderHome = () => {
       <Typography color="gray" className="mt-1 font-normal">
         Enter Product details.
       </Typography>
-      <form onSubmit={handleAddItem} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+      <form onSubmit={handleAddItem} className="mt-8 mb-2 w-xl">
         <div className="mb-4 flex flex-col gap-6">
           <Input size="lg" label="Name"
           value={name}
           onChange={(e)=>setName(e.target.value)}
           />
-          <Input size="lg" label="Price"
+
+
+          <div className='flex w-full'>
+          <Input size="md" label="Price"
+          type='number'
           value={price}
           onChange={(e)=>setPrice(e.target.value)}
           />
+          <Input size="md" label="sale Price"
+          type='number'
+          value={salePrice}
+          onChange={(e)=>setSalePrice(e.target.value)}
+          />
+          </div>
+    
           <Input size="lg" label="Quantity"
           value={Quantity}
           type='number'
           onChange={(e)=>setQuantity(e.target.value)}
           />
+                    <select
+              className="px-4 py-3 w-full  rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-yellow-600 focus:bg-white focus:ring-0 text-sm appearance "
+              // value={yourSelectedStateValueType}
+              // onChange={(e) => {
+              //   setOptionType(e.target.value);
+              //   handleFilterChange(
+              //     e.target.value,
+              //     yourSelectedStateValueAddress
+              //   );
+              // }}
+            >
+              <option value=""> All ingredients</option>
+              <option value="vegetables">vegetables</option>
+              <option value="fruit">fruit</option>
+            </select>
           <textarea className='border border-2' 
           value={description}
           onChange={(e)=>setDescription(e.target.value)}

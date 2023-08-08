@@ -3,11 +3,13 @@ import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "../../actions/GetItems";
+import { Button, Card } from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
 
 const TopProducts = () => {
 
     const dispatch = useDispatch();
-
+    const  [topProducts,setTopProducts] = useState([]);
     const {
       loading: isLoading,
       data: itemsData,
@@ -18,15 +20,22 @@ const TopProducts = () => {
       dispatch(fetchItems());
     }, [dispatch]);
   
+    useEffect(() => {
+      const TopItems=itemsData.slice(-4);
+      setTopProducts(TopItems)
+    }, [itemsData]);
+  
 
   return (
     <>
+
+
           <div id='TopProducts'
           
-          className="py-5 lg:h-[100vh] flex justify-center items-center flex-col">
+          className="py-5 lg:h-[100vh] flex justify-center items-center flex-col ">
       <div className=" max-w-xl text-center">
-      <h1 className="text-3xl text-red-700 font-extrabold sm:text-5xl">
-      Products
+      <h1 className="text-3xl text-purple-500 font-extrabold sm:text-5xl">
+       Top Products
       </h1>
       <p className="mt-4 text-black sm:text-xl/relaxed">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo
@@ -36,8 +45,20 @@ const TopProducts = () => {
       </div>
     </div>
     <ItemCard
-    Items={itemsData}
+    Items={topProducts}
     />
+
+    <div className='w-full flex items-center justify-center'>
+      <Link to="/Store">
+            <Button
+              className=" mt-10 border-solid border-purple-500 border-2  bg-purple-500 hover:bg-purple-500 hover:scale-105 text-[#ffffff]"
+              variant="text"
+            >
+              
+              All Products
+            </Button>
+            </Link>
+    </div>
     </div>
     </>
   )

@@ -6,7 +6,7 @@ const AboutHero = () => {
     <div
       className="bg-cover bg-center h-screen "
       style={{
-        backgroundImage: `url("https://www.arkansasheritage.com/images/default-source/hero-search/food-hero-image-3000x1993.jpg?sfvrsn=9d73f22a_2")`,
+        backgroundImage: `url("https://images.pexels.com/photos/9694216/pexels-photo-9694216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")`,
         height: "400px",
       }}
     >
