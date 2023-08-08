@@ -6,8 +6,8 @@ import { updateFavItems } from "../../actions/FavoriteItems";
 import { UserContext } from "../../context/userContext";
 import { fetchItemsCart } from "../../actions/GetItemsCart";
 import Swal from "sweetalert2";
-
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
+import CardRating from "../../components/cards/CardRating";
 const ProductPage = () => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -262,6 +262,18 @@ const ProductPage = () => {
                   {item?.description}
                 </p>
               </div>
+              {localStorage.auth ? 
+
+
+              <CardRating
+              Item={item}
+              CardId={id}
+              UserId={user?._id}
+              />
+              :
+              <p className="text-white">thanks for rating</p>
+              }
+              
             </div>
           </div>
         </div>

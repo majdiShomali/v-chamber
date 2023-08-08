@@ -20,7 +20,7 @@ import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
 //---------------------provider-------------------------//
 import ProviderHome from "./pages/providerFiles/ProviderHome";
-
+import ProviderProfile from "./pages/providerFiles/ProviderProfile";
 
 
 import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
@@ -82,6 +82,7 @@ function App() {
           <Route index element={<ProviderHome />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
+          <Route path="/UserProfile" element={<ProviderProfile />} />
           <Route path="/*" element={<NoPage404 />} />
         </Routes>
       </Router>

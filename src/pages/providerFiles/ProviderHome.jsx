@@ -6,13 +6,16 @@ import {
     Button,
     Typography,
   } from "@material-tailwind/react";
-import { useState,useEffect } from 'react';
-import axios from 'axios';
-const ProviderHome = () => {
+  import { useState, useEffect, useContext } from "react";
+  import { UserContext } from "../../context/userContext";
 
+  import axios from 'axios';
+const ProviderHome = () => {
+    const { user, setUser } = useContext(UserContext);
     const [productImage, setProductImage] = useState(null);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
+    const [Quantity, setQuantity] = useState(null);
     const [description, setDescription] = useState("");
 
     const handleProductImageChange = (event) => {
@@ -21,30 +24,30 @@ const ProviderHome = () => {
 
     const handleAddItem= async (e)=>{
         e.preventDefault()
-        console.log(productImage,name,description)
         const formData = new FormData();
         formData.append("Name", name);
         formData.append("price", price);
         formData.append("description", description);
         formData.append("image", productImage);
-     
+        formData.append("ProviderId", user._id);
+        formData.append("totalQuantity", Quantity);
          try {
             const response = await axios.post('http://localhost:5000/api/items',formData)
-            console.log(response.data)
-         } catch (error) {
+             } catch (error) {
             console.log(error.message)
-         }
+             }
 
 
     }
 
   return (
+    <section className='w-full flex justify-center mt-10'>
     <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
-        Sign Up
+        Add new Product
       </Typography>
       <Typography color="gray" className="mt-1 font-normal">
-        Enter your details to register.
+        Enter Product details.
       </Typography>
       <form onSubmit={handleAddItem} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-4 flex flex-col gap-6">
@@ -55,6 +58,11 @@ const ProviderHome = () => {
           <Input size="lg" label="Price"
           value={price}
           onChange={(e)=>setPrice(e.target.value)}
+          />
+          <Input size="lg" label="Quantity"
+          value={Quantity}
+          type='number'
+          onChange={(e)=>setQuantity(e.target.value)}
           />
           <textarea className='border border-2' 
           value={description}
@@ -71,11 +79,12 @@ const ProviderHome = () => {
         </div>
    
         <Button type='submit' className="mt-6" fullWidth>
-          Register
+          Create Product
         </Button>
         
       </form>
     </Card>
+    </section>
   )
 }
 

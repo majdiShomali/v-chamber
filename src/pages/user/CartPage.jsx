@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SneekPeeksShipping from "../../components/SneekPeeksShipping";
-
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../../actions/GetItemsCart";
 
@@ -103,6 +103,12 @@ const CartPage = () => {
     //  setItemsAllIdsInCart(allCardsIds)
     //  localStorage.setItem("items", JSON.stringify(allCardsIds));
   };
+const navigate =useNavigate()
+// const handlePayment = () =>{
+
+//   navigate(`/Payment/${ItemId}/${item.quantity}`)
+// }
+
 
   return (
     <>
@@ -136,13 +142,17 @@ const CartPage = () => {
                     </div>
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                       <div className="flex items-center border-gray-100">
-                        <span
-                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                          onClick={() => handleDec(item._id)}
-                        >
-                          {" "}
-                          -{" "}
-                        </span>
+                      {item.quantity !== 1 ? 
+                           <span
+                           className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                           onClick={() => handleDec(item._id)}
+                         >
+                           {" "}
+                           -{" "}
+                         </span>
+                      
+                      : null}
+                   
                         <input
                           className="h-8 w-8 border bg-white text-center text-xs outline-none"
                           type="number"
@@ -150,13 +160,16 @@ const CartPage = () => {
                           min={1}
                           readOnly
                         />
-                        <span
-                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                          onClick={() => handleInc(item._id)}
-                        >
-                          {" "}
-                          +{" "}
-                        </span>
+                        {item.quantity !== item.totalQuantity  ?  
+                             <span
+                             className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                             onClick={() => handleInc(item._id)}
+                           >
+                             {" "}
+                             +{" "}
+                           </span>                                        
+                        :null }
+                   
                       </div>
                       <div className="flex items-center space-x-4">
                         <p className="text-sm">
@@ -246,7 +259,9 @@ const CartPage = () => {
 
             <Button className="bg-[#ffc439] normal-case w-full lg:w-1/2 text-xl hover:scale-105 hover:shadow-none">  <span className="text-[#003087]">Pay</span><span className="text-[#009cde]">Pal</span> </Button>
            <Link to="/Payment" className="w-full lg:w-1/2">
-           <Button className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  Debit or Credit Card </Button>
+           <Button
+           
+           className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  Debit or Credit Card </Button>
            </Link>
 
           </form>

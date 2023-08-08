@@ -169,7 +169,7 @@ export default function StickyNavbar() {
           >
             <svg
               xmlns="https://source.unsplash.com/MP0IUfwrn0A"
-              className="h-7 w-7 text-amber-600"
+              className="h-7 w-7 text-purple-500"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -228,7 +228,7 @@ export default function StickyNavbar() {
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to="/">
           <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
-            Material Tailwind
+            V-Chamber
           </Typography>
         </Link>
         <div className="mr-4 hidden lg:block">{navList}</div>
@@ -240,14 +240,14 @@ export default function StickyNavbar() {
                 <div className="relative p-1">
                   <Icon path={mdiCartOutline} size={1.5} className="mr-2" />
 
-                  <div className=" absolute right-0 top-0  bg-red-600 rounded-full w-6 h-6 text-center items-center">
+                  <div className=" absolute right-0 top-0  bg-purple-500 rounded-full w-6 h-6 text-center items-center">
                     {items.length}
                   </div>
                 </div>
               ) : (
                 <div className="relative p-1 animate-bounce">
                   <Icon path={mdiCartArrowDown} size={1.5} className="mr-2" />
-                  <div className=" absolute right-0 top-0  bg-red-600 rounded-full w-6 h-6 text-center items-center">
+                  <div className=" absolute right-0 top-0  bg-purple-500 rounded-full w-6 h-6 text-center items-center">
                     {items.length}
                   </div>
                 </div>
@@ -313,15 +313,36 @@ export default function StickyNavbar() {
       </div>
       <Collapse open={openNav}>
         {navList}
-        <Button
+        {localStorage.auth !== undefined ?  
+        <Link to="/UserProfile">
+          <Button
           onClick={() => setOpenNav(false)}
           variant="gradient"
           size="sm"
           fullWidth
           className="mb-2"
         >
-          <span>Buy Now</span>
+          <span>Profile</span>
         </Button>
+        </Link>
+        
+        
+        :
+        
+        <Link to="/login">
+        <Button
+        onClick={() => setOpenNav(false)}
+        variant="gradient"
+        size="sm"
+        fullWidth
+        className="mb-2"
+      >
+        <span>Login</span>
+      </Button>
+      </Link> 
+        
+        }
+
       </Collapse>
     </Navbar>
   );
