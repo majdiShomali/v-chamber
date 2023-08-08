@@ -3,21 +3,73 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import SneekPeeks from '../../components/SneekPeeks';
+import axios from 'axios';
+
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchItemsCart } from "../../actions/GetItemsCart";
+
 
 const Payment = () => {
+
+  const dispatch = useDispatch();
+  const {
+    loading: isCartLoading,
+    data: itemsCartData,
+    error: fetchCartError,
+  } = useSelector((state) => state.fetchItemsCart);
+
+useEffect(()=>{
+// if(itemsCartData){
+//   localStorage.setItem("itemsQ", JSON.stringify(itemsCartData));
+// }
+// const items = JSON.parse(localStorage.getItem('itemsQ'))
+
+// console.log(items);
+},[itemsCartData,dispatch])
+
+
+    const ApiUrl = process.env.REACT_APP_API_URL;
+    const ReactUrl = process.env.REACT_APP_API_REACT_URL;
+    const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
+
     const [totalPrice,setTotalPrice] = useState(0)
     const [items, setItems] = useState([]);
-    useEffect(() =>{
+    
+       useEffect(() =>{
         if(localStorage.items){
-         const items = JSON.parse(localStorage.getItem('items'))
-         const price =items.map((item) =>{return parseInt(item.price, 10)})
+         const items = JSON.parse(localStorage.getItem('itemsQ'))
+         const price =items.map((item) =>{return parseInt(item.price*item.quantity, 10)})
          const sum = price.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-         setTotalPrice(sum)
-        
-         setItems(JSON.parse(localStorage.getItem('items')))
-        
+         setTotalPrice(sum)    
+         setItems(JSON.parse(localStorage.getItem('itemsQ')))    
         }
         },[])
+
+
+
+       
+
+           const updateItem = async (item) =>{
+            console.log(item)
+            try {        
+              const response = await axios.put(`${ApiUrl}/updateProductQuantity/${item._id}`,item);
+            } catch (error) {
+              console.error(error.message);
+            }
+          }
+
+
+          const handlePay =  () =>{
+            items.map((item)=>{
+              updateItem(item)
+            })
+            localStorage.removeItem("items")
+            localStorage.removeItem("itemsQ")
+            // const cartIds =JSON.parse(localStorage.getItem('items'))
+            dispatch(fetchItemsCart([]))
+          }
+        
   return (
 
     <>
@@ -183,7 +235,9 @@ const Payment = () => {
         <p className="text-2xl font-semibold text-gray-900">${totalPrice}</p>
       </div>
     </div>
-    <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
+    <button
+    onClick={handlePay}
+    className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
       Place Order
     </button>
   </Card>

@@ -173,6 +173,8 @@ const ProductPage = () => {
               </div>
               <div className="flex -mx-2 mb-4">
                 <div className="w-1/2 px-2">
+                {item?.totalQuantity !==0 ?  <>
+                
                   {allIdsInCart?.includes(item?._id) ? (
                     <button
                       onClick={() => handleAddToCart(item)}
@@ -188,6 +190,13 @@ const ProductPage = () => {
                       Add to Cart
                     </button>
                   )}
+                </>: <>
+                <div className="w-full bg-red-400 text-center text-white py-2 px-4 rounded-full font-bold ">
+                              OUT OF STOCK
+                            </div>
+                
+                </>}
+     
                 </div>
                 <div className="w-1/2 px-2">
                   {item?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (

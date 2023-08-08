@@ -265,7 +265,8 @@ export default function StickyNavbar() {
                 <Button
                   variant="gradient"
                   size="sm"
-                  className="hidden lg:inline-block"
+                  className="hidden lg:inline-block "
+                  color="purple"
                 >
                   <span>login</span>
                 </Button>
@@ -321,6 +322,7 @@ export default function StickyNavbar() {
           size="sm"
           fullWidth
           className="mb-2"
+          color="purple"
         >
           <span>Profile</span>
         </Button>
@@ -335,7 +337,8 @@ export default function StickyNavbar() {
         variant="gradient"
         size="sm"
         fullWidth
-        className="mb-2"
+        className="mb-"
+        color="purple"
       >
         <span>Login</span>
       </Button>

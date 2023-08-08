@@ -225,6 +225,7 @@ const navigate =useNavigate();
                           </div>
           
                           <div className="flex space-x-2 text-sm font-medium justify-start">
+                          {card.totalQuantity !==0 ? <>
                             { allIdsInCart.includes(card._id)    ? (
                               <button
                                 onClick={() => handleAddToCart(card)}
@@ -242,6 +243,12 @@ const navigate =useNavigate();
                                 </button>
                               </>
                             )}
+                          
+                          </>: 
+                          
+                          null
+                         }
+       
                         
                             <button
                             onClick={()=>handleShowItem(card)}
