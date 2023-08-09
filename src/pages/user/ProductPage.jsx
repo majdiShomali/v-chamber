@@ -29,8 +29,11 @@ const ProductPage = () => {
     }
   }, [dispatch, id]);
 
+  const [selectedImage , setSelectedImage]=useState("")
+
   useEffect(() => {
     setItem(itemData);
+    setSelectedImage(itemData.image)
   }, [itemData]);
 
   const { user, setUser } = useContext(UserContext);
@@ -164,10 +167,10 @@ const ProductPage = () => {
           </div>
           <div className="flex flex-col md:flex-row -mx-4">
             <div className="md:flex-1 px-4">
-              <div className="h-[460px] rounded-lg bg-gray-300 mb-4">
+              <div className="h-[460px] rounded-lg bg-gray-300 mb-4">                
                 <img
                   className="w-full h-full object-cover"
-                  src={`${ImagesUrl}/${item?.image}`}
+                  src={`${ImagesUrl}/${selectedImage}`}
                   alt="Product Image"
                 />
               </div>
@@ -199,6 +202,8 @@ const ProductPage = () => {
      
                 </div>
                 <div className="w-1/2 px-2">
+                  {localStorage.auth !== undefined ?
+                  <>
                   {item?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
                     <button
                       onClick={() => handleFAv(item)}
@@ -214,6 +219,8 @@ const ProductPage = () => {
                       Add to Wishlist
                     </button>
                   )}
+                  </>
+                  :null}
                 </div>
               </div>
             </div>
@@ -234,35 +241,48 @@ const ProductPage = () => {
                   <span className="text-gray-600">In Stock</span>
                 </div>
               </div>
-              {/* <div className="mb-4">
-                <span className="font-bold text-gray-700">Select Color:</span>
-                <div className="flex items-center mt-2">
-                  <button className="w-6 h-6 rounded-full bg-gray-800 mr-2" />
-                  <button className="w-6 h-6 rounded-full bg-red-500 mr-2" />
-                  <button className="w-6 h-6 rounded-full bg-blue-500 mr-2" />
-                  <button className="w-6 h-6 rounded-full bg-yellow-500 mr-2" />
-                </div>
-              </div> */}
-              {/* <div className="mb-4">
+              {item?.accessories?.color?.length >0 ? 
+              
+              <>
+              <div className="mb-4">
+                  <span className="font-bold text-gray-700">Select Color:</span>
+              <div className="flex items-center mt-2">
+
+                     {item?.accessories?.color?.map((item)=>{
+                    return (
+                        <button
+                        key={item.image}
+                        onClick={()=>setSelectedImage(item.image)}
+                        className="w-5 h-5  m-1 rounded-full" style={{ backgroundColor: item.color }} />
+                    )
+                })}
+              </div>
+              </div>
+              </>
+              :
+              null
+            }
+       
+       {  item?.accessories?.size?.length >0       ?
+              <>
+              <div className="mb-4 flex flex-col">
                 <span className="font-bold text-gray-700">Select Size:</span>
                 <div className="flex items-center mt-2">
-                  <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
-                    S
-                  </button>
-                  <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
-                    M
-                  </button>
-                  <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
-                    L
-                  </button>
-                  <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
-                    XL
-                  </button>
-                  <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
-                    XXL
-                  </button>
+                  {item?.accessories?.size?.map((item)=>{
+                    return (
+                      <button 
+                      key={item.image}
+                      onClick={()=>setSelectedImage(item.image)}
+                      className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
+                      {item.size}
+                    </button>
+                
+                    )})}
                 </div>
-              </div> */}
+              </div>
+              </>
+              :null}
+
               <div>
                 <span className="font-bold text-gray-700">
                   Product Description:
@@ -280,7 +300,7 @@ const ProductPage = () => {
               UserId={user?._id}
               />
               :
-              <p className="text-white">thanks for rating</p>
+              null
               }
               
             </div>

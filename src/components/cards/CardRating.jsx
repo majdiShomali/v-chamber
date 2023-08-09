@@ -63,7 +63,7 @@ const CardRating = ({Item,CardId,UserId}) => {
   return (
     <>   
     {RatingStatus ? 
-    null
+    <p className="text-black">Thanks for rating</p>
     :
     <div className="flex items-center"> 
     <p>Rate</p>

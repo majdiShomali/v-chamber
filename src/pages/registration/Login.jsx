@@ -100,10 +100,10 @@ getGoogleLogin()
               <div className="flex flex-col items-center ">
                 <button
                   id="google-sign-in"
-                  className="w-full bg-[#219D80] max-w-xs font-bold hover:bg-[#219D80] hover:text-white  shadow-sm rounded-lg py-3 text-white flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                  className="w-full bg-white max-w-xs font-bold border border-2 border-purple-500 hover:bg-purple-500 hover:text-white  shadow-sm rounded-lg py-3 text-black flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                   onClick={() => login()}
                 >
-                  <div className="bg-white p-2 rounded-full">
+                  <div className="bg-gray-100 p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path
                         d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
@@ -157,7 +157,7 @@ getGoogleLogin()
 
                   <button
                     type="submit"
-                    className="mt-5 bg-[#F7E1AE] tracking-wide font-semibold text-gray-800 w-full py-4 rounded-lg hover:bg-[#A4D0A4] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                    className="mt-5 bg-purple-500 tracking-wide font-semibold text-white w-full py-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
                     <svg
                       className="w-6 h-6 -ml-2"
@@ -190,7 +190,7 @@ getGoogleLogin()
           </div>
         </div>
         <div className="flex-1 bg-indigo-100 text-center hidden lg:flex imageSign bg-cover bg-center bg-no-repeat ">
-          <img src="https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/chef-cooking.jpg?quality=82&strip=1" />
+          <img src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg" />
         </div>
       </div>
     </div>

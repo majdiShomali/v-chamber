@@ -154,7 +154,7 @@ export default function Signup() {
                   <p className="text-red-500">{passwordp}</p>
                   <button
                     type="submit"
-                    className="mt-5 bg-[#F7E1AE] tracking-wide font-semibold  text-gray-800 w-full py-4 rounded-lg hover:bg-[#A4D0A4] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                    className="mt-5 bg-purple-500 tracking-wide font-semibold  text-white w-full py-4 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
                     <svg
                       className="w-6 h-6 -ml-2"
@@ -185,7 +185,7 @@ export default function Signup() {
           </div>
         </div>
         <div className="flex-1 bg-indigo-100 text-center hidden lg:flex login_img bg-cover bg-center bg-no-repeat ">
-          <img src="" />
+          <img src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg" />
         </div>
       </div>
     </div>

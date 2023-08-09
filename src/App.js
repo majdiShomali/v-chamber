@@ -21,9 +21,10 @@ import ProductPage from "./pages/user/ProductPage";
 //---------------------provider-------------------------//
 import ProviderHome from "./pages/providerFiles/ProviderHome";
 import ProviderProfile from "./pages/providerFiles/ProviderProfile";
-
+import ProviderHomeTest from "./pages/providerFiles/ProviderHomeTest";
 
 import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
+import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
 
 function App() {
   const [hideRouterUser, setHideRouterUser] = useState(false);
@@ -83,6 +84,8 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/UserProfile" element={<ProviderProfile />} />
+          <Route path="/ProviderHomeTest" element={<ProviderHomeTest />} />
+          <Route path="/ProductPageProvider/:id" element={<ProductPageProvider />} />
           <Route path="/*" element={<NoPage404 />} />
         </Routes>
       </Router>
