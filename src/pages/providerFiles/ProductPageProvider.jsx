@@ -11,6 +11,7 @@ import AddColor from "./AddColor";
 import { Link } from "react-router-dom";
 import AddSize from "./AddSize";
 import AddAccessory from "./AddAccessory";
+import AddVapePuff from "./AddVapePuff";
 const ProductPageProvider = () => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -135,46 +136,87 @@ const ProductPageProvider = () => {
                     <span className="font-bold text-gray-700">
                       Availability:
                     </span>
-                    <span className="text-gray-600">In Stock</span>
+                    <span className="text-gray-600">
+                      In Stock : {item?.totalQuantity}
+                    </span>
                   </div>
                 </div>
-                <div className="mb-4">
-                  <span className="font-bold text-gray-700">Select Color:</span>
-                  <div className="flex items-center mt-2">
-                    
-                    {item?.accessories?.map((item) => {
-                      return (
-                        <button
-                          key={item.image}
-                          onClick={() => setSelectedImage(item.image)}
-                          className="w-5 h-5  m-1 rounded-full"
-                          style={{ backgroundColor: item.color }}
-                        />
-                      );
-                    })}
 
-                    {/* <AddColor item={item} /> */}
-                    <AddAccessory item={item}/>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <span className="font-bold text-gray-700">Select Size:</span>
-                  <div className="flex items-center mt-2">
-                    {item?.accessories?.map((item) => {
-                      return (
-                        <button
-                          key={item.image}
-                          onClick={() => setSelectedImage(item.image)}
-                          className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
-                        >
-                          {item.size}
-                        </button>
-                      );
-                    })}
+                {item?.colors?.length > 0 ? (
+                  <>
+                    <div className="mb-4">
+                      <span className="font-bold text-gray-700">
+                        Select Color:
+                      </span>
+                      <div className="flex items-center mt-2">
+                        {item?.colors?.map((item) => {
+                          return (
+                            <button
+                              key={item.image}
+                              onClick={() => setSelectedImage(item.image)}
+                              className="w-5 h-5  m-1 rounded-full"
+                              style={{ backgroundColor: item.color }}
+                            />
+                          );
+                        })}
 
-                    {/* <AddSize item={item} /> */}
-                  </div>
-                </div>
+                        <AddColor item={item} />
+                        {/* <AddAccessory item={item}/> */}
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+
+                {item?.size?.length > 0 ? (
+                  <>
+                    <div className="mb-4">
+                      <span className="font-bold text-gray-700">
+                        Select Size:
+                      </span>
+                      <div className="flex items-center mt-2">
+                        {item?.size?.map((item) => {
+                          return (
+                            <button
+                              key={item.image}
+                              onClick={() => setSelectedImage(item.image)}
+                              className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
+                            >
+                              {item.size}
+                            </button>
+                          );
+                        })}
+
+                        <AddSize item={item} />
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+
+                {item?.vapePuff?.length > 0 ? (
+                  <>
+                    <div className="mb-4">
+                      <span className="font-bold text-gray-700">
+                        Select Vape Puff:
+                      </span>
+                      <div className="flex items-center mt-2">
+                        {item?.vapePuff?.map((item) => {
+                          return (
+                            <button
+                              key={item.image}
+                              onClick={() => setSelectedImage(item.image)}
+                              className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
+                            >
+                              {item.vapePuff}
+                            </button>
+                          );
+                        })}
+
+                        <AddVapePuff item={item} />
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+
                 <div>
                   <span className="font-bold text-gray-700">
                     Product Description:

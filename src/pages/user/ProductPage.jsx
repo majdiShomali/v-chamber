@@ -39,6 +39,8 @@ const ProductPage = () => {
   const { user, setUser } = useContext(UserContext);
   const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
 
+
+
   const handleAddToCart = (card) => {
     const storedItems = localStorage.getItem("items")
       ? JSON.parse(localStorage.getItem("items"))
@@ -241,14 +243,14 @@ const ProductPage = () => {
                   <span className="text-gray-600">In Stock</span>
                 </div>
               </div>
-              {item?.accessories?.color?.length >0 ? 
+              {item?.colors?.length >0 ? 
               
               <>
               <div className="mb-4">
                   <span className="font-bold text-gray-700">Select Color:</span>
               <div className="flex items-center mt-2">
 
-                     {item?.accessories?.color?.map((item)=>{
+                     {item?.colors?.map((item)=>{
                     return (
                         <button
                         key={item.image}
@@ -263,12 +265,12 @@ const ProductPage = () => {
               null
             }
        
-       {  item?.accessories?.size?.length >0       ?
+       {  item?.size?.length >0       ?
               <>
               <div className="mb-4 flex flex-col">
                 <span className="font-bold text-gray-700">Select Size:</span>
                 <div className="flex items-center mt-2">
-                  {item?.accessories?.size?.map((item)=>{
+                  {item?.size?.map((item)=>{
                     return (
                       <button 
                       key={item.image}
@@ -282,6 +284,31 @@ const ProductPage = () => {
               </div>
               </>
               :null}
+
+{item?.vapePuff?.length > 0 ? (
+                  <>
+                    <div className="mb-4">
+                      <span className="font-bold text-gray-700">
+                        Select Vape Puff:
+                      </span>
+                      <div className="flex items-center mt-2">
+                        {item?.vapePuff?.map((item) => {
+                          return (
+                            <button
+                              key={item.image}
+                              onClick={() => setSelectedImage(item.image)}
+                              className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
+                            >
+                              {item.vapePuff}
+                            </button>
+                          );
+                        })}
+
+                       
+                      </div>
+                    </div>
+                  </>
+                ) : null}
 
               <div>
                 <span className="font-bold text-gray-700">

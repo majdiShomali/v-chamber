@@ -58,6 +58,21 @@ const ProviderHome = () => {
       setSelectedSize('')
     }
   };
+
+  const [selectedVapePuff, setSelectedVapePuff] = useState(0);
+  const handleVapePuffChange = (event) => {
+    setSelectedVapePuff(event.target.value);
+  };
+
+  const [isVapePuffChecked, setIsVapePuffChecked] = useState(false);
+  const handleCheckboxVapePuffChange = () => {
+    setIsVapePuffChecked(!isVapePuffChecked);
+    if(isVapePuffChecked){
+      setSelectedVapePuff('')
+    }
+  };
+
+
   const handleAddItem = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -71,8 +86,10 @@ const ProviderHome = () => {
     formData.append("category", OptionType);
     formData.append("isColorChecked", isColorChecked);
     formData.append("isSizeChecked", isSizeChecked);
+    formData.append("isVapePuffChecked", isVapePuffChecked);
     formData.append("selectedColor", selectedColor);
     formData.append("selectedSize", selectedSize);
+    formData.append("selectedVapePuff", selectedVapePuff);
     try {
       const response = await axios.post(
         "http://localhost:5000/api/items",
@@ -154,55 +171,7 @@ const ProviderHome = () => {
               <option value="colors">Colors</option>
               <option value="size">Size</option>
             </select>
-            {OptionType === "colors" ? (
-              <Input
-                type="color"
-                variant="h6"
-                component="h2"
-                className="-py-0  m-0"
-                value={selectedColor}
-                onChange={handleColorChange}
-              />
-            ) : null}
 
-{OptionType === "size" ? (
-
-<div>
-      <h2>Select Size:</h2>
-      <div className="flex space-x-4">
-        <label className="inline-flex items-center">
-          <input
-            type="radio"
-            value="sm"
-            checked={selectedSize === 'sm'}
-            onChange={handleSizeChange}
-            className="form-radio text-sm"
-          />
-          <span className="ml-2">Small (sm)</span>
-        </label>
-        <label className="inline-flex items-center">
-          <input
-            type="radio"
-            value="md"
-            checked={selectedSize === 'md'}
-            onChange={handleSizeChange}
-            className="form-radio text-md"
-          />
-          <span className="ml-2">Medium (md)</span>
-        </label>
-        <label className="inline-flex items-center">
-          <input
-            type="radio"
-            value="xl"
-            checked={selectedSize === 'xl'}
-            onChange={handleSizeChange}
-            className="form-radio text-xl"
-          />
-          <span className="ml-2">Extra Large (xl)</span>
-        </label>
-      </div>
-    </div>
-): null}
 
 
           </div>
@@ -299,11 +268,58 @@ const ProviderHome = () => {
         
         
         : null}
+
+
+
     
       </div>
     </div>
 
 
+    <div>
+      <h2>Select VapePuff:</h2>
+      <div className="flex space-x-4 flex-col">
+    
+        <label className="inline-flex items-center">
+        <input
+          type="checkbox"
+          checked={isVapePuffChecked}
+          onChange={handleCheckboxVapePuffChange}
+          className="form-checkbox h-5 w-5 text-indigo-600"
+        />
+          <span className="ml-2">add Vape Puff</span>
+        </label>
+        {isVapePuffChecked ? 
+        <>
+          <label className="inline-flex items-center">
+          <Input
+          type="number"
+          label="vape-puff"
+          variant="h6"
+          component="h2"
+          className="-py-0  m-0"
+          value={selectedVapePuff}
+          onChange={handleVapePuffChange}
+        />
+  </label>
+
+<label className="inline-flex items-center">
+<Input
+type="color"
+variant="h6"
+component="h2"
+className="-py-0  m-0"
+value={selectedColor}
+onChange={handleColorChange}
+/>
+</label>
+</>
+         : null}
+      
+      </div>
+    </div>
+
+  
 
           </div>
 
