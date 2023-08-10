@@ -8,7 +8,10 @@ import {
 } from "@material-tailwind/react";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
-
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchItems } from "../../actions/GetItems";
+import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
 import axios from "axios";
 
 import ItemCardProvider from "../../components/cards/ItemCardProvider"
@@ -20,6 +23,16 @@ const ProviderHome = () => {
   const [description, setDescription] = useState("");
   const [OptionType, setOptionType] = useState("");
 
+  const {
+    loading: isallItemLoading,
+    data: allItemData,
+    error: fetchallItemError,
+  } = useSelector((state) => state.fetchItems);
+
+  const dispatch = useDispatch();
+     useEffect(() => { 
+      dispatch(fetchItems());
+  }, [dispatch]);
 
 
   const [item, setItem] = useState([])
@@ -44,14 +57,23 @@ const ProviderHome = () => {
         formData
       );
       setItem([response.data])
+      showSuccessAlert(response.data.Name)
     } catch (error) {
       console.log(error.message);
     }
   };
 
+      const showSuccessAlert = (message) => {
+      Swal.fire({
+        title: message,
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {});
+    };
+
   return (
     <>
-      <section className=" w-full h-[100vh] bg-gray-100 flex justify-center  ">
+      <section className=" w-full h-[70vh] bg-gray-100 flex justify-center  ">
      
      
       <Card color="" 
@@ -86,20 +108,14 @@ const ProviderHome = () => {
               required
             />
 
-            <select
-              className="px-4 py-3 w-full  rounded-md bg-gray-100  border-2 focus:border-gray-600 focus:bg-white focus:ring-0 text-sm appearance "
+             <Input
+              size="lg"
+              type="text"
+              label="Category"
               value={OptionType}
+              onChange={(e) => setOptionType(e.target.value)}
               required
-              onChange={(e) => {
-                setOptionType(e.target.value);
-              }}
-            >
-              <option value=""> default</option>
-              <option value="vapePuff">vape Puff</option>
-              <option value="chargeVape">charge vape</option>
-            </select>
-
-
+            />
 
           </div>
 
@@ -115,7 +131,8 @@ const ProviderHome = () => {
      
     </section>
     
-    
+    <CategoryCardProvider 
+    itemsData={allItemData}/>
 {/*     
     <ItemCardProvider
       Items={item}

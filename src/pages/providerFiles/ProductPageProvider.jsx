@@ -8,52 +8,58 @@ import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import { Link } from "react-router-dom";
 import AddRelatedItem from "./AddRelatedItem";
 import ItemCard from "../../components/cards/ItemCard"
+
+import AddVapePuff from "./productsAdd/AddVapePuff";
+import AddChargeVape from "./productsAdd/AddChargeVape";
+import AddJuice from "./productsAdd/AddJuice";
 const ProductPageProvider = () => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const { id } = useParams();
-  const [item, setItem] = useState();
-  const [RelatedItem, setRelatedItem] = useState([]);
+
 
   const {
-    loading: isItemLoading,
+    loading: isRelatedItemLoading,
     data: RelatedItemData,
     error: fetchRelatedItemError,
   } = useSelector((state) => state.fetchRelatedItems);
+
+  const {
+    loading: isItemLoading,
+    data: ItemData,
+    error: fetchItemError,
+  } = useSelector((state) => state.fetchOneItem);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (id !== undefined) {
       dispatch(fetchRelatedItem(id));
+      dispatch(fetchOneItem(id));
     }
   }, [dispatch, id]);
 
   const [selectedImage, setSelectedImage] = useState("");
-
   const [selectedProduct, setSelectedProduct] = useState({});
 
   useEffect(()=>{
-    if(RelatedItemData?.length >0){
+    if(ItemData?.image){
+      setSelectedProduct(ItemData)
+      setSelectedImage(ItemData?.image)
+    }
+    if(RelatedItemData?.length > 0){
       setSelectedProduct(RelatedItemData[0])
       setSelectedImage(RelatedItemData[0]?.image)
     }
-    
-    },[RelatedItemData])
+    },[RelatedItemData,ItemData])
 
-  //   const showSuccessAlert = (message) => {
-  //     Swal.fire({
-  //       title: message,
-  //       icon: "success",
-  //       confirmButtonText: "OK",
-  //     }).then(() => {});
-  //   };
+
 
   return (
     <>
-      {isItemLoading ? (
+      {isRelatedItemLoading ? (
         <ProductPageSkeleton />
       ) : (
         <div className="bg-gray-100 py-8 min-h-[90vh] flex items-center justify-center flex-col lg:flex-row">
@@ -125,15 +131,28 @@ const ProductPageProvider = () => {
                 </div>
               </div>
               <div className="md:flex-1 px-4">
-                <AddRelatedItem
-                item={selectedProduct}
-                />
+
+             {ItemData?.category === "vapePuff" ? 
+             
+             <AddVapePuff
+             item={ItemData}
+             />
+             : ItemData?.category === "chargeVape"? 
+             <AddChargeVape
+             item={ItemData}
+             />
+            
+             : ItemData?.category === "juice" ? 
+             <AddJuice
+             item={ItemData}
+             />
+
+             : null
+            }
+
+              
                 <h2 className="text-2xl font-bold mb-2">{selectedProduct?.Name}</h2>
-                <p className="text-gray-600 text-sm mb-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  sed ante justo. Integer euismod libero id mauris malesuada
-                  tincidunt.
-                </p>
+
                 <div className="flex mb-4">
                   <div className="mr-4">
                     <span className="font-bold text-gray-700">Price:</span>
@@ -149,56 +168,61 @@ const ProductPageProvider = () => {
                   </div>
                 </div>
 
-
-                <>
-                    <div className="mb-4">
-                      <span className="font-bold text-gray-700">
-                        Select Color:
-                      </span>
-                      <div className="flex items-center mt-2">
-                        {RelatedItemData?.map((item) => {
-                          return (
-                            <button
-                              key={item._id}
-                              onClick={() => {setSelectedImage(item.image)
-                                setSelectedProduct(item)
-                              }}
-                              className="w-5 h-5  m-1 rounded-full"
-                              style={{ backgroundColor: item.color }}
-                            />
-                          );
-                        })}
-
-                       
-                      </div>
-                    </div>
-                  </>
-
-
+                {RelatedItemData[0]?.color ?
                   <>
-                    <div className="mb-4">
-                      <span className="font-bold text-gray-700">
-                        Select Vape Puff:
-                      </span>
-                      <div className="flex items-center mt-2">
-                        {RelatedItemData?.map((item) => {
-                          return (
-                            <button
-                              key={item.image}
-                              onClick={() => {setSelectedImage(item.image)
-                                setSelectedProduct(item)
-                              }}
-                              className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
-                            >
-                              {item.vapePuff}
-                            </button>
-                          );
-                        })}
+                  <div className="mb-4">
+                    <span className="font-bold text-gray-700">
+                      Select Color:
+                    </span>
+                    <div className="flex items-center mt-2">
+                      {RelatedItemData?.map((item) => {
+                        return (
+                          <button
+                            key={item._id}
+                            onClick={() => {setSelectedImage(item.image)
+                              setSelectedProduct(item)
+                            }}
+                            className="w-5 h-5  m-1 rounded-full"
+                            style={{ backgroundColor: item.color }}
+                          />
+                        );
+                      })}
 
-                      </div>
+                     
                     </div>
-                  </>
-
+                  </div>
+                </>
+                
+                :null }
+              
+                   {RelatedItemData[0]?.vapePuff ?
+                     <>
+                     <div className="mb-4">
+                       <span className="font-bold text-gray-700">
+                         Select Vape Puff:
+                       </span>
+                       <div className="flex items-center mt-2">
+                         {RelatedItemData?.map((item) => {
+                           return (
+                             <button
+                               key={item.image}
+                               onClick={() => {setSelectedImage(item.image)
+                                 setSelectedProduct(item)
+                               }}
+                               className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
+                             >
+                               {item.vapePuff}
+                             </button>
+                           );
+                         })}
+ 
+                       </div>
+                     </div>
+                   </>
+                   
+                   :null}
+                
+                {RelatedItemData[0]?.size ?
                   <div className="mb-4">
                       <span className="font-bold text-gray-700">
                         Select Size:
@@ -221,7 +245,7 @@ const ProductPageProvider = () => {
 
                       </div>
                     </div>
-
+                     :null}
 
 
                 <div>
@@ -237,12 +261,13 @@ const ProductPageProvider = () => {
           </div>
         </div>
       )}
-<div className="w-full flex flex-wrap  ">
+
+{/* <div className="w-full flex flex-wrap  ">
 <ItemCard
       Items={[selectedProduct]}
       />
 
-</div>
+</div> */}
    
     </>
   );
