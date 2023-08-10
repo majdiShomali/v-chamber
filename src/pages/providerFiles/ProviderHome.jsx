@@ -17,79 +17,27 @@ const ProviderHome = () => {
   const { user, setUser } = useContext(UserContext);
   const [productImage, setProductImage] = useState(null);
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [salePrice, setSalePrice] = useState("");
-  const [Quantity, setQuantity] = useState(0);
   const [description, setDescription] = useState("");
-  const [OptionType, setOptionType] = useState("none");
+  const [OptionType, setOptionType] = useState("");
 
 
-
-  
 
   const [item, setItem] = useState([])
   const handleProductImageChange = (event) => {
     setProductImage(event.target.files[0]);
   };
 
-  const [selectedColor, setSelectedColor] = useState("#000000"); // Default color
-  const handleColorChange = (event) => {
-    setSelectedColor(event.target.value);
-  };
-
-  const [isColorChecked, setIsColorChecked] = useState(false);
-  const handleCheckboxColorChange = () => {
-    setIsColorChecked(!isColorChecked);
-    if(isColorChecked){
-      setSelectedColor('#000000')
-    }
-  };
- 
-
- 
-  const [selectedSize, setSelectedSize] = useState('');
-  const handleSizeChange = (event) => {
-    setSelectedSize(event.target.value);
-  };
-  const [isSizeChecked, setIsSizeChecked] = useState(false);
-  const handleCheckboxSizeChange = () => {
-    setIsSizeChecked(!isSizeChecked);
-    if(isSizeChecked){
-      setSelectedSize('')
-    }
-  };
-
-  const [selectedVapePuff, setSelectedVapePuff] = useState(0);
-  const handleVapePuffChange = (event) => {
-    setSelectedVapePuff(event.target.value);
-  };
-
-  const [isVapePuffChecked, setIsVapePuffChecked] = useState(false);
-  const handleCheckboxVapePuffChange = () => {
-    setIsVapePuffChecked(!isVapePuffChecked);
-    if(isVapePuffChecked){
-      setSelectedVapePuff('')
-    }
-  };
 
 
   const handleAddItem = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("Name", name);
-    formData.append("price", price);
-    formData.append("salePrice", salePrice);
     formData.append("description", description);
     formData.append("image", productImage);
     formData.append("ProviderId", user._id);
-    formData.append("totalQuantity", Quantity);
     formData.append("category", OptionType);
-    formData.append("isColorChecked", isColorChecked);
-    formData.append("isSizeChecked", isSizeChecked);
-    formData.append("isVapePuffChecked", isVapePuffChecked);
-    formData.append("selectedColor", selectedColor);
-    formData.append("selectedSize", selectedSize);
-    formData.append("selectedVapePuff", selectedVapePuff);
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/items",
@@ -103,58 +51,36 @@ const ProviderHome = () => {
 
   return (
     <>
-      <section className="w-full   mt-10">
-      <Card color="transparent" >
-        {/* <Typography variant="h4" color="blue-gray">
-          Add new Product
-        </Typography>
-        <Typography color="gray" className="mt-1 font-normal">
-          Enter Product details.
-        </Typography> */}
-        <div className="flex w-full justify-center gap-10">
-        <form onSubmit={handleAddItem} className="mt-8 mb-2 w-1/3">
+      <section className=" w-full h-[100vh] bg-gray-100 flex justify-center  ">
+     
+     
+      <Card color="" 
+      className="my-10 h-96"
+      >
+          
+        <form onSubmit={handleAddItem} className=" p-10 ">
           <div className="mb-4 flex flex-col gap-6">
             <Input
               size="lg"
               label="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
 
-            <div className="flex w-full">
-              <Input
-                size="md"
-                label="Price"
-                type="number"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              <Input
-                size="md"
-                label="sale Price"
-                type="number"
-                value={salePrice}
-                onChange={(e) => setSalePrice(e.target.value)}
-              />
-            </div>
-
-            <Input
-              size="lg"
-              label="Quantity"
-              value={Quantity}
-              type="number"
-              onChange={(e) => setQuantity(e.target.value)}
-            />
 
             <textarea
               className="border border-2"
+              placeholder="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              required
             />
-            <input
-              className="file-upload-input mx-auto"
+            <Input
+              size="lg"
               type="file"
               name="image"
+              label="image"
               onChange={handleProductImageChange}
               accept="image/*"
               required
@@ -163,13 +89,14 @@ const ProviderHome = () => {
             <select
               className="px-4 py-3 w-full  rounded-md bg-gray-100  border-2 focus:border-gray-600 focus:bg-white focus:ring-0 text-sm appearance "
               value={OptionType}
+              required
               onChange={(e) => {
                 setOptionType(e.target.value);
               }}
             >
-              <option value="none"> default</option>
-              <option value="colors">Colors</option>
-              <option value="size">Size</option>
+              <option value=""> default</option>
+              <option value="vapePuff">vape Puff</option>
+              <option value="chargeVape">charge vape</option>
             </select>
 
 
@@ -181,151 +108,7 @@ const ProviderHome = () => {
           </Button>
         </form>
 
-        <form onSubmit={handleAddItem} className="mt-8 mb-2 w-1/3">
-          <div className="mb-4 flex flex-col gap-6">
- 
-
-    
-       <div>
-      <h2>Select Color:</h2>
-      <div className="flex space-x-4 flex-col">
-    
-        <label className="inline-flex items-center">
-        <input
-          type="checkbox"
-          checked={isColorChecked}
-          onChange={handleCheckboxColorChange}
-          className="form-checkbox h-5 w-5 text-indigo-600"
-        />
-          <span className="ml-2">add color</span>
-        </label>
-        {isColorChecked ? 
-          <label className="inline-flex items-center">
-          <Input
-          type="color"
-          variant="h6"
-          component="h2"
-          className="-py-0  m-0"
-          value={selectedColor}
-          onChange={handleColorChange}
-        />
-  </label>
-         : null}
-      
-      </div>
-    </div>
-
-
-
-<div>
-      <h2>Select Size:</h2>
-      <div className="flex space-x-4 flex-col">
-      <label className="inline-flex items-center">
-        <input
-          type="checkbox"
-          checked={isSizeChecked}
-          onChange={handleCheckboxSizeChange}
-          className="form-checkbox h-5 w-5 text-indigo-600"
-        />
-          <span className="ml-2">add size</span>
-        </label>
-
-        {isSizeChecked ? 
-        
-        <>
-            <label className="inline-flex items-center">
-          <input
-            type="radio"
-            value="sm"
-            checked={selectedSize === 'sm'}
-            onChange={handleSizeChange}
-            className="form-radio text-sm"
-          />
-          <span className="ml-2">Small (sm)</span>
-        </label>
-        <label className="inline-flex items-center">
-          <input
-            type="radio"
-            value="md"
-            checked={selectedSize === 'md'}
-            onChange={handleSizeChange}
-            className="form-radio text-md"
-          />
-          <span className="ml-2">Medium (md)</span>
-        </label>
-        <label className="inline-flex items-center">
-          <input
-            type="radio"
-            value="xl"
-            checked={selectedSize === 'xl'}
-            onChange={handleSizeChange}
-            className="form-radio text-xl"
-          />
-          <span className="ml-2">Extra Large (xl)</span>
-        </label>
-        
-        </>
-        
-        
-        : null}
-
-
-
-    
-      </div>
-    </div>
-
-
-    <div>
-      <h2>Select VapePuff:</h2>
-      <div className="flex space-x-4 flex-col">
-    
-        <label className="inline-flex items-center">
-        <input
-          type="checkbox"
-          checked={isVapePuffChecked}
-          onChange={handleCheckboxVapePuffChange}
-          className="form-checkbox h-5 w-5 text-indigo-600"
-        />
-          <span className="ml-2">add Vape Puff</span>
-        </label>
-        {isVapePuffChecked ? 
-        <>
-          <label className="inline-flex items-center">
-          <Input
-          type="number"
-          label="vape-puff"
-          variant="h6"
-          component="h2"
-          className="-py-0  m-0"
-          value={selectedVapePuff}
-          onChange={handleVapePuffChange}
-        />
-  </label>
-
-<label className="inline-flex items-center">
-<Input
-type="color"
-variant="h6"
-component="h2"
-className="-py-0  m-0"
-value={selectedColor}
-onChange={handleColorChange}
-/>
-</label>
-</>
-         : null}
-      
-      </div>
-    </div>
-
-  
-
-          </div>
-
-      
-        </form>
-        </div>
+       
 
       </Card>
 
@@ -333,10 +116,10 @@ onChange={handleColorChange}
     </section>
     
     
-    
+{/*     
     <ItemCardProvider
       Items={item}
-      />
+      /> */}
     </>
   
   );

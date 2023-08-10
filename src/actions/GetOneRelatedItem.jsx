@@ -3,16 +3,16 @@ import axios from "axios";
 const ApiUrl= process.env.REACT_APP_API_URL
 
 
-export const fetchOneItem = createAsyncThunk(
-  "Item/fetchOneItem",
+export const fetchOneRelatedItem = createAsyncThunk(
+  "OneRelatedItem/fetchOneRelatedItem",
   async (id) => {
-    const response = await axios.get(`${ApiUrl}/OneItem/${id}`);
+    const response = await axios.get(`${ApiUrl}/OneRelatedItem/${id}`);
     // const response = await axios.get(`${ApiUrl}/allRelatedItems/${id}`);
     return response.data;
   }
 );
-const fetchOneItemSlice = createSlice({
-  name: "Item",
+const fetchOneRelatedItemSlice = createSlice({
+  name: "OneRelatedItem",
   initialState: {
     loading: false,
     data: [],
@@ -21,21 +21,21 @@ const fetchOneItemSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOneItem.pending, (state) => {
+      .addCase(fetchOneRelatedItem.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchOneItem.fulfilled, (state, action) => {
+      .addCase(fetchOneRelatedItem.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchOneItem.rejected, (state, action) => {
+      .addCase(fetchOneRelatedItem.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
 
   },
 });
-export default fetchOneItemSlice.reducer;
+export default fetchOneRelatedItemSlice.reducer;
 
 

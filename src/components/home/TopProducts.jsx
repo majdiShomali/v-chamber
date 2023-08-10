@@ -3,6 +3,7 @@ import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "../../actions/GetItems";
+import { fetchAllRelatedItems } from "../../actions/GetAllRelatedItems";
 import { Button, Card } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 
@@ -16,14 +17,23 @@ const TopProducts = () => {
       error: fetchError,
     } = useSelector((state) => state.fetchItems);
   
+    const {
+      loading: isAllRelatedLoading,
+      data: AllRelatedItemsData,
+      error: fetchAllRelatedError,
+    } = useSelector((state) => state.fetchAllRelatedItems);
+  
     useEffect(() => {
       dispatch(fetchItems());
+      dispatch(fetchAllRelatedItems());
     }, [dispatch]);
   
     useEffect(() => {
       const TopItems=itemsData.slice(-4);
-      setTopProducts(TopItems)
-    }, [itemsData]);
+      const TopItemsRelated=AllRelatedItemsData.slice(-4);
+      setTopProducts(TopItemsRelated)
+      console.log(AllRelatedItemsData)
+    }, [AllRelatedItemsData]);
   
 
   return (

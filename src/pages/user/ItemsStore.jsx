@@ -20,6 +20,41 @@ const ItemsStore = () => {
   }, [dispatch]);
 
 
+  useEffect(() => {
+  if(itemsData.length > 0) {
+    const vapePuffItems = itemsData.filter((item)=>{
+      return item.category === "vapePuff" 
+    })
+    console.log(vapePuffItems)
+  
+
+
+
+  // Filter the array based on vapePuff.vapePuffNumber value
+  const filteredArray = itemsData.filter(item => {
+    // Check if vapePuff array has any elements
+    if (item.vapePuff.length > 0) {
+        // Check if any vapePuffNumber matches your filter condition (e.g., "500")
+        return item.vapePuff.some(puff => puff.vapePuff  < "100");
+    }
+    return false; // Return false if vapePuff array is empty
+});
+
+console.log(filteredArray)
+
+
+}
+  },[itemsData])
+
+
+
+
+
+
+
+
+
+
   const [currentPageMeals, setCurrentPageMeals] = useState(1);
 
   let totalItemsMeals;

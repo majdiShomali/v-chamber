@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../../actions/GetItems";
+import { fetchAllRelatedItems } from "../../actions/GetAllRelatedItems";
 import { updateFavItems } from "../../actions/FavoriteItems";
 import { fetchFavItems } from "../../actions/FavoriteItems";
 import { UserContext } from "../../context/userContext";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";
 const ItemCard = ({Items}) => {
+
   const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
@@ -21,7 +22,7 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
     loading: isLoading,
     data: itemsData,
     error: fetchError,
-  } = useSelector((state) => state.fetchItems);
+  } = useSelector((state) => state.fetchAllRelatedItems);
   const {
     loading: isFavLoading,
     data: itemsFavData,
@@ -37,7 +38,7 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(fetchAllRelatedItems());
     if(user){
       dispatch(fetchFavItems(user._id));
     }
@@ -100,7 +101,7 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
       };
 
       dispatch(updateFavItems(UpdatedData)).then(() => {
-        dispatch(fetchItems());
+        dispatch(fetchAllRelatedItems());
         dispatch(fetchFavItems(user._id));
       });
     } catch (error) {}
@@ -117,17 +118,19 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
 const navigate =useNavigate();
   const handleShowItem = (item) => {
     console.log(item);
-    navigate(`/ProductPage/${item._id}`)
+    navigate(`/ProductPage/${item.categoryId}`)
   }
   return (
     <>  
-    <div className="w-full flex flex-wrap gap-3 justify-center">   
+    <div 
+    className="w-full flex flex-wrap gap-3 justify-center">   
     {Items?.map((card) => {
             return (
               <Card
                 key={card._id}
-                className=" flex flex-col items-center justify-center mx-2 h-96 w-72 mb-5 hover:scale-105"
-              >
+                className=" cursor-pointer flex flex-col items-center justify-center mx-2 h-96 w-72 mb-5 hover:scale-105"
+
+            >
                 <div className="container">
                   <div className=" w-full bg-gray-900  rounded-xl p-6">
                     <div className="flex flex-col ">
@@ -135,7 +138,7 @@ const navigate =useNavigate();
                         <div className="relative h-56 w-full mb-3">
                           {localStorage.auth !== undefined ? (
                             <>
-                              {card.UsersIdFavorite.indexOf(user?._id) !== -1 ? (
+                              {card.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
                                 <div
                                   className="absolute flex flex-col top-0 right-0 p-3"
                                   onClick={() => handleFAv(card)}

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneItem } from "../../actions/GetOneItem";
+import { fetchRelatedItem } from "../../actions/GetRelatedItems";
 import { updateFavItems } from "../../actions/FavoriteItems";
 import { UserContext } from "../../context/userContext";
 import { fetchItemsCart } from "../../actions/GetItemsCart";
@@ -14,32 +15,36 @@ const ProductPage = () => {
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const { id } = useParams();
-  const [item, setItem] = useState();
+ 
+
   const {
     loading: isItemLoading,
-    data: itemData,
-    error: fetchItemError,
-  } = useSelector((state) => state.fetchOneItem);
+    data: AllRelatedItemData,
+    error: fetchAllRelatedItemError,
+  } = useSelector((state) => state.fetchRelatedItems);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (id !== undefined) {
-      dispatch(fetchOneItem(id));
+      dispatch(fetchRelatedItem(id));
     }
   }, [dispatch, id]);
-
   const [selectedImage , setSelectedImage]=useState("")
-
-  useEffect(() => {
-    setItem(itemData);
-    setSelectedImage(itemData.image)
-  }, [itemData]);
 
   const { user, setUser } = useContext(UserContext);
   const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
 
+  const [selectedProduct, setSelectedProduct] = useState({});
 
+useEffect(()=>{
+if(AllRelatedItemData?.length >0){
+  setSelectedProduct(AllRelatedItemData[0])
+  setSelectedImage(AllRelatedItemData[0]?.image)
+  setItemsAllIdsInCart(JSON.parse(localStorage.getItem('items')))
+}
+
+},[AllRelatedItemData])
 
   const handleAddToCart = (card) => {
     const storedItems = localStorage.getItem("items")
@@ -89,7 +94,7 @@ const ProductPage = () => {
         UserId: user._id,
       };
 
-      dispatch(updateFavItems(UpdatedData)).then(() => {
+        dispatch(updateFavItems(UpdatedData)).then(() => {
         dispatch(fetchOneItem(id));
       });
     } catch (error) {}
@@ -161,7 +166,7 @@ const ProductPage = () => {
                     className="text-sm font-medium text-indigo-500 hover:text-indigo-600"
                     href="#"
                   >
-                    {item?.Name}
+                    {selectedProduct?.Name}
                   </a>
                 </li>
               </ul>
@@ -178,18 +183,18 @@ const ProductPage = () => {
               </div>
               <div className="flex -mx-2 mb-4">
                 <div className="w-1/2 px-2">
-                {item?.totalQuantity !==0 ?  <>
+                {selectedProduct?.totalQuantity !==0 ?  <>
                 
-                  {allIdsInCart?.includes(item?._id) ? (
+                  {allIdsInCart?.includes(selectedProduct?._id) ? (
                     <button
-                      onClick={() => handleAddToCart(item)}
+                      onClick={() => handleAddToCart(selectedProduct)}
                       className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
                     >
                       Remove from Cart
                     </button>
                   ) : (
                     <button
-                      onClick={() => handleAddToCart(item)}
+                      onClick={() => handleAddToCart(selectedProduct)}
                       className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
                     >
                       Add to Cart
@@ -206,16 +211,16 @@ const ProductPage = () => {
                 <div className="w-1/2 px-2">
                   {localStorage.auth !== undefined ?
                   <>
-                  {item?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
+                  {selectedProduct?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
                     <button
-                      onClick={() => handleFAv(item)}
+                      onClick={() => handleFAv(selectedProduct)}
                       className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
                     >
                       remove from Wishlist
                     </button>
                   ) : (
                     <button
-                      onClick={() => handleFAv(item)}
+                      onClick={() => handleFAv(selectedProduct)}
                       className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
                     >
                       Add to Wishlist
@@ -227,7 +232,7 @@ const ProductPage = () => {
               </div>
             </div>
             <div className="md:flex-1 px-4">
-              <h2 className="text-2xl font-bold mb-2">{item?.Name}</h2>
+              <h2 className="text-2xl font-bold mb-2">{selectedProduct?.Name}</h2>
               <p className="text-gray-600 text-sm mb-4">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
                 ante justo. Integer euismod libero id mauris malesuada
@@ -236,28 +241,31 @@ const ProductPage = () => {
               <div className="flex mb-4">
                 <div className="mr-4">
                   <span className="font-bold text-gray-700">Price:</span>
-                  <span className="text-gray-600">${item?.price}</span>
+                  <span className="text-gray-600">${selectedProduct?.price}</span>
                 </div>
                 <div>
                   <span className="font-bold text-gray-700">Availability:</span>
                   <span className="text-gray-600">In Stock</span>
                 </div>
               </div>
-              {item?.colors?.length >0 ? 
+              {selectedProduct?.color ? 
               
               <>
               <div className="mb-4">
-                  <span className="font-bold text-gray-700">Select Color:</span>
+                  <span className="font-bold text-gray-700">Select by Color:</span>
               <div className="flex items-center mt-2">
-
-                     {item?.colors?.map((item)=>{
-                    return (
+                    {AllRelatedItemData?.map((product)=>{
+                      return(
                         <button
-                        key={item.image}
-                        onClick={()=>setSelectedImage(item.image)}
-                        className="w-5 h-5  m-1 rounded-full" style={{ backgroundColor: item.color }} />
-                    )
-                })}
+                        key={product?._id}
+                        onClick={()=>{
+                          setSelectedProduct(product)
+                          setSelectedImage(product.image)}}
+                        className="w-5 h-5  m-1 rounded-full" style={{ backgroundColor: product.color }} />
+                      )
+                    })}
+                     
+               
               </div>
               </div>
               </>
@@ -265,46 +273,49 @@ const ProductPage = () => {
               null
             }
        
-       {  item?.size?.length >0       ?
+       {  selectedProduct?.size ?
               <>
               <div className="mb-4 flex flex-col">
-                <span className="font-bold text-gray-700">Select Size:</span>
+                <span className="font-bold text-gray-700">Select by Size:</span>
                 <div className="flex items-center mt-2">
-                  {item?.size?.map((item)=>{
-                    return (
-                      <button 
-                      key={item.image}
-                      onClick={()=>setSelectedImage(item.image)}
-                      className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
-                      {item.size}
-                    </button>
-                
-                    )})}
+                      {AllRelatedItemData?.map((product) =>{
+                        return(
+                          <button 
+                          key={product.image}
+                          onClick={()=>
+                           { setSelectedProduct(product)
+                            setSelectedImage(product.image)}
+                          }
+                          className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
+                          {product.size}
+                        </button> 
+                        )
+                      })}         
+                                         
                 </div>
               </div>
               </>
               :null}
 
-{item?.vapePuff?.length > 0 ? (
+                {selectedProduct?.vapePuff ? (
                   <>
                     <div className="mb-4">
                       <span className="font-bold text-gray-700">
-                        Select Vape Puff:
+                        Select by Vape Puff:
                       </span>
                       <div className="flex items-center mt-2">
-                        {item?.vapePuff?.map((item) => {
-                          return (
-                            <button
-                              key={item.image}
-                              onClick={() => setSelectedImage(item.image)}
-                              className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
-                            >
-                              {item.vapePuff}
-                            </button>
-                          );
-                        })}
-
-                       
+                      {AllRelatedItemData?.map((product) =>{
+                        return(
+                          <button
+                          key={product.image}
+                          onClick={() =>   { setSelectedProduct(product)
+                            setSelectedImage(product.image)}}
+                          className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
+                        >
+                          {product.vapePuff}
+                        </button>
+                        )})}
+                                              
                       </div>
                     </div>
                   </>
@@ -315,14 +326,14 @@ const ProductPage = () => {
                   Product Description:
                 </span>
                 <p className="text-gray-600 text-sm mt-2">
-                  {item?.description}
+                  {selectedProduct?.description}
                 </p>
               </div>
-              {localStorage.auth ? 
+              {localStorage.auth  ? 
 
 
               <CardRating
-              Item={item}
+              Item={selectedProduct}
               CardId={id}
               UserId={user?._id}
               />

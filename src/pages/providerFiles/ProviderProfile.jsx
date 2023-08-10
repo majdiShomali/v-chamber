@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProviderItems } from "../../actions/GetProviderItems";
 import ItemCard from "../../components/cards/ItemCard"
 import ItemCardProvider from "../../components/cards/ItemCardProvider";
-
+import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
 const ProviderProfile = () => {
 
     const { user, setUser } = useContext(UserContext);
@@ -95,65 +95,16 @@ const ProviderProfile = () => {
         </div>
       </div>
       <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-        <div className="w-full flex flex-col 2xl:w-1/3">
-          <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-            <h4 className="text-xl text-gray-900 font-bold">Personal Info</h4>
-            <ul className="mt-2 text-gray-700">
-              <li className="flex border-y py-2">
-                <span className="font-bold w-24">Full name:</span>
-                <span className="text-gray-700">{user?.userName}</span>
-              </li>
-              <li className="flex border-b py-2">
-                <span className="font-bold w-24">Birthday:</span>
-                <span className="text-gray-700">24 Jul, 1991</span>
-              </li>
-              <li className="flex border-b py-2">
-                <span className="font-bold w-24">Joined:</span>
-                <span className="text-gray-700">{user?.createdAt}</span>
-              </li>
-   
-              <li className="flex border-b py-2">
-                <span className="font-bold w-24">Email:</span>
-                <span className="text-gray-700">{user?.email}</span>
-              </li>
+       
+        <div className="flex flex-col w-full ">
+       
+         
         
-            </ul>
-          </div>
-        </div>
-        <div className="flex flex-col w-full 2xl:w-2/3">
-          <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-            <h4 className="text-xl text-gray-900 font-bold">About</h4>
-            <p className="mt-2 text-gray-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Nesciunt voluptates obcaecati numquam error et ut fugiat
-              asperiores. Sunt nulla ad incidunt laboriosam, laudantium est
-              unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Ut, magni odio magnam commodi sunt
-              ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta
-              autem odio laudantium eligendi commodi distinctio!
-            </p>
-          </div>
-          <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
-            <h4 className="text-xl text-gray-900 font-bold">Fav Products</h4>
-            <div className="m-5">
-            <ItemCardProvider
-              Items={ProviderItems}
+                       <CategoryCardProvider
+                       itemsData={ProviderItems}
                        />
-            </div>
-            <div className="mt-4">
-              <canvas
-                id="verticalBarChart"
-                style={{
-                  display: "block",
-                  boxSizing: "border-box",
-                  height: 414,
-                  width: 828,
-                }}
-                width={1656}
-                height={828}
-              />
-            </div>
-          </div>
+        
+    
         </div>
       </div>
     </div>

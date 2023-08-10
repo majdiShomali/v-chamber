@@ -12,7 +12,6 @@ import { UserContext } from "../../context/userContext";
 const CardRating = ({Item,CardId,UserId}) => {
     // const { id } = useParams();
     // const { user, setUser } = useContext(UserContext);
-
     const starCount = 5; // Total number of stars
     const [filledStars, setFilledStars] = useState(0);
     const [RatingStatus, setRatingStatus] = useState(false);
@@ -24,9 +23,12 @@ const CardRating = ({Item,CardId,UserId}) => {
   useEffect(()=>{
     if(Item?.UsersIdRate?.includes(UserId)){
       setRatingStatus(true)
-    }
+    }else(
+      setRatingStatus(false)
+    )
   },[filledStars,Item])
   
+
   
   const showSuccessAlert = (message) => {
     Swal.fire({
