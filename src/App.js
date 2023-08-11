@@ -4,8 +4,8 @@ import { UserContext } from "./context/userContext";
 
 //--------------------none--------------------------//
 import NoPage404 from "./pages/NoPage404";
-// import AboutUs from "./pages/AboutUs";
-// import ContactUs from "./pages/ContactUs";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 //---------------------user-------------------------//
 import Home from "./pages/Home";
@@ -17,7 +17,7 @@ import SignUp from "./pages/registration/SignUp";
 // import ForgetPassword from "./pages/registration/ForgetPassword"
 // import Payment from "./pages/user/Payment";
 // import ItemsStore from "./pages/user/ItemsStore";
-// import ProductPage from "./pages/user/ProductPage";
+import ProductPage from "./pages/user/ProductPage";
 // import AllCategories from "./pages/user/AllCategories";
 //---------------------provider-------------------------//
 
@@ -63,13 +63,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/Signup/:type" element={<SignUp />} />
            <Route index element={<Home />} />
-        {/*  <Route path="/ProductPage/:id/:relatedId" element={<ProductPage />} />
-          <Route path="/UserProfile" element={<UserProfile />} />
+           <Route path="/AboutUs" element={<AboutUs />} />
+           <Route path="/ContactUs" element={<ContactUs />} />
+          <Route path="/ProductPage/:id/:relatedId" element={<ProductPage />} />
+        {/*  <Route path="/UserProfile" element={<UserProfile />} />
           <Route path="/CartPage" element={<CartPage />} />
           <Route path="/Store" element={<ItemsStore />} />
           <Route path="/Payment" element={<Payment />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/AllCategories" element={<AllCategories />} />
           <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}

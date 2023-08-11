@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 // import Swal from "sweetalert2";
 import { Button } from "@material-tailwind/react";
 
 
 const ContactForm = () => {
 
-    const [userId, setUserId] = useState();
-    const [userMessages, setUserMessages] = useState([]);
+    // const [userId, setUserId] = useState();
+    // const [userMessages, setUserMessages] = useState([]);
   
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -18,8 +18,8 @@ const ContactForm = () => {
   
       // To passed as the data to be sent.
   
-      let message = userMessages;
-      message.push(message0);
+      // let message = userMessages;
+      // message.push(message0);
        
       // Swal.fire("Success", "Message sent successfully!", "success");
   

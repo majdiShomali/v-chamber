@@ -1,6 +1,7 @@
 import React from "react";
 const AboutSection = () => {
 
+
   return (
     <section className="bg-white text-black overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
       <div className="container mx-auto">
@@ -14,14 +15,14 @@ const AboutSection = () => {
                 <div className="py-3 sm:py-4">
                   <img
                     src="https://bimpos.com/sites/default/files/images/posts/5ffdc91e-ef5f-48d0-bba0-a33ac3121705.jpeg"
-                    alt="an image"
+                    alt="animage"
                     className="w-full rounded-2xl"
                   />
                 </div>
                 <div className="py-3 sm:py-4">
                   <img
                     src="https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/e14d758d746ac22472b25056ed2179de.jpg"
-                    alt=""
+                    alt="aaa"
                     className="w-full rounded-2xl"
                   />
                 </div>
@@ -30,7 +31,7 @@ const AboutSection = () => {
                 <div className="relative z-10 my-4">
                   <img
                     src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-3.jpg"
-                    alt=""
+                    alt="aaa"
                     className="w-full rounded-2xl"
                   />
                   <span className="absolute -right-7 -bottom-7 z-[-1]">

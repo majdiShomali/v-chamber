@@ -10,11 +10,12 @@ import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import CardRating from "../../components/cards/CardRating";
+import { Link } from "react-router-dom";
 
 
 const ProductPage = () => {
-  const ApiUrl = process.env.REACT_APP_API_URL;
-  const ReactUrl = process.env.REACT_APP_API_REACT_URL;
+  // const ApiUrl = process.env.REACT_APP_API_URL;
+  // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const { id,relatedId } = useParams();
@@ -23,12 +24,12 @@ const ProductPage = () => {
   const {
     loading: isItemLoading,
     data: AllRelatedItemData,
-    error: fetchAllRelatedItemError,
+    // error: fetchAllRelatedItemError,
   } = useSelector((state) => state.fetchRelatedItems);
   const {
-    loading: isOneRelatedItemLoading,
+    // loading: isOneRelatedItemLoading,
     data: OneRelatedItemData,
-    error: fetchOneRelatedItemError,
+    // error: fetchOneRelatedItemError,
   } = useSelector((state) => state.fetchOneRelatedItem);
 
   const dispatch = useDispatch();
@@ -51,7 +52,8 @@ const ProductPage = () => {
 
   const [selectedImage , setSelectedImage]=useState("")
 
-  const { user, setUser } = useContext(UserContext);
+  // const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
 
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -139,9 +141,9 @@ if(OneRelatedItemData?.image){
             <div className="w-full px-4">
               <ul className="flex flex-wrap items-center mb-5">
                 <li className="mr-6">
-                  <a
+                  <Link to="/"
                     className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
-                    href="#"
+                    
                   >
                     <span>Home</span>
                     <svg
@@ -157,12 +159,11 @@ if(OneRelatedItemData?.image){
                         fill="currentColor"
                       />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li className="mr-6">
-                  <a
+                  <Link to="/Store"
                     className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
-                    href="#"
                   >
                     <span>Store</span>
                     <svg
@@ -178,15 +179,14 @@ if(OneRelatedItemData?.image){
                         fill="currentColor"
                       />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link to="/"
                     className="text-sm font-medium text-indigo-500 hover:text-indigo-600"
-                    href="#"
                   >
                     {selectedProduct?.Name}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -197,7 +197,7 @@ if(OneRelatedItemData?.image){
                 <img
                   className="w-full h-full object-cover"
                   src={`${ImagesUrl}/${selectedImage}`}
-                  alt="Product Image"
+                  alt="ProductImage"
                 />
               </div>
               <div className="flex -mx-2 mb-4">
