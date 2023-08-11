@@ -8,7 +8,7 @@ import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRelatedItem } from "../../../actions/GetRelatedItems";
-
+import CompanyInput from "./CompanyInput";
 const AddChargeVape = ({item}) => {
     const ApiUrl = process.env.REACT_APP_API_URL;
 
@@ -44,11 +44,13 @@ const AddChargeVape = ({item}) => {
         setSelectedColor(event.target.value);
       };
     
-      const [selectedChargeVape, setSelectedChargeVape] = useState("");
-      const handleChargeVapeChange = (event) => {
-        setSelectedChargeVape(event.target.value);
-      };
+
     
+      const [selectedChargeVape, setSelectedValue] = useState('');
+
+      const handleSelectChange = (value) => {
+        setSelectedValue(value);
+      };
 
   
       const handleSubmit = async (e) => {
@@ -108,20 +110,8 @@ const AddChargeVape = ({item}) => {
 
     <div className="flex items-center my-5 mx-5 gap-5">
   
-                  <select
-                    className="px-4 py-3 w-full  rounded-md bg-gray-100  border-2 focus:border-gray-600 focus:bg-white focus:ring-0 text-sm appearance "
-                    value={selectedChargeVape}
-                    onChange={(e) => {
-                      handleChargeVapeChange(e);
-                    }}
-                  >
-                    <option value="none"> default</option>
-                    <option value="color">Colors</option>
-                    <option value="size">Size</option>
-                    <option value="vapePuff">vape Puff</option>
-                    <option value="chargeVape">charge vape</option>
-                  </select>
-     
+      
+     <CompanyInput onSelectChange={handleSelectChange}/>
 
       <Input
         className=""

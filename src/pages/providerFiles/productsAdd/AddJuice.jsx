@@ -8,7 +8,7 @@ import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRelatedItem } from "../../../actions/GetRelatedItems";
-
+import CompanyInput from "./CompanyInput";
 const AddJuice = ({item}) => {
 
     const ApiUrl = process.env.REACT_APP_API_URL;
@@ -50,7 +50,11 @@ const AddJuice = ({item}) => {
         setSelectedJuice(event.target.value);
       };
     
-    
+      const [selectedCompany, setSelectedValue] = useState('');
+
+      const handleSelectChange = (value) => {
+        setSelectedValue(value);
+      };
 
   
       const handleSubmit = async (e) => {
@@ -68,6 +72,7 @@ const AddJuice = ({item}) => {
         formData.append("color", selectedColor);  
         formData.append("selectedColor", selectedColor);   
         formData.append("juice", selectedJuice);    
+        formData.append("company", selectedCompany);    
         axios
           .post(`${ApiUrl}/addRelatedItem`, formData)
           .then(function (response) {
@@ -99,6 +104,8 @@ const AddJuice = ({item}) => {
         <div className=" flex flex-col w-full h-full ">
          
     <div className="flex flex-col">
+
+    <div className="flex items-center my-5 mx-5 gap-5">
     <Input
       className=" "
       type="text"
@@ -107,6 +114,8 @@ const AddJuice = ({item}) => {
       required
       onChange={(e) => setName(e.target.value)}
     />
+    <CompanyInput onSelectChange={handleSelectChange}/>
+    </div>
 
     <div className="flex items-center my-5 mx-5 gap-5">
   

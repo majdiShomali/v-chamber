@@ -118,7 +118,7 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
 const navigate =useNavigate();
   const handleShowItem = (item) => {
     console.log(item);
-    navigate(`/ProductPage/${item.categoryId}`)
+    navigate(`/ProductPage/${item.categoryId}/${item._id}`)
   }
   return (
     <>  

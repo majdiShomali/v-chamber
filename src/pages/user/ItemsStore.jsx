@@ -2,55 +2,53 @@ import ItemCard from '../../components/cards/ItemCard'
 import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../../actions/GetItems";
+import { fetchAllRelatedItems } from "../../actions/GetAllRelatedItems";
 import { Card } from '@material-tailwind/react';
 import Pagination from "@mui/material/Pagination";
-
+import CompanyInput from "../providerFiles/productsAdd/CompanyInput";
+import CategoryInput from '../providerFiles/productsAdd/CategoryInput';
 const ItemsStore = () => {
   const dispatch = useDispatch();
 
   const {
-    loading: isLoading,
-    data: itemsData,
-    error: fetchError,
-  } = useSelector((state) => state.fetchItems);
+    loading: isAllRelatedItemsLoading,
+    data: AllRelatedItems,
+    error: fetchAllRelatedItemsError,
+  } = useSelector((state) => state.fetchAllRelatedItems);
 
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(fetchAllRelatedItems());
   }, [dispatch]);
 
+  const [filteredArray, setFilteredArray] = useState([]);
 
   useEffect(() => {
-  if(itemsData.length > 0) {
-    const vapePuffItems = itemsData.filter((item)=>{
-      return item.category === "vapePuff" 
-    })
-    console.log(vapePuffItems)
+  if(AllRelatedItems.length > 0) {
+    setFilteredArray(AllRelatedItems)
+    // const vapePuffItems = AllRelatedItems.filter((item)=>{
+    //   return item.category === "vapePuff" 
+    // })
+
+    // console.log(vapePuffItems)
   
 
 
 
-  // Filter the array based on vapePuff.vapePuffNumber value
-  const filteredArray = itemsData.filter(item => {
-    // Check if vapePuff array has any elements
-    if (item.vapePuff.length > 0) {
-        // Check if any vapePuffNumber matches your filter condition (e.g., "500")
-        return item.vapePuff.some(puff => puff.vapePuff  < "100");
-    }
-    return false; // Return false if vapePuff array is empty
-});
+//   // Filter the array based on vapePuff.vapePuffNumber value
+//   const filteredArray = AllRelatedItems.filter(item => {
+//     // Check if vapePuff array has any elements
+//     if (item.vapePuff.length > 0) {
+//         // Check if any vapePuffNumber matches your filter condition (e.g., "500")
+//         return item.vapePuff.some(puff => puff.vapePuff  < "100");
+//     }
+//     return false; // Return false if vapePuff array is empty
+// });
 
-console.log(filteredArray)
+// console.log(filteredArray)
 
 
 }
-  },[itemsData])
-
-
-
-
-
-
+  },[AllRelatedItems])
 
 
 
@@ -65,7 +63,7 @@ console.log(filteredArray)
 
   const itemsPerPage = 4;
 
-  totalItemsMeals = itemsData?.length;
+  totalItemsMeals = filteredArray?.length;
 
   totalPagesMeals = Math.ceil(totalItemsMeals / itemsPerPage);
 
@@ -73,15 +71,46 @@ console.log(filteredArray)
 
   const endIndexMeals = startIndexMeals + itemsPerPage;
 
-  slicedArrayMeals = itemsData?.slice(startIndexMeals, endIndexMeals);
+  slicedArrayMeals = filteredArray?.slice(startIndexMeals, endIndexMeals);
   const handlePageChangeMeals = (event, pageNumber) => {
     setCurrentPageMeals(pageNumber);
   };
 
+  const [selectedCompany, setSelectedCompanyValue] = useState("");
+
+  const handleSelectCompanyChange = (value) => {
+    setSelectedCompanyValue(value);
+    const company = AllRelatedItems.filter((item)=>{
+      return item.company === value 
+    })
+  };
+
+  const [selectedCategory, setSelectedCategoryValue] = useState("");
+
+  const handleSelectCategoryChange = (value) => {
+    setSelectedCategoryValue(value);
+    const category = AllRelatedItems.filter((item)=>{
+      return item.category === value 
+    })
+  };
+
+  useEffect(()=>{
+    if(AllRelatedItems){
+      const newFilter = AllRelatedItems?.filter((item)=>{
+        return (         
+        item.category?.toLowerCase().includes(selectedCategory.toLowerCase()) &&
+        item.company?.toLowerCase().includes(selectedCompany.toLowerCase())
+        )
+      })
+      setFilteredArray(newFilter)
+    }
+console.log(selectedCategory,selectedCompany)
+  },[selectedCategory,selectedCompany])
+
   return (
     <>
 
- 
+
   <div className="px-6 py-12 text-center md:px-12 lg:text-left bg-blue-gray-100">
     <div className="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl xl:px-32">
       <div className="grid items-center lg:grid-cols-2">
@@ -164,24 +193,10 @@ console.log(filteredArray)
 
 
         <div className='flex my-5'>
-               <select
-                className="px-4 py-3 ml-2 w-40 md:w-60 rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-yellow-600 focus:bg-white focus:ring-0 text-sm appearance mr-5"
-                // value={yourSelectedStateValueType}
-                // onChange={(e) => {
-                //   setOptionType(e.target.value);
-                //   handleFilterChange(
-                //     e.target.value,
-                //     yourSelectedStateValueAddress
-                //   );
-                // }}
-              >
-                <option value=""> All Recipes</option>
-                <option value="Meal">Meals</option>
-                <option value="Drink">Drinks</option>
-                <option value="Sweet">Sweets</option>
-              </select>
+        <CompanyInput onSelectChange={handleSelectCompanyChange}/>
+        <CategoryInput onSelectChange={handleSelectCategoryChange}/>
               
-                <select
+                {/* <select
                   className="px-4 py-3 w-40 md:w-60 rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-[#E8AA42] focus:bg-white focus:ring-0 text-sm appearance"
                   // value={yourSelectedStateValueAddress}
                   // onChange={(e) => {
@@ -195,7 +210,7 @@ console.log(filteredArray)
                   <option value="">all nations</option>
                   <option value="jordanian">jordanian</option>
                   <option value="egyptian ">egyptian </option>
-                </select>
+                </select> */}
 
 
 </div>
@@ -214,7 +229,7 @@ console.log(filteredArray)
        className=" lg:min-h-[50vh] flex  flex-col">
    
     <ItemCard
-    Items={slicedArrayMeals}
+    Items={filteredArray}
     />
      </div>
 

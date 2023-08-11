@@ -3,18 +3,21 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneItem } from "../../actions/GetOneItem";
 import { fetchRelatedItem } from "../../actions/GetRelatedItems";
+import { fetchOneRelatedItem } from "../../actions/GetOneRelatedItem";
 import { updateFavItems } from "../../actions/FavoriteItems";
 import { UserContext } from "../../context/userContext";
 import { fetchItemsCart } from "../../actions/GetItemsCart";
 import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import CardRating from "../../components/cards/CardRating";
+
+
 const ProductPage = () => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
-  const { id } = useParams();
+  const { id,relatedId } = useParams();
  
 
   const {
@@ -22,6 +25,11 @@ const ProductPage = () => {
     data: AllRelatedItemData,
     error: fetchAllRelatedItemError,
   } = useSelector((state) => state.fetchRelatedItems);
+  const {
+    loading: isOneRelatedItemLoading,
+    data: OneRelatedItemData,
+    error: fetchOneRelatedItemError,
+  } = useSelector((state) => state.fetchOneRelatedItem);
 
   const dispatch = useDispatch();
 
@@ -30,6 +38,14 @@ const ProductPage = () => {
       dispatch(fetchRelatedItem(id));
     }
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (relatedId !== undefined) {
+      dispatch(fetchOneRelatedItem(relatedId));
+    }
+  }, [dispatch, relatedId]);
+
+
   const [selectedImage , setSelectedImage]=useState("")
 
   const { user, setUser } = useContext(UserContext);
@@ -38,13 +54,13 @@ const ProductPage = () => {
   const [selectedProduct, setSelectedProduct] = useState({});
 
 useEffect(()=>{
-if(AllRelatedItemData?.length >0){
-  setSelectedProduct(AllRelatedItemData[0])
-  setSelectedImage(AllRelatedItemData[0]?.image)
+if(OneRelatedItemData?.image){
+  setSelectedProduct(OneRelatedItemData)
+  setSelectedImage(OneRelatedItemData?.image)
   setItemsAllIdsInCart(JSON.parse(localStorage.getItem('items')))
 }
 
-},[AllRelatedItemData])
+},[OneRelatedItemData])
 
   const handleAddToCart = (card) => {
     const storedItems = localStorage.getItem("items")
