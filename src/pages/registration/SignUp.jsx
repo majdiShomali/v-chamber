@@ -112,7 +112,7 @@ export default function Signup() {
             <img
               src="https://www.drupal.org/files/project-images/reg_confirm_email_with_button_0.png"
               className="w-32 mx-auto"
-              alt="signup image"
+              alt="signupimage"
             />
           </div>
           <div className="mt-12 flex flex-col items-center">
@@ -187,7 +187,7 @@ export default function Signup() {
         </div>
         <div className="flex-1 bg-indigo-100 text-center hidden lg:flex login_img bg-cover bg-center bg-no-repeat ">
           <img src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg" 
-          alt="signup image"
+          alt="signupimage"
           />
         </div>
       </div>
