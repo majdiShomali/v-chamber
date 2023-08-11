@@ -16,7 +16,8 @@ export const updateFavItems = createAsyncThunk(
     async (data) => {
       const UsersIdFavorite= data.UsersIdFavorite
       const UserId= data.UserId
-      const response0 = await axios.put(`${ApiUrl}/updateItemFav/${data.CardId}`,{UsersIdFavorite});
+      // const response0 = 
+      await axios.put(`${ApiUrl}/updateItemFav/${data.CardId}`,{UsersIdFavorite});
       const response = await axios.get(`${ApiUrl}/favoriteItems/${UserId}`);
 
       return response.data;
