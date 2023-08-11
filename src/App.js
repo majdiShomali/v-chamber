@@ -12,21 +12,21 @@ import Home from "./pages/Home";
 import StickyNavbar from "./components/StickyNavbar";
 import Login from "./pages/registration/Login";
 import SignUp from "./pages/registration/SignUp";
-// import UserProfile from "./pages/user/UserProfile";
-// import CartPage from "./pages/user/CartPage";
+import UserProfile from "./pages/user/UserProfile";
+import CartPage from "./pages/user/CartPage";
 // import ForgetPassword from "./pages/registration/ForgetPassword"
 // import Payment from "./pages/user/Payment";
-// import ItemsStore from "./pages/user/ItemsStore";
+import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
-// import AllCategories from "./pages/user/AllCategories";
+import AllCategories from "./pages/user/AllCategories";
 //---------------------provider-------------------------//
 
-// import ProviderHome from "./pages/providerFiles/ProviderHome";
-// import ProviderProfile from "./pages/providerFiles/ProviderProfile";
-// import ProviderHomeTest from "./pages/providerFiles/ProviderHomeTest";
+import ProviderHome from "./pages/providerFiles/ProviderHome";
+import ProviderProfile from "./pages/providerFiles/ProviderProfile";
+import ProviderHomeTest from "./pages/providerFiles/ProviderHomeTest";
 
 // import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
-// import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
+import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
 
 function App() {
   const [hideRouterUser, setHideRouterUser] = useState(false);
@@ -66,12 +66,12 @@ function App() {
            <Route path="/AboutUs" element={<AboutUs />} />
            <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/ProductPage/:id/:relatedId" element={<ProductPage />} />
-        {/*  <Route path="/UserProfile" element={<UserProfile />} />
-          <Route path="/CartPage" element={<CartPage />} />
-          <Route path="/Store" element={<ItemsStore />} />
-          <Route path="/Payment" element={<Payment />} />
+        <Route path="/UserProfile" element={<UserProfile />} />
+            <Route path="/CartPage" element={<CartPage />} />
+            <Route path="/AllCategories" element={<AllCategories />} />
+         <Route path="/Store" element={<ItemsStore />} />
+           {/*<Route path="/Payment" element={<Payment />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
-          <Route path="/AllCategories" element={<AllCategories />} />
           <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
@@ -84,13 +84,13 @@ function App() {
       <Router>
         <StickyNavbar />
         <Routes>
-          {/* <Route index element={<ProviderHome />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route index element={<ProviderHome />} />
+           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/UserProfile" element={<ProviderProfile />} />
           <Route path="/ProviderHomeTest" element={<ProviderHomeTest />} />
           <Route path="/ProductPageProvider/:id" element={<ProductPageProvider />} />
-          <Route path="/*" element={<NoPage404 />} /> */}
+          <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
       </Router>
     );

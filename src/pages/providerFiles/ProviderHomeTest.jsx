@@ -1,22 +1,19 @@
 import React from 'react'
 import {
     Card,
-    Input,
-    Checkbox,
     Button,
     Typography,
   } from "@material-tailwind/react";
-  import { useState, useEffect, useContext } from "react";
-  import { UserContext } from "../../context/userContext";
+  import { useState} from "react";
 
-  import axios from 'axios';
+  // import axios from 'axios';
 
 const ProviderHomeTest = () => {
 
 
     const [selectedColor, setSelectedColor] = useState('#000000'); // Default color
     const [productImage, setProductImage] = useState(null);
-    const [data,setData]=useState([])
+    // const [data,setData]=useState([])
 
     const handleColorChange = (event) => {
       setSelectedColor(event.target.value);
@@ -28,7 +25,7 @@ const ProviderHomeTest = () => {
     
       const handleAddItem= async (e)=>{
         e.preventDefault()
-        setData(prev => [...prev,selectedColor ])
+        // setData(prev => [...prev,selectedColor ])
         console.log(productImage,selectedColor)
         // const formData = new FormData();
         // formData.append("Name", name);

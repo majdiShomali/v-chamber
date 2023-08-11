@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Input, Button } from "@material-tailwind/react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import CompanyInput from "./CompanyInput";
 
@@ -79,7 +79,7 @@ const AddVapePuff = ({item}) => {
 
         axios
           .post(`${ApiUrl}/addRelatedItem`, formData)
-          .then(function (response) {
+          .then(function () {
             dispatch(fetchRelatedItem(item._id));
             handleClose();
           })

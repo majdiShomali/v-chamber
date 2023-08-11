@@ -9,12 +9,12 @@ import ItemCard from "../../components/cards/ItemCard"
 
 
 const UserProfile = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 const [favoriteItems,setFavoriteItems] =useState([])
   const {
-    loading: isFavLoading,
+    // loading: isFavLoading,
     data: itemsFavData,
-    error: fetchFavError,
+    // error: fetchFavError,
   } = useSelector((state) => state.FavoriteItems);
 
 
@@ -26,7 +26,7 @@ const [favoriteItems,setFavoriteItems] =useState([])
     if(user){
       dispatch(fetchFavItems(user._id));
     }
-  }, [dispatch]);
+  }, [dispatch,user]);
 
   useEffect(() => {
 
@@ -42,7 +42,8 @@ const [favoriteItems,setFavoriteItems] =useState([])
             <img
               src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
               className="w-full h-full rounded-tl-lg rounded-tr-lg"
-            />
+             alt="iamge"
+           />
           </div>
           <div className="flex flex-col items-center -mt-20">
             {false === true ? (
@@ -62,7 +63,8 @@ const [favoriteItems,setFavoriteItems] =useState([])
               <img
                 src={user?.img !== undefined ? `http://localhost:5000/${user?.img}` : " " }
                 className="w-40 h-40 border-4 border-white rounded-full"
-              />
+             alt="Profileimage"
+                />
             )}
 
             <div className="flex items-center space-x-2 mt-2">

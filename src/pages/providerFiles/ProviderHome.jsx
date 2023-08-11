@@ -2,9 +2,9 @@ import React from "react";
 import {
   Card,
   Input,
-  Checkbox,
+  // Checkbox,
   Button,
-  Typography,
+  // Typography,
 } from "@material-tailwind/react";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
@@ -14,21 +14,21 @@ import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
 import axios from "axios";
 
-import ItemCardProvider from "../../components/cards/ItemCardProvider";
+// import ItemCardProvider from "../../components/cards/ItemCardProvider";
 
 const ProviderHome = () => {
   const ApiUrl= process.env.REACT_APP_API_URL
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [productImage, setProductImage] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [OptionType, setOptionType] = useState("");
 
   const {
-    loading: isallItemLoading,
+    // loading: isallItemLoading,
     data: allItemData,
-    error: fetchallItemError,
+    // error: fetchallItemError,
   } = useSelector((state) => state.fetchCategories);
 
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const ProviderHome = () => {
     dispatch(fetchCategoryItems());
   }, [dispatch]);
 
-  const [item, setItem] = useState([]);
+  // const [item, setItem] = useState([]);
   const handleProductImageChange = (event) => {
     setProductImage(event.target.files[0]);
   };
@@ -54,7 +54,7 @@ const ProviderHome = () => {
         `${ApiUrl}/items`,
         formData
       );
-      setItem([response.data]);
+      // setItem([response.data]);
       dispatch(fetchCategoryItems());
       showSuccessAlert(response.data.Name);
     } catch (error) {

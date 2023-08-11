@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import { Input } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect,useContext } from "react";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { UserContext } from "../../context/userContext";
 const style = {
     position: "absolute",
@@ -21,17 +21,18 @@ const style = {
 
  
 const ProviderEditProfile = () => {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const {userUpdateRefresh ,setUpdateRefresh} = useContext(UserContext);
-    const navigate = useNavigate();
+    console.log(userUpdateRefresh)
+    // const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   
-    const [userId, setUserId] = useState();
-    const [userData, setUserData] = useState({});
+    // const [userId, setUserId] = useState();
+    // const [userData, setUserData] = useState({});
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    // const [email, setEmail] = useState("");
   
     useEffect(()=>{
       setName(user?.userName) 

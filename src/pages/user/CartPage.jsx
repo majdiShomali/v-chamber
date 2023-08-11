@@ -1,23 +1,23 @@
-import { Button, Card } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SneekPeeksShipping from "../../components/SneekPeeksShipping";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 
 const CartPage = () => {
-  const ApiUrl= process.env.REACT_APP_API_URL
-  const ReactUrl= process.env.REACT_APP_API_REACT_URL
+  // const ApiUrl= process.env.REACT_APP_API_URL
+  // const ReactUrl= process.env.REACT_APP_API_REACT_URL
   const ImagesUrl= process.env.REACT_APP_IMAGES_URL
 
   const dispatch = useDispatch();
 
   const {
-    loading: isCartLoading,
+    // loading: isCartLoading,
     data: itemsCartData,
-    error: fetchCartError,
+    // error: fetchCartError,
   } = useSelector((state) => state.fetchItemsCart);
 
 
@@ -27,7 +27,7 @@ const CartPage = () => {
       if (items.length > 0) {
       dispatch(fetchItemsCart(items)) } 
       }
-    },[] ) 
+    },[dispatch] ) 
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [items, setItems] = useState([]);
@@ -103,7 +103,8 @@ const CartPage = () => {
     //  setItemsAllIdsInCart(allCardsIds)
     //  localStorage.setItem("items", JSON.stringify(allCardsIds));
   };
-const navigate =useNavigate()
+// const navigate =useNavigate()
+
 // const handlePayment = () =>{
 
 //   navigate(`/Payment/${ItemId}/${item.quantity}`)
@@ -130,7 +131,7 @@ const navigate =useNavigate()
                 className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                   <img
                     src={`${ImagesUrl}/${item.image}`}
-                    alt="product-image"
+                    alt="productimage"
                     className="w-full rounded-lg sm:w-40"
                   />
                   <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">

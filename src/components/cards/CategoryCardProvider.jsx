@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@material-tailwind/react";
-import { useDispatch, useSelector } from "react-redux";
+// import { Button } from "@material-tailwind/react";
+// import { useDispatch, useSelector } from "react-redux";
 // import { fetchItems } from "../actions/GetItems";
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 const CategoryCardProvider = ({itemsData}) => {
 
     const navigate = useNavigate();

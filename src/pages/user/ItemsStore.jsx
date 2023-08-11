@@ -1,9 +1,9 @@
 import ItemCard from "../../components/cards/ItemCard";
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
-import { Card } from "@material-tailwind/react";
+// import { Card } from "@material-tailwind/react";
 import Pagination from "@mui/material/Pagination";
 import CompanyInput from "../providerFiles/productsAdd/CompanyInput";
 import CategoryInput from "../providerFiles/productsAdd/CategoryInput";
@@ -12,9 +12,9 @@ const ItemsStore = () => {
   const dispatch = useDispatch();
 
   const {
-    loading: isAllRelatedItemsLoading,
+    // loading: isAllRelatedItemsLoading,
     data: AllRelatedItems,
-    error: fetchAllRelatedItemsError,
+    // error: fetchAllRelatedItemsError,
   } = useSelector((state) => state.fetchAllRelatedItems);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const ItemsStore = () => {
 
   let totalPagesMeals;
 
-  let slicedArrayMeals;
+  
 
   const itemsPerPage = 4;
 
@@ -73,7 +73,8 @@ const ItemsStore = () => {
 
   const endIndexMeals = startIndexMeals + itemsPerPage;
 
-  slicedArrayMeals = filteredArray?.slice(startIndexMeals, endIndexMeals);
+  const slicedArrayMeals = filteredArray?.slice(startIndexMeals, endIndexMeals);
+
   const handlePageChangeMeals = (event, pageNumber) => {
     setCurrentPageMeals(pageNumber);
   };
@@ -119,7 +120,7 @@ const ItemsStore = () => {
       }   
       setFilteredArray(newFilter);
     }
-  }, [selectedCategory, selectedCompany,selectedSale]);
+  }, [selectedCategory, selectedCompany,selectedSale,AllRelatedItems]);
 
   return (
     <>
@@ -198,7 +199,7 @@ const ItemsStore = () => {
       </div>
 
       <div className=" lg:min-h-[50vh] flex  flex-col">
-        <ItemCard Items={filteredArray} />
+        <ItemCard Items={slicedArrayMeals} />
       </div>
 
       <div className="w-full flex items-center justify-center mt-5">

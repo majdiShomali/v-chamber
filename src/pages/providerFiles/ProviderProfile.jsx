@@ -4,17 +4,17 @@ import { UserContext } from "../../context/userContext";
 import ProviderEditProfile from "./ProviderEditProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProviderItems } from "../../actions/category/GetProviderItems";
-import ItemCard from "../../components/cards/ItemCard"
-import ItemCardProvider from "../../components/cards/ItemCardProvider";
+// import ItemCard from "../../components/cards/ItemCard"
+// import ItemCardProvider from "../../components/cards/ItemCardProvider";
 import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
 const ProviderProfile = () => {
 
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const [ProviderItems,setProviderItems] =useState([])
       const {
-        loading: isProviderLoading,
+        // loading: isProviderLoading,
         data: itemsProviderData,
-        error: fetchProviderError,
+        // error: fetchProviderError,
       } = useSelector((state) => state.fetchProviderItems);
     
     
@@ -26,7 +26,7 @@ const ProviderProfile = () => {
         if(user){
           dispatch(fetchProviderItems(user._id));
         }
-      }, [dispatch]);
+      }, [dispatch,user]);
     
       useEffect(() => {    
         setProviderItems(itemsProviderData)
@@ -41,6 +41,7 @@ const ProviderProfile = () => {
           <img
             src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
             className="w-full h-full rounded-tl-lg rounded-tr-lg"
+            alt="profileimage"
           />
         </div>
         <div className="flex flex-col items-center -mt-20">
@@ -61,6 +62,7 @@ const ProviderProfile = () => {
             <img
               src={user?.img !== undefined ? `http://localhost:5000/${user?.img}` : " " }
               className="w-40 h-40 border-4 border-white rounded-full"
+              alt="userimage"
             />
           )}
 

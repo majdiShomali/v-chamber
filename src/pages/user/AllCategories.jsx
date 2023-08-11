@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@material-tailwind/react";
+// import { Button } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 import { useEffect } from 'react'
-import { HashLink } from 'react-router-hash-link';
+// import { HashLink } from 'react-router-hash-link';
 const AllCategories = () => {
 
     const navigate = useNavigate();
@@ -15,9 +15,9 @@ const AllCategories = () => {
   
     const dispatch = useDispatch();
     const {
-      loading: isLoading,
+      // loading: isLoading,
       data: itemsData,
-      error: fetchError,
+      // error: fetchError,
     } = useSelector((state) => state.fetchCategories);
   
     useEffect(() => {

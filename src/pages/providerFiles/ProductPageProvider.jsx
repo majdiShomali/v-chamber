@@ -1,35 +1,36 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneItem } from "../../actions/category/GetOneItem";
 import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import { Link } from "react-router-dom";
-import AddRelatedItem from "./AddRelatedItem";
-import ItemCard from "../../components/cards/ItemCard"
+// import AddRelatedItem from "./AddRelatedItem";
+// import ItemCard from "../../components/cards/ItemCard"
 
 import AddVapePuff from "./productsAdd/AddVapePuff";
 import AddChargeVape from "./productsAdd/AddChargeVape";
 import AddJuice from "./productsAdd/AddJuice";
 const ProductPageProvider = () => {
-  const ApiUrl = process.env.REACT_APP_API_URL;
-  const ReactUrl = process.env.REACT_APP_API_REACT_URL;
+  // const ApiUrl = process.env.REACT_APP_API_URL;
+  // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const { id } = useParams();
 
 
+
   const {
     loading: isRelatedItemLoading,
     data: RelatedItemData,
-    error: fetchRelatedItemError,
+    // error: fetchRelatedItemError,
   } = useSelector((state) => state.fetchRelatedItems);
 
   const {
-    loading: isItemLoading,
+    // loading: isItemLoading,
     data: ItemData,
-    error: fetchItemError,
+    // error: fetchItemError,
   } = useSelector((state) => state.fetchOneItem);
 
   const dispatch = useDispatch();
@@ -126,7 +127,7 @@ const ProductPageProvider = () => {
                   <img
                     className="w-full h-full object-cover"
                     src={`${ImagesUrl}/${selectedImage}`}
-                    alt="Product Image"
+                    alt="ProductImage"
                   />
                 </div>
               </div>
