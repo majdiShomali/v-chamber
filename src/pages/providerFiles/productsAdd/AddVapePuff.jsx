@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRelatedItem } from "../../../actions/GetRelatedItems";
+import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 
 const AddVapePuff = ({item}) => {
     const ApiUrl = process.env.REACT_APP_API_URL;

@@ -8,9 +8,9 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../../context/userContext";
 import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
-import { fetchOneItem } from "../../actions/GetOneItem";
+import { fetchOneItem } from "../../actions/category/GetOneItem";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRelatedItem } from "../../actions/GetRelatedItems";
+import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
 
 const style = {
   position: "absolute",

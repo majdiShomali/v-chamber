@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import EditProfile from "./UserEditProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFavItems } from "../../actions/FavoriteItems";
+import { fetchFavItems } from "../../actions/related/FavoriteItems";
 import ItemCard from "../../components/cards/ItemCard"
 
 

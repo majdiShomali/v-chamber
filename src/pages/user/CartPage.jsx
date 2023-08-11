@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import SneekPeeksShipping from "../../components/SneekPeeksShipping";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItemsCart } from "../../actions/GetItemsCart";
+import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 
 const CartPage = () => {
   const ApiUrl= process.env.REACT_APP_API_URL

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneItem } from "../../actions/GetOneItem";
-import { fetchRelatedItem } from "../../actions/GetRelatedItems";
-import { fetchOneRelatedItem } from "../../actions/GetOneRelatedItem";
-import { updateFavItems } from "../../actions/FavoriteItems";
+import { fetchOneItem } from "../../actions/category/GetOneItem";
+import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
+import { fetchOneRelatedItem } from "../../actions/related/GetOneRelatedItem";
+import { updateFavItems } from "../../actions/related/FavoriteItems";
 import { UserContext } from "../../context/userContext";
-import { fetchItemsCart } from "../../actions/GetItemsCart";
+import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import CardRating from "../../components/cards/CardRating";

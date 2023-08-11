@@ -27,7 +27,7 @@ import { CartContext } from "../context/cartContext";
 import { useState, useEffect, useContext } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItemsCart } from "../actions/GetItemsCart";
+import { fetchItemsCart } from "../actions/related/GetItemsCart";
 
 
 

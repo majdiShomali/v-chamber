@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllRelatedItems } from "../../actions/GetAllRelatedItems";
-import { updateFavItems } from "../../actions/FavoriteItems";
-import { fetchFavItems } from "../../actions/FavoriteItems";
+import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
+import { updateFavItems } from "../../actions/related/FavoriteItems";
+import { fetchFavItems } from "../../actions/related/FavoriteItems";
 import { UserContext } from "../../context/userContext";
-import { fetchItemsCart } from "../../actions/GetItemsCart";
+import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";

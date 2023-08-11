@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItemsCart } from "../../actions/GetItemsCart";
+import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 
 
 const Payment = () => {

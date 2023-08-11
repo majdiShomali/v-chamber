@@ -2,7 +2,7 @@ import ItemCard from '../../components/cards/ItemCard'
 import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllRelatedItems } from "../../actions/GetAllRelatedItems";
+import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 import { Card } from '@material-tailwind/react';
 import Pagination from "@mui/material/Pagination";
 import CompanyInput from "../providerFiles/productsAdd/CompanyInput";

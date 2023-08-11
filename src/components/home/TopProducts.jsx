@@ -2,8 +2,8 @@ import ItemCard from '../../components/cards/ItemCard'
 import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../../actions/GetItems";
-import { fetchAllRelatedItems } from "../../actions/GetAllRelatedItems";
+import { fetchItems } from "../../actions/category/GetItems";
+import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 import { Button, Card } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 

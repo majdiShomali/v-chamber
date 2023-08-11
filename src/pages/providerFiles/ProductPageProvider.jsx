@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneItem } from "../../actions/GetOneItem";
-import { fetchRelatedItem } from "../../actions/GetRelatedItems";
+import { fetchOneItem } from "../../actions/category/GetOneItem";
+import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
 import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import { Link } from "react-router-dom";

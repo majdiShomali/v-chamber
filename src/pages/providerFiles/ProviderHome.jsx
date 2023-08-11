@@ -10,7 +10,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../../actions/GetItems";
+import { fetchItems } from "../../actions/category/GetItems";
 import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
 import axios from "axios";
 

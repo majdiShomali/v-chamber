@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../actions/GetItems";
+import { fetchItems } from "../actions/category/GetItems";
 import { useEffect } from 'react'
 const Categories = () => {
 

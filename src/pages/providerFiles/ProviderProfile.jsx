@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import ProviderEditProfile from "./ProviderEditProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProviderItems } from "../../actions/GetProviderItems";
+import { fetchProviderItems } from "../../actions/category/GetProviderItems";
 import ItemCard from "../../components/cards/ItemCard"
 import ItemCardProvider from "../../components/cards/ItemCardProvider";
 import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
