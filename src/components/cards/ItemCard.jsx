@@ -11,28 +11,29 @@ import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";
 const ItemCard = ({Items}) => {
 
-  const ApiUrl = process.env.REACT_APP_API_URL;
-  const ReactUrl = process.env.REACT_APP_API_REACT_URL;
+  // const ApiUrl = process.env.REACT_APP_API_URL;
+  // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
-  const { user, setUser } = useContext(UserContext);
-const [filterItems,setFilterItems]=useState([])
+  const { user } = useContext(UserContext);
+// const [filterItems,setFilterItems]=useState([])
+
 const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
   const {
-    loading: isLoading,
+    // loading: isLoading,
     data: itemsData,
-    error: fetchError,
+    // error: fetchError,
   } = useSelector((state) => state.fetchAllRelatedItems);
-  const {
-    loading: isFavLoading,
-    data: itemsFavData,
-    error: fetchFavError,
-  } = useSelector((state) => state.FavoriteItems);
-  const {
-    loading: isCartLoading,
-    data: itemsCartData,
-    error: fetchCartError,
-  } = useSelector((state) => state.fetchItemsCart);
+  // const {
+  //   loading: isFavLoading,
+  //   data: itemsFavData,
+  //   error: fetchFavError,
+  // } = useSelector((state) => state.FavoriteItems);
+  // const {
+  //   loading: isCartLoading,
+  //   data: itemsCartData,
+  //   error: fetchCartError,
+  // } = useSelector((state) => state.fetchItemsCart);
 
 
   const dispatch = useDispatch();
@@ -42,10 +43,10 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
     if(user){
       dispatch(fetchFavItems(user._id));
     }
-  }, [dispatch]);
+  }, [dispatch,user]);
 
   useEffect(() => {
-  setFilterItems(itemsData)
+  // setFilterItems(itemsData)
   
   }, [itemsData]);
   useEffect(() => {
@@ -54,7 +55,7 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
       dispatch(fetchItemsCart(JSON.parse(storedItems)));
       setItemsAllIdsInCart(JSON.parse(storedItems))
     }
-  }, []);
+  }, [dispatch]);
 
   const handleAddToCart = (card) => {
     const storedItems = localStorage.getItem("items")   ? JSON.parse(localStorage.getItem("items"))   :   [];                                          
