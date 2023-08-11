@@ -18,6 +18,7 @@ import ForgetPassword from "./pages/registration/ForgetPassword"
 import Payment from "./pages/user/Payment";
 import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
+import AllCategories from "./pages/user/AllCategories";
 //---------------------provider-------------------------//
 import ProviderHome from "./pages/providerFiles/ProviderHome";
 import ProviderProfile from "./pages/providerFiles/ProviderProfile";
@@ -68,6 +69,7 @@ function App() {
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/Signup/:type" element={<SignUp />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
+          <Route path="/AllCategories" element={<AllCategories />} />
           <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} />
           <Route path="/*" element={<NoPage404 />} />
         </Routes>

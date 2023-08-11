@@ -68,7 +68,8 @@ const AddChargeVape = ({item}) => {
         formData.append("color", selectedColor);  
         formData.append("selectedColor", selectedColor);   
         formData.append("chargeVape", selectedChargeVape);
-    
+        formData.append("company", selectedChargeVape);    
+
         axios
           .post(`${ApiUrl}/addRelatedItem`, formData)
           .then(function (response) {

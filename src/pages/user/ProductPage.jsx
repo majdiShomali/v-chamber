@@ -40,10 +40,13 @@ const ProductPage = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (relatedId !== undefined) {
+    if (relatedId !== undefined && relatedId !=="0") {
       dispatch(fetchOneRelatedItem(relatedId));
+    }else if(relatedId !== undefined && relatedId ==="0"){
+      setSelectedProduct(AllRelatedItemData[0])
+      setSelectedImage(AllRelatedItemData[0]?.image)
     }
-  }, [dispatch, relatedId]);
+  }, [dispatch, relatedId,AllRelatedItemData]);
 
 
   const [selectedImage , setSelectedImage]=useState("")

@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoryItems } from "../actions/category/GetCategoryItems";
-import { useEffect, useState } from 'react'
+import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
+import { useEffect } from 'react'
 import { HashLink } from 'react-router-hash-link';
-const Categories = () => {
+const AllCategories = () => {
 
     const navigate = useNavigate();
     const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
-   const [topCategories,setTopCategories]=useState([]) 
+  
     function handleKitchenTypeSelection(id) {
       navigate(`/ProductPage/${id}/0`);
     }
@@ -24,13 +24,8 @@ const Categories = () => {
       dispatch(fetchCategoryItems());
     }, [dispatch]);
   
-    useEffect(() => {
-      setTopCategories(itemsData.slice(-6))
-    }, [itemsData]);
-  
-  
   return (
-    <div className="bg-white mt-3 shadow-lg">
+    <div className="bg-white mt-3 shadow-lg min-h-screen">
     <section id="food">
       <br />
       <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
@@ -39,7 +34,7 @@ const Categories = () => {
 
       <div className="flex flex-wrap items-center justify-center mb-10 mx-20">
         
-        {topCategories?.map((category)=>{
+        {itemsData?.map((category)=>{
        return (
           <div
           onClick={() => handleKitchenTypeSelection(category._id)}
@@ -75,18 +70,9 @@ const Categories = () => {
 
       </div>
     </section>
-    <div className="flex justify-center">
 
-      <HashLink smooth={true} to="/AllCategories#">
-        <Button
-        className=" mb-10 border-solid border-amber-600 border-2 text-amber-600 hover:bg-amber-600 hover:text-[#ffffff]" variant="text">
-         Show all Categories
-        </Button>
-      </HashLink>
-
-    </div>
   </div>
   )
 }
 
-export default Categories
+export default AllCategories

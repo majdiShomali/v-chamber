@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunkMiddleware from 'redux-thunk';
-import fetchItemsReducer from './actions/category/GetItems'
+import fetchCategoryItemsReducer from './actions/category/GetCategoryItems'
 import fetchFavItemsReducer from './actions/related/FavoriteItems'
 import fetchItemsCartReducer from './actions/related/GetItemsCart'
 import fetchOneItemReducer from './actions/category/GetOneItem'
@@ -10,7 +10,7 @@ import fetchAllRelatedItemsReducer from './actions/related/GetAllRelatedItems'
 import fetchOneRelatedItemReducer from './actions/related/GetOneRelatedItem'
 const store = configureStore({
   reducer: {
-     fetchItems:fetchItemsReducer,
+     fetchCategories:fetchCategoryItemsReducer,
      FavoriteItems:fetchFavItemsReducer,
      fetchItemsCart:fetchItemsCartReducer,
      fetchOneItem:fetchOneItemReducer,

@@ -3,15 +3,15 @@ import axios from "axios";
 const ApiUrl= process.env.REACT_APP_API_URL
 
 
-export const fetchItems = createAsyncThunk(
-  "Items/fetchItems",
+export const fetchCategoryItems = createAsyncThunk(
+  "CategoryItems/fetchCategoryItems",
   async () => {
     const response = await axios.get(`${ApiUrl}/allItems`);
     return response.data;
   }
 );
-const fetchItemsSlice = createSlice({
-  name: "Items",
+const fetchCategoryItemsSlice = createSlice({
+  name: "CategoryItems",
   initialState: {
     loading: false,
     data: [],
@@ -20,21 +20,21 @@ const fetchItemsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchItems.pending, (state) => {
+      .addCase(fetchCategoryItems.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchItems.fulfilled, (state, action) => {
+      .addCase(fetchCategoryItems.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchItems.rejected, (state, action) => {
+      .addCase(fetchCategoryItems.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
 
   },
 });
-export default fetchItemsSlice.reducer;
+export default fetchCategoryItemsSlice.reducer;
 
 

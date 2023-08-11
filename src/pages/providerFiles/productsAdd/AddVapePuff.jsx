@@ -8,6 +8,7 @@ import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
+import CompanyInput from "./CompanyInput";
 
 const AddVapePuff = ({item}) => {
     const ApiUrl = process.env.REACT_APP_API_URL;
@@ -52,6 +53,11 @@ const AddVapePuff = ({item}) => {
         setSelectedVapePuff(event.target.value);
       };
     
+      const [selectedCompany, setSelectedValue] = useState('');
+
+      const handleSelectChange = (value) => {
+        setSelectedValue(value);
+      };
 
   
       const handleSubmit = async (e) => {
@@ -69,7 +75,8 @@ const AddVapePuff = ({item}) => {
         formData.append("color", selectedColor);  
         formData.append("selectedColor", selectedColor);   
         formData.append("vapePuff", selectedVapePuff);
-    
+        formData.append("company", selectedCompany);    
+
         axios
           .post(`${ApiUrl}/addRelatedItem`, formData)
           .then(function (response) {
@@ -102,6 +109,8 @@ const AddVapePuff = ({item}) => {
         <div className=" flex flex-col w-full h-full ">
          
     <div className="flex flex-col">
+
+    <div className="flex items-center my-5 mx-5 gap-5">
     <Input
       className=" "
       type="text"
@@ -110,7 +119,8 @@ const AddVapePuff = ({item}) => {
       required
       onChange={(e) => setName(e.target.value)}
     />
-
+<CompanyInput onSelectChange={handleSelectChange}/>
+</div>
     <div className="flex items-center my-5 mx-5 gap-5">
   
         <Input

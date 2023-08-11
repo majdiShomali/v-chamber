@@ -2,7 +2,7 @@ import ItemCard from '../../components/cards/ItemCard'
 import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../../actions/category/GetItems";
+import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 import { Button, Card } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 
@@ -13,10 +13,10 @@ const SalesProducts = () => {
       loading: isLoading,
       data: itemsData,
       error: fetchError,
-    } = useSelector((state) => state.fetchItems);
+    } = useSelector((state) => state.fetchCategories);
   
     useEffect(() => {
-      dispatch(fetchItems());
+      dispatch(fetchCategoryItems());
     }, [dispatch]);
   
     useEffect(() => {

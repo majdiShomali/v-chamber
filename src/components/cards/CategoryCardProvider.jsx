@@ -27,6 +27,7 @@ const CategoryCardProvider = ({itemsData}) => {
         {itemsData?.map((category)=>{
        return (
           <div
+          key={category._id}
           onClick={() => handleKitchenTypeSelection(category._id)}
           className="w-full sm:w-1/2 md:w-1/3 p-4 hover:scale-110 hover:cursor-pointer">
           <div className="relative rounded-lg overflow-hidden">

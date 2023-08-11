@@ -16,7 +16,7 @@ const CategoryInput = ({ onSelectChange }) => {
     onChange={handleCategoryChange}
   >
     <option value="">default</option>
-    <option value="vapePuff">vapePuff</option>
+    <option value="vape-puff">vapePuff</option>
     <option value="juice">juice</option>
 
   </select>

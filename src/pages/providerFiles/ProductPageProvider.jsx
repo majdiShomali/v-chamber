@@ -132,7 +132,7 @@ const ProductPageProvider = () => {
               </div>
               <div className="md:flex-1 px-4">
 
-             {ItemData?.category === "vapePuff" ? 
+             {ItemData?.category === "vape-puff" ? 
              
              <AddVapePuff
              item={ItemData}

@@ -2,10 +2,11 @@ import ItemCard from '../../components/cards/ItemCard'
 import React from "react";
 import { useState,useEffect,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../../actions/category/GetItems";
+import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 import { Button, Card } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const TopProducts = () => {
 
@@ -15,7 +16,7 @@ const TopProducts = () => {
       loading: isLoading,
       data: itemsData,
       error: fetchError,
-    } = useSelector((state) => state.fetchItems);
+    } = useSelector((state) => state.fetchCategories);
   
     const {
       loading: isAllRelatedLoading,
@@ -24,7 +25,7 @@ const TopProducts = () => {
     } = useSelector((state) => state.fetchAllRelatedItems);
   
     useEffect(() => {
-      dispatch(fetchItems());
+      dispatch(fetchCategoryItems());
       dispatch(fetchAllRelatedItems());
     }, [dispatch]);
   
@@ -59,7 +60,8 @@ const TopProducts = () => {
     />
 
     <div className='w-full flex items-center justify-center'>
-      <Link to="/Store">
+      <HashLink smooth={true} to="/Store#">
+
             <Button
               className=" mt-10 border-solid border-purple-500 border-2  bg-purple-500 hover:bg-purple-500 hover:scale-105 text-[#ffffff]"
               variant="text"
@@ -67,7 +69,7 @@ const TopProducts = () => {
               
               All Products
             </Button>
-            </Link>
+            </HashLink>
     </div>
     </div>
     </>
