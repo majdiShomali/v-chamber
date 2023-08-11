@@ -1,12 +1,10 @@
-import React, { useState,useContext,useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
-// import {AllContext} from "../AllDataContext"
 // import TotalRating from "./TotalRating";
 import Swal from "sweetalert2";
-// import {RecipeContext} from "../RecipeContext";
 
-import { useParams } from "react-router-dom";
-import { UserContext } from "../../context/userContext";
+// import { useParams } from "react-router-dom";
+// import { UserContext } from "../../context/userContext";
 
 
 const CardRating = ({Item,CardId,UserId}) => {
@@ -26,7 +24,7 @@ const CardRating = ({Item,CardId,UserId}) => {
     }else(
       setRatingStatus(false)
     )
-  },[filledStars,Item])
+  },[filledStars,Item,UserId])
   
 
   
@@ -54,7 +52,8 @@ const CardRating = ({Item,CardId,UserId}) => {
           rating:sum/avg
         };
 
-      const NupdatedRecipe=   await axios.put(`http://localhost:5000/api/updateProductRate/${CardId}`, updatedProduct);
+      // const NupdatedRecipe= 
+        await axios.put(`http://localhost:5000/api/updateProductRate/${CardId}`, updatedProduct);
         showSuccessAlert(newrate)
         setRatingStatus(true)
       } catch (error) {

@@ -8,9 +8,8 @@ const ProductPageSkeleton = () => {
             <div className="w-full px-4">
               <ul className="flex flex-wrap items-center mb-5">
                 <li className="mr-6">
-                  <a
+                  <div
                     className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
-                    href="#"
                   >
                     <span>Home</span>
                     <svg
@@ -26,12 +25,11 @@ const ProductPageSkeleton = () => {
                         fill="currentColor"
                       />
                     </svg>
-                  </a>
+                  </div>
                 </li>
                 <li className="mr-6">
-                  <a
+                  <div
                     className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
-                    href="#"
                   >
                     <span>Store</span>
                     <svg
@@ -47,15 +45,10 @@ const ProductPageSkeleton = () => {
                         fill="currentColor"
                       />
                     </svg>
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"
-                    
-                  >
-                    
-                  </a>
+          
                 </li>
               </ul>
             </div>
@@ -93,7 +86,7 @@ const ProductPageSkeleton = () => {
               </div>
             </div>
             <div className="md:flex-1 px-4">
-              <h2 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></h2>
+              <h2 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4">...</h2>
               <p className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[600px] mb-2.5">
                 
               </p>
