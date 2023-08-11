@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 import { Button, Card } from '@material-tailwind/react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 const TopProducts = () => {
@@ -13,15 +13,15 @@ const TopProducts = () => {
     const dispatch = useDispatch();
     const  [topProducts,setTopProducts] = useState([]);
     const {
-      loading: isLoading,
+      // loading: isLoading,
       data: itemsData,
-      error: fetchError,
+      // error: fetchError,
     } = useSelector((state) => state.fetchCategories);
   
     const {
-      loading: isAllRelatedLoading,
+      // loading: isAllRelatedLoading,
       data: AllRelatedItemsData,
-      error: fetchAllRelatedError,
+      // error: fetchAllRelatedError,
     } = useSelector((state) => state.fetchAllRelatedItems);
   
     useEffect(() => {
@@ -30,7 +30,7 @@ const TopProducts = () => {
     }, [dispatch]);
   
     useEffect(() => {
-      const TopItems=itemsData.slice(-4);
+      // const TopItems=itemsData.slice(-4);
       const TopItemsRelated=AllRelatedItemsData.slice(-4);
       setTopProducts(TopItemsRelated)
       console.log(AllRelatedItemsData)
