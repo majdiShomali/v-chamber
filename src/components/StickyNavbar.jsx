@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Navbar,
-  MobileNav,
+  // MobileNav,
   Typography,
   Button,
   IconButton,
@@ -23,8 +23,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiCartOutline } from "@mdi/js";
 import { mdiCartArrowDown } from "@mdi/js";
-import { CartContext } from "../context/cartContext";
-import { useState, useEffect, useContext } from "react";
+// import { CartContext } from "../context/cartContext";
+import { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../actions/related/GetItemsCart";
@@ -33,15 +33,15 @@ import { fetchItemsCart } from "../actions/related/GetItemsCart";
 
 export default function StickyNavbar() {
 
-  const ApiUrl = process.env.REACT_APP_API_URL;
+  // const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
-  const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
+  // const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const dispatch = useDispatch();
   const {
-    loading: isCartLoading,
+    // loading: isCartLoading,
     data: itemsCartData,
-    error: fetchCartError,
+    // error: fetchCartError,
   } = useSelector((state) => state.fetchItemsCart);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [items, setItems] = useState([]);
   const [itemsStat, setItemsStat] = useState(false);
-  const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
+  // const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
   useEffect(() => {
     setItems(itemsCartData)
     },[itemsCartData] )
@@ -150,11 +150,11 @@ export default function StickyNavbar() {
     const navigate = useNavigate();
     const closeMenu = (label) => {
       setIsMenuOpen(false);
-      if (label == "Sign Out") {
+      if (label === "Sign Out") {
         localStorage.removeItem("auth");
         window.location.href = `${ReactUrl}/`;
         console.log(label);
-      } else if (label == "Profile") {
+      } else if (label === "Profile") {
         navigate("/UserProfile");
       }
     };

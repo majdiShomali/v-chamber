@@ -4,28 +4,29 @@ import { UserContext } from "./context/userContext";
 
 //--------------------none--------------------------//
 import NoPage404 from "./pages/NoPage404";
-import AboutUs from "./pages/AboutUs";
-import ContactUs from "./pages/ContactUs";
+// import AboutUs from "./pages/AboutUs";
+// import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 //---------------------user-------------------------//
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import StickyNavbar from "./components/StickyNavbar";
-import Login from "./pages/registration/Login";
-import SignUp from "./pages/registration/SignUp";
-import UserProfile from "./pages/user/UserProfile";
-import CartPage from "./pages/user/CartPage";
-import ForgetPassword from "./pages/registration/ForgetPassword"
-import Payment from "./pages/user/Payment";
-import ItemsStore from "./pages/user/ItemsStore";
-import ProductPage from "./pages/user/ProductPage";
-import AllCategories from "./pages/user/AllCategories";
+// import Login from "./pages/registration/Login";
+// import SignUp from "./pages/registration/SignUp";
+// import UserProfile from "./pages/user/UserProfile";
+// import CartPage from "./pages/user/CartPage";
+// import ForgetPassword from "./pages/registration/ForgetPassword"
+// import Payment from "./pages/user/Payment";
+// import ItemsStore from "./pages/user/ItemsStore";
+// import ProductPage from "./pages/user/ProductPage";
+// import AllCategories from "./pages/user/AllCategories";
 //---------------------provider-------------------------//
-import ProviderHome from "./pages/providerFiles/ProviderHome";
-import ProviderProfile from "./pages/providerFiles/ProviderProfile";
-import ProviderHomeTest from "./pages/providerFiles/ProviderHomeTest";
 
-import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
-import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
+// import ProviderHome from "./pages/providerFiles/ProviderHome";
+// import ProviderProfile from "./pages/providerFiles/ProviderProfile";
+// import ProviderHomeTest from "./pages/providerFiles/ProviderHomeTest";
+
+// import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
+// import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
 
 function App() {
   const [hideRouterUser, setHideRouterUser] = useState(false);
@@ -34,7 +35,8 @@ function App() {
 
   const [render, setRender] = useState(false);
 
-  const { user, setUser } = useContext(UserContext);
+  // const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (user) {
@@ -58,7 +60,7 @@ function App() {
       <Router>
         <StickyNavbar />
         <Routes>
-          <Route index element={<Home />} />
+          {/* <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/ProductPage/:id/:relatedId" element={<ProductPage />} />
           <Route path="/UserProfile" element={<UserProfile />} />
@@ -70,8 +72,8 @@ function App() {
           <Route path="/Signup/:type" element={<SignUp />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/AllCategories" element={<AllCategories />} />
-          <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} />
-          <Route path="/*" element={<NoPage404 />} />
+          <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}
+          <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
         <Footer/>
       </Router>
@@ -82,13 +84,13 @@ function App() {
       <Router>
         <StickyNavbar />
         <Routes>
-          <Route index element={<ProviderHome />} />
+          {/* <Route index element={<ProviderHome />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/UserProfile" element={<ProviderProfile />} />
           <Route path="/ProviderHomeTest" element={<ProviderHomeTest />} />
           <Route path="/ProductPageProvider/:id" element={<ProductPageProvider />} />
-          <Route path="/*" element={<NoPage404 />} />
+          <Route path="/*" element={<NoPage404 />} /> */}
         </Routes>
       </Router>
     );
@@ -98,10 +100,10 @@ function App() {
       <Router>
         <StickyNavbar />
         <Routes>
-          <Route index element={<Home />} />
+          {/* <Route index element={<Home />} />
           <Route path="/*" element={<NoPage404 />} />
           <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/ContactUs" element={<ContactUs />} />
+          <Route path="/ContactUs" element={<ContactUs />} /> */}
         </Routes>
       </Router>
     );
