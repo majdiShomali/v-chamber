@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 //---------------------user-------------------------//
 // import Home from "./pages/Home";
 import StickyNavbar from "./components/StickyNavbar";
-// import Login from "./pages/registration/Login";
+import Login from "./pages/registration/Login";
 // import SignUp from "./pages/registration/SignUp";
 // import UserProfile from "./pages/user/UserProfile";
 // import CartPage from "./pages/user/CartPage";
@@ -60,8 +60,9 @@ function App() {
       <Router>
         <StickyNavbar />
         <Routes>
-          {/* <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          {/* <Route path="/Signup/:type" element={<SignUp />} /> */}
+          {/* <Route index element={<Home />} />
           <Route path="/ProductPage/:id/:relatedId" element={<ProductPage />} />
           <Route path="/UserProfile" element={<UserProfile />} />
           <Route path="/CartPage" element={<CartPage />} />
@@ -69,7 +70,6 @@ function App() {
           <Route path="/Payment" element={<Payment />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
-          <Route path="/Signup/:type" element={<SignUp />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/AllCategories" element={<AllCategories />} />
           <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}

@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LogIn() {
 
@@ -11,50 +11,47 @@ const ReactUrl= process.env.REACT_APP_API_REACT_URL
   const [emailp, setemailp] = useState("");
   const [password, setpassword] = useState("");
   const [passwordp, setpasswordp] = useState("");
-  const [userGoogle, setUserGoogle] = useState([]);
-  const [errorG, setErrorG] = useState("");
+  // const [userGoogle, setUserGoogle] = useState([]);
+  // const [errorG, setErrorG] = useState("");
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUserGoogle(codeResponse),
+    onSuccess: (codeResponse) => {
+      
+      // setUserGoogle(codeResponse)
+    
+      getGoogleLogin(codeResponse)
+    },
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  useEffect(() => {
 
 
-const getGoogleLogin = async ()=>{
+  const getGoogleLogin = async (userGoogle)=>{
 
-  if (userGoogle.length !== 0) {
-    try {
-      const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`, {
-        headers: {
-          Authorization: `Bearer ${userGoogle.access_token}`,
-          Accept: "application/json",
-        },
-      });
-  
+    if (userGoogle.length !== 0) {
       try {
-        const newUserResponse = await axios.post(`${ApiUrl}/newUserGoogle`, response.data);
-        localStorage.setItem("auth", newUserResponse.data.token);
-        window.location.href = `${ReactUrl}/`;
+        const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`, {
+          headers: {
+            Authorization: `Bearer ${userGoogle.access_token}`,
+            Accept: "application/json",
+          },
+        });
+    
+        try {
+          const newUserResponse = await axios.post(`${ApiUrl}/newUserGoogle`, response.data);
+          localStorage.setItem("auth", newUserResponse.data.token);
+          window.location.href = `${ReactUrl}/`;
+        } catch (err) {
+          console.log(err);
+          setpasswordp(err.response.data.message);
+        }
       } catch (err) {
-        console.log(err);
-        setpasswordp(err.response.data.message);
+        console.log(err.message);
       }
-    } catch (err) {
-      console.log(err.message);
     }
+    
+    
   }
-  
-  
-}
-
-
-
-getGoogleLogin()
-
-  
-  }, [userGoogle]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -92,6 +89,7 @@ getGoogleLogin()
             <img
               src="https://www.drupal.org/files/project-images/reg_confirm_email_with_button_0.png"
               className="w-32 mx-auto"
+              alt="loginimage"
             />
           </div>
           <div className="mt-12 flex flex-col items-center">
@@ -190,7 +188,9 @@ getGoogleLogin()
           </div>
         </div>
         <div className="flex-1 bg-indigo-100 text-center hidden lg:flex imageSign bg-cover bg-center bg-no-repeat ">
-          <img src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg" />
+          <img src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg" 
+          alt="loginimage"
+          />
         </div>
       </div>
     </div>
