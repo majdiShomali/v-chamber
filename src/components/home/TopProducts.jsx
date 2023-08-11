@@ -1,10 +1,10 @@
 import ItemCard from '../../components/cards/ItemCard'
 import React from "react";
-import { useState,useEffect,useContext } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
-import { Button, Card } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
 // import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
@@ -12,11 +12,12 @@ const TopProducts = () => {
 
     const dispatch = useDispatch();
     const  [topProducts,setTopProducts] = useState([]);
-    const {
+    
+    // const {
       // loading: isLoading,
-      data: itemsData,
+      // data: itemsData,
       // error: fetchError,
-    } = useSelector((state) => state.fetchCategories);
+    // } = useSelector((state) => state.fetchCategories);
   
     const {
       // loading: isAllRelatedLoading,
