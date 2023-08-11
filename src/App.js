@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 // import Home from "./pages/Home";
 import StickyNavbar from "./components/StickyNavbar";
 import Login from "./pages/registration/Login";
-// import SignUp from "./pages/registration/SignUp";
+import SignUp from "./pages/registration/SignUp";
 // import UserProfile from "./pages/user/UserProfile";
 // import CartPage from "./pages/user/CartPage";
 // import ForgetPassword from "./pages/registration/ForgetPassword"
@@ -61,7 +61,7 @@ function App() {
         <StickyNavbar />
         <Routes>
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/Signup/:type" element={<SignUp />} /> */}
+          <Route path="/Signup/:type" element={<SignUp />} />
           {/* <Route index element={<Home />} />
           <Route path="/ProductPage/:id/:relatedId" element={<ProductPage />} />
           <Route path="/UserProfile" element={<UserProfile />} />
