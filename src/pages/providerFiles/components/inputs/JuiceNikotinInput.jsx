@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchJuiceNikotin} from "../../../actions/juice/GetJuiceNikotin"
+import {fetchJuiceNikotin} from "../../../../actions/juice/GetJuiceNikotin"
 const JuiceNikotinInput = ({onSelectChange}) => {
 
     const dispatch = useDispatch()

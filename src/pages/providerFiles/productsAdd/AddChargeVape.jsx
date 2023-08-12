@@ -8,7 +8,7 @@ import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch } from "react-redux";
 import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
-import CompanyInput from "./CompanyInput";
+import CompanyInput from "../components/inputs/CompanyInput";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 

@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 // import { Card } from "@material-tailwind/react";
 import Pagination from "@mui/material/Pagination";
-import CompanyInput from "../providerFiles/productsAdd/CompanyInput";
-import CategoryInput from "../providerFiles/productsAdd/CategoryInput";
-import SaleInput from "../providerFiles/productsAdd/SaleInput";
+import CompanyInput from "../providerFiles/components/inputs/CompanyInput";
+import CategoryInput from "../providerFiles/components/inputs/CategoryInput";
+import SaleInput from "../providerFiles/components/inputs/SaleInput";
 const ItemsStore = () => {
   const dispatch = useDispatch();
 
@@ -63,7 +63,7 @@ const ItemsStore = () => {
 
   
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 12;
 
   totalItemsMeals = filteredArray?.length;
 

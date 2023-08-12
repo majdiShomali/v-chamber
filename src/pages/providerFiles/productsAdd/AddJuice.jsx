@@ -8,11 +8,11 @@ import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch } from "react-redux";
 import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
-import CompanyInput from "./CompanyInput";
+import CompanyInput from "../components/inputs/CompanyInput";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
-import JuiceSizeInput from "./JuiceSizeInput";
-import JuiceNikotinInput from "./JuiceNikotinInput";
+import JuiceSizeInput from "../components/inputs/JuiceSizeInput";
+import JuiceNikotinInput from "../components/inputs/JuiceNikotinInput";
 const AddJuice = ({ item }) => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const { user } = useContext(UserContext);

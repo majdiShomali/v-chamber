@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchJuiceSize} from "../../../actions/juice/GetJuiceSize"
+import {fetchJuiceSize} from "../../../../actions/juice/GetJuiceSize"
 const JuiceSizeInput = ({onSelectChange}) => {
 
     const dispatch = useDispatch()
