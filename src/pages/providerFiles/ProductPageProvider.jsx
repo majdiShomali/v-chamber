@@ -13,7 +13,7 @@ import AddVapePuff from "./productsAdd/AddVapePuff";
 import AddChargeVape from "./productsAdd/AddChargeVape";
 import AddJuice from "./productsAdd/AddJuice";
 
-import CategoryCard from "../../components/cards/CategoryCard";
+// import CategoryCard from "../../components/cards/CategoryCard";
 import CategoryEditSection from "./components/CategoryEditSection";
 const ProductPageProvider = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
