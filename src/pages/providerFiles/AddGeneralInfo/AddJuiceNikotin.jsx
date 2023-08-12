@@ -10,10 +10,10 @@ import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 
-import { fetchJuiceSize } from "../../../actions/juice/GetJuiceSize";
+import { fetchJuiceNikotin } from "../../../actions/juice/GetJuiceNikotin";
 import { useDispatch, useSelector } from "react-redux";
 
-const AddJuiceSize = ({item}) => {
+const AddJuiceNikotin = ({item}) => {
 
     const ApiUrl = process.env.REACT_APP_API_URL;
     const { user } = useContext(UserContext);
@@ -30,15 +30,16 @@ const AddJuiceSize = ({item}) => {
     };
     const dispatch = useDispatch();
   
-    const { data: allJuiceSize } = useSelector(
-      (state) => state.fetchJuiceSize
+    const { data: allJuiceNikotin } = useSelector(
+      (state) => state.fetchJuiceNikotin
     );
-  console.log(allJuiceSize);
+    console.log(allJuiceNikotin)
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   
-    const [size, setSize] = useState("");
+    const [nikotin, setNikotin] = useState("");
   
 
     const handleSubmit = async (e) => {
@@ -46,17 +47,17 @@ const AddJuiceSize = ({item}) => {
   
     
       const data ={
-        size:size,
+        nikotin:nikotin,
         category:item?.category,
         categoryId:item?._id,
         ProviderId:user?._id,
 
       }
       axios
-        .post(`${ApiUrl}/addJuiceSize`, data)
+        .post(`${ApiUrl}/addJuiceNikotin`, data)
         .then(function () {
           dispatch(fetchRelatedItem(item._id));
-          dispatch(fetchJuiceSize());
+          dispatch(fetchJuiceNikotin());
           handleClose();
         })
         .catch(function (error) {
@@ -74,7 +75,7 @@ const AddJuiceSize = ({item}) => {
         path={mdiPlus}
         size={1}
       />
-      <p>Add Juice Size</p>
+      <p>Add Juice Nikotin</p>
     </div>
     <Modal
       open={open}
@@ -89,10 +90,10 @@ const AddJuiceSize = ({item}) => {
               <Input
                 className=" "
                 type="text"
-                label="size"
-                value={size}
+                label="nikotin"
+                value={nikotin}
                 required
-                onChange={(e) => setSize(e.target.value)}
+                onChange={(e) => setNikotin(e.target.value)}
               />
             </div>
 
@@ -119,4 +120,4 @@ const AddJuiceSize = ({item}) => {
   )
 }
 
-export default AddJuiceSize
+export default AddJuiceNikotin

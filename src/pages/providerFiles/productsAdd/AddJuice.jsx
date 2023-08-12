@@ -12,6 +12,7 @@ import CompanyInput from "./CompanyInput";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 import JuiceSizeInput from "./JuiceSizeInput";
+import JuiceNikotinInput from "./JuiceNikotinInput";
 const AddJuice = ({ item }) => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const { user } = useContext(UserContext);
@@ -63,7 +64,11 @@ const AddJuice = ({ item }) => {
 
   const handleSelectSizeChange = (value) => {
     setSelectedSizeValue(value);
-    console.log(value);
+  };
+  const [selectedNikotin, setSelectedNikotinValue] = useState("");
+
+  const handleSelectNikotinChange = (value) => {
+    setSelectedNikotinValue(value);
   };
 
   const handleSubmit = async (e) => {
@@ -84,6 +89,7 @@ const AddJuice = ({ item }) => {
     formData.append("juice", selectedJuice);
     formData.append("company", selectedCompany);
     formData.append("size", selectedSize);
+    formData.append("nikotin", selectedNikotin);
     axios
       .post(`${ApiUrl}/addRelatedItem`, formData)
       .then(function () {
@@ -116,8 +122,14 @@ const AddJuice = ({ item }) => {
         <Box sx={style}>
           <div className=" flex flex-col w-full h-full ">
             <div className="flex flex-col">
-              
+
+            <div className="flex items-center my-5 mx-5 gap-5">
+
               <JuiceSizeInput onSelectChange={handleSelectSizeChange}/>
+              <JuiceNikotinInput onSelectChange={handleSelectNikotinChange}/>
+              </div>
+
+
               <div className="flex items-center my-5 mx-5 gap-5">
                 <Input
                   className=" "
@@ -135,7 +147,7 @@ const AddJuice = ({ item }) => {
                   className=" "
                   size="all"
                   type="text"
-                  label="Juice"
+                  label="Juice Flavor"
                   value={selectedJuice}
                   onChange={handleJuiceChange}
                   required

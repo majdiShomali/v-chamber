@@ -10,28 +10,28 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";
 const ItemCardProvider = ({ Items }) => {
-  const ApiUrl = process.env.REACT_APP_API_URL;
-  const ReactUrl = process.env.REACT_APP_API_REACT_URL;
+  // const ApiUrl = process.env.REACT_APP_API_URL;
+  // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
-  const { user, setUser } = useContext(UserContext);
-  const [filterItems, setFilterItems] = useState([]);
+  const { user } = useContext(UserContext);
+  // const [filterItems, setFilterItems] = useState([]);
   const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
   const {
-    loading: isLoading,
+    // loading: isLoading,
     data: itemsData,
-    error: fetchError,
+    // error: fetchError,
   } = useSelector((state) => state.fetchCategories);
-  const {
-    loading: isFavLoading,
-    data: itemsFavData,
-    error: fetchFavError,
-  } = useSelector((state) => state.FavoriteItems);
-  const {
-    loading: isCartLoading,
-    data: itemsCartData,
-    error: fetchCartError,
-  } = useSelector((state) => state.fetchItemsCart);
+  // const {
+  //   loading: isFavLoading,
+  //   data: itemsFavData,
+  //   error: fetchFavError,
+  // } = useSelector((state) => state.FavoriteItems);
+  // const {
+  //   loading: isCartLoading,
+  //   data: itemsCartData,
+  //   error: fetchCartError,
+  // } = useSelector((state) => state.fetchItemsCart);
 
   const dispatch = useDispatch();
 
@@ -42,9 +42,9 @@ const ItemCardProvider = ({ Items }) => {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    setFilterItems(itemsData);
-  }, [itemsData]);
+  // useEffect(() => {
+  //   setFilterItems(itemsData);
+  // }, [itemsData]);
   useEffect(() => {
     const storedItems = localStorage.getItem("items");
     if (storedItems) {
