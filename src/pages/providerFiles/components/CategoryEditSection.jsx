@@ -6,13 +6,15 @@ import AddCompany from "../AddGeneralInfo/AddCompany";
 import { Card } from "@mui/material";
 import { fetchJuiceSize } from "../../../actions/juice/GetJuiceSize";
 import { fetchJuiceNikotin } from "../../../actions/juice/GetJuiceNikotin";
+import { useParams } from "react-router-dom";
 
 import AddJuiceSize from "../AddGeneralInfo/AddJuiceSize";
 import AddJuiceNikotin from "../AddGeneralInfo/AddJuiceNikotin";
 const CategoryEditSection = ({ ItemData }) => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const { data: allCompaniesByCategory } = useSelector(
+  const { data: allCompaniesByCategory  } = useSelector(
     (state) => state.fetchCompaniesByCategory
   );
   const { data: allJuiceSize } = useSelector((state) => state.fetchJuiceSize);
@@ -22,13 +24,12 @@ const CategoryEditSection = ({ ItemData }) => {
 
   console.log(allJuiceNikotin);
   useEffect(() => {
-    if (ItemData._id) {
-      dispatch(fetchCompaniesByCategory(ItemData._id));
-      dispatch(fetchJuiceSize());
-      dispatch(fetchJuiceNikotin());
+    if (id !== undefined) {
+      dispatch(fetchCompaniesByCategory(id));
     }
-  }, [dispatch, ItemData]);
-
+    dispatch(fetchJuiceSize());
+    dispatch(fetchJuiceNikotin());
+  }, [dispatch, id]);
   return (
     <>
       <div className="w-full flex items-center justify-center">
@@ -52,6 +53,8 @@ const CategoryEditSection = ({ ItemData }) => {
               })}
             </div>
           </div>
+
+          {ItemData?.category === allJuiceSize[0]?.category ? 
           <div className="">
             <AddJuiceSize item={ItemData} />
             <div className="flex flex-wrap gap-3 p-1">
@@ -67,21 +70,40 @@ const CategoryEditSection = ({ ItemData }) => {
               })}
             </div>
           </div>
-          <div className="">
-            <AddJuiceNikotin item={ItemData} />
-            <div className="flex flex-wrap gap-3 p-1">
-              {allJuiceNikotin?.map((juice) => {
-                return (
-                  <Card
-                    className="p-1 cursor-pointer hover:scale-105"
-                    key={juice._id}
-                  >
-                    {juice.nikotin}
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
+          :
+          
+null
+
+
+}
+
+{ItemData?.category === allJuiceNikotin[0]?.category ? 
+
+<div className="">
+<AddJuiceNikotin item={ItemData} />
+<div className="flex flex-wrap gap-3 p-1">
+  {allJuiceNikotin?.map((juice) => {
+    return (
+      <Card
+        className="p-1 cursor-pointer hover:scale-105"
+        key={juice._id}
+      >
+        {juice.nikotin}
+      </Card>
+    );
+  })}
+</div>
+</div>
+
+
+: 
+
+null
+
+
+}
+        
+
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneItem } from "../../actions/category/GetOneItem";
 import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
+import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 // import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import { Link } from "react-router-dom";
@@ -12,7 +13,6 @@ import { Link } from "react-router-dom";
 import AddVapePuff from "./productsAdd/AddVapePuff";
 import AddChargeVape from "./productsAdd/AddChargeVape";
 import AddJuice from "./productsAdd/AddJuice";
-
 // import CategoryCard from "../../components/cards/CategoryCard";
 import CategoryEditSection from "./components/CategoryEditSection";
 const ProductPageProvider = () => {
@@ -29,10 +29,15 @@ const ProductPageProvider = () => {
   } = useSelector((state) => state.fetchRelatedItems);
 
   const {
-    // loading: isItemLoading,
+    loading: isItemLoading,
     data: ItemData,
     // error: fetchItemError,
   } = useSelector((state) => state.fetchOneItem);
+  const {
+    loading: isCategoriesLoading,
+    data: CategoriesData,
+    // error: fetchItemError,
+  } = useSelector((state) => state.fetchCategories);
 
   const dispatch = useDispatch();
 
@@ -40,6 +45,7 @@ const ProductPageProvider = () => {
     if (id !== undefined) {
       dispatch(fetchRelatedItem(id));
       dispatch(fetchOneItem(id));
+      dispatch(fetchCategoryItems());
     }
   }, [dispatch, id]);
 
@@ -60,26 +66,28 @@ const ProductPageProvider = () => {
   return (
     <>
 
-    <div className="bg-gray-100 py-8 min-h-[90vh] w-full ">
-
- 
-<CategoryEditSection
-ItemData={ItemData}
-/>
-
-
-
-
-    </div>
 
 
 
 
 
 
-      {isRelatedItemLoading ? (
-        <ProductPageSkeleton />
+
+      {isRelatedItemLoading && isCategoriesLoading && isItemLoading ? (
+        // <ProductPageSkeleton />
+        <>
+        loading...
+        </>
       ) : (
+<> 
+        <div className="bg-gray-100 py-8 min-h-[90vh] w-full ">
+        <CategoryEditSection
+        ItemData={ItemData}
+        />
+        </div>
+
+
+
         <div className="bg-gray-100 py-8 min-h-[90vh] w-full flex items-center justify-center flex-col lg:flex-row">
       
           <div className="max-w-6xl  px-4 sm:px-6 lg:px-8">
@@ -152,11 +160,11 @@ ItemData={ItemData}
                 </div>
               </div>
               <div className="md:flex-1 px-4">
-                {ItemData?.category === "vape-puff" ? (
+                {ItemData?.category === CategoriesData[0]?.category ? (
                   <AddVapePuff item={ItemData} />
-                ) : ItemData?.category === "chargeVape" ? (
+                ) : ItemData?.category === CategoriesData[1]?.category? (
                   <AddChargeVape item={ItemData} />
-                ) : ItemData?.category === "juice" ? (
+                ) : ItemData?.category === CategoriesData[2]?.category ? (
                   <AddJuice item={ItemData} />
                 ) : null}
 
@@ -269,6 +277,7 @@ ItemData={ItemData}
             </div>
           </div>
         </div>
+        </>
       )}
 
 
