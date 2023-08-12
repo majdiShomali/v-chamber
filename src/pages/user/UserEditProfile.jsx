@@ -21,6 +21,7 @@ const style = {
 };
 
 function EditProfile() {
+  const ApiUrl= process.env.REACT_APP_API_URL
 
   const { user } = useContext(UserContext);
   const {userUpdateRefresh ,setUpdateRefresh} = useContext(UserContext);
@@ -55,7 +56,7 @@ function EditProfile() {
     formData.append('image',productImage)
 
     axios
-      .put(`http://localhost:5000/api/users/${user._id}`,
+      .put(`${ApiUrl}/users/${user._id}`,
       formData
       )
       .then(function (response) {

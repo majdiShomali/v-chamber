@@ -9,8 +9,12 @@ import Icon from "@mdi/react";
 import { useDispatch } from "react-redux";
 import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import CompanyInput from "./CompanyInput";
+import { UserContext } from "../../../context/userContext";
+import { useContext } from "react";
+
 const AddChargeVape = ({item}) => {
     const ApiUrl = process.env.REACT_APP_API_URL;
+    const { user } = useContext(UserContext);
 
     const style = {
         position: "absolute",
@@ -60,6 +64,7 @@ const AddChargeVape = ({item}) => {
         formData.append("Name", name);
         formData.append("category", item?.category);
         formData.append("categoryId", item?._id);
+        formData.append("ProviderId", user?._id);
         formData.append("image", productImage);
         formData.append("price", price);
         formData.append("salePrice", salePrice);

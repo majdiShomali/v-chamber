@@ -12,14 +12,15 @@ import { Link } from "react-router-dom";
 import AddVapePuff from "./productsAdd/AddVapePuff";
 import AddChargeVape from "./productsAdd/AddChargeVape";
 import AddJuice from "./productsAdd/AddJuice";
+
+import CategoryCard from "../../components/cards/CategoryCard";
+import CategoryEditSection from "./components/CategoryEditSection";
 const ProductPageProvider = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const { id } = useParams();
-
-
 
   const {
     loading: isRelatedItemLoading,
@@ -45,26 +46,44 @@ const ProductPageProvider = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedProduct, setSelectedProduct] = useState({});
 
-  useEffect(()=>{
-    if(ItemData?.image){
-      setSelectedProduct(ItemData)
-      setSelectedImage(ItemData?.image)
+  useEffect(() => {
+    if (ItemData?.image) {
+      setSelectedProduct(ItemData);
+      setSelectedImage(ItemData?.image);
     }
-    if(RelatedItemData?.length > 0){
-      setSelectedProduct(RelatedItemData[0])
-      setSelectedImage(RelatedItemData[0]?.image)
+    if (RelatedItemData?.length > 0) {
+      setSelectedProduct(RelatedItemData[0]);
+      setSelectedImage(RelatedItemData[0]?.image);
     }
-    },[RelatedItemData,ItemData])
-
-
+  }, [RelatedItemData, ItemData]);
 
   return (
     <>
+
+    <div className="bg-gray-100 py-8 min-h-[90vh] w-full ">
+
+ 
+<CategoryEditSection
+ItemData={ItemData}
+/>
+
+
+
+
+    </div>
+
+
+
+
+
+
       {isRelatedItemLoading ? (
         <ProductPageSkeleton />
       ) : (
-        <div className="bg-gray-100 py-8 min-h-[90vh] flex items-center justify-center flex-col lg:flex-row">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gray-100 py-8 min-h-[90vh] w-full flex items-center justify-center flex-col lg:flex-row">
+      
+          <div className="max-w-6xl  px-4 sm:px-6 lg:px-8">
+          
             <div className="flex flex-wrap -mx-4">
               <div className="w-full px-4">
                 <ul className="flex flex-wrap items-center mb-5">
@@ -115,12 +134,13 @@ const ProductPageProvider = () => {
                       className="text-sm font-medium text-indigo-500 hover:text-indigo-600"
                       to="/"
                     >
-                      {selectedProduct?.Name}
+                      {ItemData?.Name}
                     </Link>
                   </li>
                 </ul>
               </div>
             </div>
+
             <div className="flex flex-col md:flex-row -mx-4">
               <div className="md:flex-1 px-4">
                 <div className="h-[460px] rounded-lg bg-gray-300 mb-4">
@@ -132,32 +152,25 @@ const ProductPageProvider = () => {
                 </div>
               </div>
               <div className="md:flex-1 px-4">
+                {ItemData?.category === "vape-puff" ? (
+                  <AddVapePuff item={ItemData} />
+                ) : ItemData?.category === "chargeVape" ? (
+                  <AddChargeVape item={ItemData} />
+                ) : ItemData?.category === "juice" ? (
+                  <AddJuice item={ItemData} />
+                ) : null}
 
-             {ItemData?.category === "vape-puff" ? 
-             
-             <AddVapePuff
-             item={ItemData}
-             />
-             : ItemData?.category === "chargeVape"? 
-             <AddChargeVape
-             item={ItemData}
-             />
-            
-             : ItemData?.category === "juice" ? 
-             <AddJuice
-             item={ItemData}
-             />
 
-             : null
-            }
-
-              
-                <h2 className="text-2xl font-bold mb-2">{selectedProduct?.Name}</h2>
+                <h2 className="text-2xl font-bold mb-2">
+                  {selectedProduct?.Name}
+                </h2>
 
                 <div className="flex mb-4">
                   <div className="mr-4">
                     <span className="font-bold text-gray-700">Price:</span>
-                    <span className="text-gray-600">${selectedProduct?.price}</span>
+                    <span className="text-gray-600">
+                      ${selectedProduct?.price}
+                    </span>
                   </div>
                   <div>
                     <span className="font-bold text-gray-700">
@@ -169,85 +182,80 @@ const ProductPageProvider = () => {
                   </div>
                 </div>
 
-                {RelatedItemData[0]?.color ?
+                {RelatedItemData[0]?.color ? (
                   <>
-                  <div className="mb-4">
-                    <span className="font-bold text-gray-700">
-                      Select Color:
-                    </span>
-                    <div className="flex items-center mt-2">
-                      {RelatedItemData?.map((item) => {
-                        return (
-                          <button
-                            key={item._id}
-                            onClick={() => {setSelectedImage(item.image)
-                              setSelectedProduct(item)
-                            }}
-                            className="w-5 h-5  m-1 rounded-full"
-                            style={{ backgroundColor: item.color }}
-                          />
-                        );
-                      })}
-
-                     
-                    </div>
-                  </div>
-                </>
-                
-                :null }
-              
-                   {RelatedItemData[0]?.vapePuff ?
-                     <>
-                     <div className="mb-4">
-                       <span className="font-bold text-gray-700">
-                         Select Vape Puff:
-                       </span>
-                       <div className="flex items-center mt-2">
-                         {RelatedItemData?.map((item) => {
-                           return (
-                             <button
-                               key={item.image}
-                               onClick={() => {setSelectedImage(item.image)
-                                 setSelectedProduct(item)
-                               }}
-                               className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
-                             >
-                               {item.vapePuff}
-                             </button>
-                           );
-                         })}
- 
-                       </div>
-                     </div>
-                   </>
-                   
-                   :null}
-                
-                {RelatedItemData[0]?.size ?
-                  <div className="mb-4">
+                    <div className="mb-4">
                       <span className="font-bold text-gray-700">
-                        Select Size:
+                        Select Color:
+                      </span>
+                      <div className="flex items-center mt-2">
+                        {RelatedItemData?.map((item) => {
+                          return (
+                            <button
+                              key={item._id}
+                              onClick={() => {
+                                setSelectedImage(item.image);
+                                setSelectedProduct(item);
+                              }}
+                              className="w-5 h-5  m-1 rounded-full"
+                              style={{ backgroundColor: item.color }}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+
+                {RelatedItemData[0]?.vapePuff ? (
+                  <>
+                    <div className="mb-4">
+                      <span className="font-bold text-gray-700">
+                        Select Vape Puff:
                       </span>
                       <div className="flex items-center mt-2">
                         {RelatedItemData?.map((item) => {
                           return (
                             <button
                               key={item.image}
-                              onClick={() => {setSelectedImage(item.image)
-                                setSelectedProduct(item)
-                              
+                              onClick={() => {
+                                setSelectedImage(item.image);
+                                setSelectedProduct(item);
                               }}
                               className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
                             >
-                              {item.size}
+                              {item.vapePuff}
                             </button>
                           );
                         })}
-
                       </div>
                     </div>
-                     :null}
+                  </>
+                ) : null}
 
+                {RelatedItemData[0]?.size ? (
+                  <div className="mb-4">
+                    <span className="font-bold text-gray-700">
+                      Select Size:
+                    </span>
+                    <div className="flex items-center mt-2">
+                      {RelatedItemData?.map((item) => {
+                        return (
+                          <button
+                            key={item.image}
+                            onClick={() => {
+                              setSelectedImage(item.image);
+                              setSelectedProduct(item);
+                            }}
+                            className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
+                          >
+                            {item.size}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
 
                 <div>
                   <span className="font-bold text-gray-700">
@@ -263,13 +271,7 @@ const ProductPageProvider = () => {
         </div>
       )}
 
-{/* <div className="w-full flex flex-wrap  ">
-<ItemCard
-      Items={[selectedProduct]}
-      />
 
-</div> */}
-   
     </>
   );
 };

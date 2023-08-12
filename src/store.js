@@ -8,6 +8,9 @@ import fetchRelatedItemReducer from './actions/related/GetRelatedItems'
 import fetchProviderItemsReducer from './actions/category/GetProviderItems'
 import fetchAllRelatedItemsReducer from './actions/related/GetAllRelatedItems'
 import fetchOneRelatedItemReducer from './actions/related/GetOneRelatedItem'
+import fetchCompanyItemsReducer from './actions/company/GetCompanies'
+import fetchCompaniesByCategoryReducer from './actions/company/GetCompaniesByCategory'
+import fetchJuiceSizeReducer from './actions/juice/GetJuiceSize'
 const store = configureStore({
   reducer: {
      fetchCategories:fetchCategoryItemsReducer,
@@ -18,6 +21,9 @@ const store = configureStore({
      fetchRelatedItems:fetchRelatedItemReducer,
      fetchAllRelatedItems:fetchAllRelatedItemsReducer,
      fetchOneRelatedItem:fetchOneRelatedItemReducer,
+     fetchCompanyItems:fetchCompanyItemsReducer,
+     fetchCompaniesByCategory:fetchCompaniesByCategoryReducer,
+     fetchJuiceSize:fetchJuiceSizeReducer
   },
   middleware: [thunkMiddleware],
 });

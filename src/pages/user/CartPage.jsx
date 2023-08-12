@@ -66,8 +66,6 @@ const CartPage = () => {
         (accumulator, currentValue) => accumulator + currentValue,
         0
       );
-      console.log(sum)
-
       setTotalPrice(sum);
     }
   }, [items]);
@@ -91,17 +89,20 @@ const CartPage = () => {
   };
 
   const handleRemove = (itemId) => {
-    // const allCards = items.filter( (item) => {return item._id !== itemId} )
-    //   setItems(allCards);
-    //  localStorage.setItem('items', JSON.stringify(allCards)) 
 
      const storedItems = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items"))  : [];                                          
+     const storedItemsQ = localStorage.getItem("itemsQ") ? JSON.parse(localStorage.getItem("itemsQ"))  :   [];                                          
 
      const allCardsIds = storedItems.filter((ItemId) => { return ItemId !== itemId});
      console.log(allCardsIds)
-    //  dispatch(fetchItemsCart(allCardsIds)) 
-    //  setItemsAllIdsInCart(allCardsIds)
-    //  localStorage.setItem("items", JSON.stringify(allCardsIds));
+     localStorage.setItem("items", JSON.stringify(allCardsIds));
+
+     const updatedItems = storedItemsQ.filter((item) => item._id !== itemId);
+     console.log(updatedItems)
+     localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
+
+     dispatch(fetchItemsCart(allCardsIds)) 
+
   };
 // const navigate =useNavigate()
 

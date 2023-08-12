@@ -4,6 +4,7 @@ import {
   Input,
   // Checkbox,
   Button,
+  Textarea,
   // Typography,
 } from "@material-tailwind/react";
 import { useState, useEffect, useContext } from "react";
@@ -17,7 +18,7 @@ import axios from "axios";
 // import ItemCardProvider from "../../components/cards/ItemCardProvider";
 
 const ProviderHome = () => {
-  const ApiUrl= process.env.REACT_APP_API_URL
+  const ApiUrl = process.env.REACT_APP_API_URL;
 
   const { user } = useContext(UserContext);
   const [productImage, setProductImage] = useState(null);
@@ -50,10 +51,7 @@ const ProviderHome = () => {
     formData.append("ProviderId", user._id);
     formData.append("category", OptionType);
     try {
-      const response = await axios.post(
-        `${ApiUrl}/items`,
-        formData
-      );
+      const response = await axios.post(`${ApiUrl}/items`, formData);
       // setItem([response.data]);
       dispatch(fetchCategoryItems());
       showSuccessAlert(response.data.Name);
@@ -73,7 +71,7 @@ const ProviderHome = () => {
   return (
     <>
       <section className=" w-full h-[70vh] bg-gray-100 flex justify-center  ">
-        <Card color="" className="my-10 h-96">
+        <Card color="" className="my-10 h-auto">
           <form onSubmit={handleAddItem} className=" p-10 ">
             <div className="mb-4 flex flex-col gap-6">
               <Input
@@ -83,14 +81,15 @@ const ProviderHome = () => {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
-
-              <textarea
-                className="border border-2"
-                placeholder="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+              <Input
+                size="lg"
+                type="text"
+                label="Category"
+                value={OptionType}
+                onChange={(e) => setOptionType(e.target.value)}
                 required
               />
+
               <Input
                 size="lg"
                 type="file"
@@ -101,12 +100,11 @@ const ProviderHome = () => {
                 required
               />
 
-              <Input
+              <Textarea
                 size="lg"
-                type="text"
-                label="Category"
-                value={OptionType}
-                onChange={(e) => setOptionType(e.target.value)}
+                label="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 required
               />
             </div>

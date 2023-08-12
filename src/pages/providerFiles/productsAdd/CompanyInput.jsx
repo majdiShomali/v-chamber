@@ -1,6 +1,20 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import {fetchCompanyItems} from "../../../actions/company/GetCompanies"
 const CompanyInput = ({ onSelectChange }) => {
+
+  const dispatch = useDispatch()
+
+  const {
+    // loading: isCategoriesDataLoading,
+    data: CompanyData,
+    // error: fetchCategoriesDataError,
+  } = useSelector((state) => state.fetchCompanyItems);
+
+  useEffect(() =>{
+    dispatch(fetchCompanyItems())
+  },[dispatch])
+
   const [selectedChargeVape, setSelectedChargeVape] = useState('');
 
   const handleChargeVapeChange = (event) => {
@@ -15,9 +29,15 @@ const CompanyInput = ({ onSelectChange }) => {
       value={selectedChargeVape}
       onChange={handleChargeVapeChange}
     >
-      <option value="">default</option>
-      <option value="vgod">vgod</option>
-      <option value="nasty">nasty</option>
+
+         <option value="">All Companies</option>
+        {CompanyData?.map((company)=>{
+        return(
+        <option 
+        key={company._id}
+        value={company.Name}>{company.Name}</option>
+      )
+    })}
 
     </select>
   );
