@@ -10,8 +10,8 @@ import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 
-import { fetchJuiceNikotin } from "../../../actions/juice/GetJuiceNikotin";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchJuiceNikotinByCategory } from "../../../actions/juice/GetJuiceNikotinByCategory";
 
 const AddJuiceNikotin = ({item}) => {
 
@@ -30,10 +30,6 @@ const AddJuiceNikotin = ({item}) => {
     };
     const dispatch = useDispatch();
   
-    const { data: allJuiceNikotin } = useSelector(
-      (state) => state.fetchJuiceNikotin
-    );
-    console.log(allJuiceNikotin)
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -57,7 +53,7 @@ const AddJuiceNikotin = ({item}) => {
         .post(`${ApiUrl}/addJuiceNikotin`, data)
         .then(function () {
           dispatch(fetchRelatedItem(item._id));
-          dispatch(fetchJuiceNikotin());
+          dispatch(fetchJuiceNikotinByCategory(item._id));
           handleClose();
         })
         .catch(function (error) {
@@ -75,7 +71,7 @@ const AddJuiceNikotin = ({item}) => {
         path={mdiPlus}
         size={1}
       />
-      <p>Add Juice Nikotin</p>
+      <p>Add  Nikotin</p>
     </div>
     <Modal
       open={open}

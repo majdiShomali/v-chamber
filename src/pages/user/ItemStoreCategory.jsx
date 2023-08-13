@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
 import ItemCard from "../../components/cards/ItemCard";
-import StoreFilter from "../../components/filters/StoreFilter";
+import StoreFilterByCategory from "../../components/filters/StoreFilterByCategory";
 const ItemStoreCategory = () => {
 
     // const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
@@ -40,8 +40,9 @@ const ItemStoreCategory = () => {
 
   return (
     <>
-
-<StoreFilter ProductItems={AllRelatedItemData} updateFilteredArray={handleSelectChange} />
+{id !== undefined ?
+  <StoreFilterByCategory ProductItems={AllRelatedItemData} categoryId={id} updateFilteredArray={handleSelectChange} />
+: null}
 
     <div className=" lg:min-h-[50vh] flex  flex-col">
         <ItemCard Items={selectedFilterdItems} />

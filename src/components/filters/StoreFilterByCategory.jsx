@@ -1,12 +1,14 @@
 import React from 'react'
-import AllJuiceTypeInput from './inputs/AllJuiceTypeInput';
-import AllSaleInput from './inputs/AllSaleInput';
-import AllCategoryInput from './inputs/AllCategoryInput';
-import AllCompanyInput from './inputs/AllCompanyInput';
 import { useState,useEffect } from 'react';
 
-const StoreFilter = ({ProductItems,updateFilteredArray}) => {
-
+import SaleInput from './inputs/AllSaleInput';
+import CategoryInput from './inputs/AllCategoryInput';
+import CompanyInput from "../../pages/providerFiles/components/inputs/CompanyInput";
+import JuiceSizeInput from "../../pages/providerFiles/components/inputs/JuiceSizeInput";
+import JuiceNikotinInput from "../../pages/providerFiles/components/inputs/CompanyInput";
+import JuiceTypeInput from "../../pages/providerFiles/components/inputs/JuiceTypeInput";
+import JuiceFlavorInput from "../../pages/providerFiles/components/inputs/JuiceFlavorInput"
+const StoreFilterByCategory = ({ProductItems,updateFilteredArray,categoryId}) => {
 
     const [selectedCompany, setSelectedCompanyValue] = useState("");
 
@@ -60,8 +62,6 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
   }, [selectedCategory, selectedCompany,selectedSale,selectedType]);
 
 
-
-
   return (
     <div className="flex justify-center py-8 mx-5 ">
     <div className="w-full md:w-full mx-8  px-5 rounded-lg bg-white  transform transition duration-300 ">
@@ -91,11 +91,14 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
         </div>
 
         <div className="flex my-5 w-1/2">
-          <AllCompanyInput onSelectChange={handleSelectCompanyChange} />
-          <AllCategoryInput onSelectChange={handleSelectCategoryChange} />
-          <AllSaleInput onSelectChange={handleSelectSaleChange} />
-          <AllJuiceTypeInput onSelectChange={handleSelectTypeChange} />
-   
+          <CompanyInput onSelectChange={handleSelectCompanyChange} categoryId={categoryId} />
+          {/* <CategoryInput onSelectChange={handleSelectCategoryChange}  /> */}
+          <SaleInput onSelectChange={handleSelectSaleChange}  categoryId={categoryId}/>
+          <JuiceTypeInput onSelectChange={handleSelectTypeChange} categoryId={categoryId} />
+
+            {/* <JuiceSizeInput onSelectChange={handleSelectSizeChange} categoryId={item?._id}/>
+              <JuiceNikotinInput onSelectChange={handleSelectNikotinChange} categoryId={item?._id}/>
+              <JuiceFlavorInput onSelectChange={handleSelectFlavorChange} categoryId={item?._id}/> */}
         </div>
       </div>
     </div>
@@ -103,4 +106,4 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
   )
 }
 
-export default StoreFilter
+export default StoreFilterByCategory

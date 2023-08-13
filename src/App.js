@@ -24,11 +24,16 @@ import ItemStoreCategory from "./pages/user/ItemStoreCategory";
 
 import ProviderHome from "./pages/providerFiles/ProviderHome";
 import ProviderProfile from "./pages/providerFiles/ProviderProfile";
-import ProviderHomeTest from "./pages/providerFiles/ProviderHomeTest";
 import ProviderOrders from "./pages/providerFiles/orders/ProviderOrders";
 // import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
 import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
 import ProviderNavBar from "./pages/providerFiles/components/ProviderNavBar";
+
+
+import PdfTest from "./pages/providerFiles/CreatePDF/PdfTest";
+
+
+
 function App() {
   const [hideRouterUser, setHideRouterUser] = useState(false);
   const [hideRouterProvider, setHideRouterProvider] = useState(true);
@@ -90,9 +95,9 @@ function App() {
            <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/UserProfile" element={<ProviderProfile />} />
-          <Route path="/ProviderHomeTest" element={<ProviderHomeTest />} />
           <Route path="/ProviderOrders" element={<ProviderOrders />} />
           <Route path="/ProductPageProvider/:id" element={<ProductPageProvider />} />
+          <Route path="/PdfTest" element={<PdfTest />} />
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
       </Router>

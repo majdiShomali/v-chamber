@@ -14,6 +14,7 @@ import { useContext } from "react";
 import JuiceSizeInput from "../components/inputs/JuiceSizeInput";
 import JuiceNikotinInput from "../components/inputs/JuiceNikotinInput";
 import JuiceTypeInput from "../components/inputs/JuiceTypeInput";
+import JuiceFlavorInput from "../components/inputs/JuiceFlavorInput"
 const AddJuice = ({ item }) => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const { user } = useContext(UserContext);
@@ -74,6 +75,10 @@ const AddJuice = ({ item }) => {
   const handleSelectTypeChange = (value) => {
     setSelectedTypeValue(value);
   };
+  const [selectedFlavor, setSelectedFlavorValue] = useState("");
+  const handleSelectFlavorChange = (value) => {
+    setSelectedFlavorValue(value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,6 +100,7 @@ const AddJuice = ({ item }) => {
     formData.append("size", selectedSize);
     formData.append("nikotin", selectedNikotin);
     formData.append("type", selectedType);
+    formData.append("flavor", selectedFlavor);
     axios
       .post(`${ApiUrl}/addRelatedItem`, formData)
       .then(function () {
@@ -133,6 +139,7 @@ const AddJuice = ({ item }) => {
               <JuiceSizeInput onSelectChange={handleSelectSizeChange} categoryId={item?._id}/>
               <JuiceNikotinInput onSelectChange={handleSelectNikotinChange} categoryId={item?._id}/>
               <JuiceTypeInput onSelectChange={handleSelectTypeChange} categoryId={item?._id}/>
+              <JuiceFlavorInput onSelectChange={handleSelectFlavorChange} categoryId={item?._id}/>
               </div>
 
 
@@ -149,7 +156,7 @@ const AddJuice = ({ item }) => {
               </div>
 
               <div className="flex items-center my-5 mx-5 gap-5">
-                <Input
+                {/* <Input
                   className=" "
                   size="all"
                   type="text"
@@ -157,7 +164,7 @@ const AddJuice = ({ item }) => {
                   value={selectedJuice}
                   onChange={handleJuiceChange}
                   required
-                />
+                /> */}
 
                 <Input
                   className=""

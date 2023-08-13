@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { fetchJuiceNikotinByCategory } from "../../../../actions/juice/GetJuiceNikotinByCategory";
-
-const JuiceNikotinInput = ({onSelectChange,categoryId}) => {
+import {fetchJuiceFlavorByCategory} from "../../../../actions/juice/GetJuiceFlavorByCategory"
+const JuiceFlavorInput = ({onSelectChange,categoryId}) => {
 
     const dispatch = useDispatch()
 
-    const { data: allJuiceSizeByCategory  } = useSelector(
-      (state) => state.fetchJuiceNikotinByCategory
+    const { data: allJuiceFlavorByCategory  } = useSelector(
+      (state) => state.fetchJuiceFlavorByCategory
     );
-    useEffect(() =>{
-      if (categoryId !== undefined) {
-        dispatch(fetchJuiceNikotinByCategory(categoryId));
-      }
-    },[dispatch,categoryId])
-  
+  useEffect(() =>{
+    if (categoryId !== undefined) {
+      dispatch(fetchJuiceFlavorByCategory(categoryId));
+    }
+  },[dispatch])
 
   const [selectedChargeVape, setSelectedChargeVape] = useState('');
 
@@ -31,12 +29,12 @@ const JuiceNikotinInput = ({onSelectChange,categoryId}) => {
     onChange={handleChargeVapeChange}
   >
 
-       <option value="">All Nikotin</option>
-      {allJuiceSizeByCategory?.map((nikotin)=>{
+       <option value="">All Flavor</option>
+      {allJuiceFlavorByCategory?.map((Flavor)=>{
       return(
       <option 
-      key={nikotin._id}
-      value={nikotin.nikotin}>{nikotin.nikotin}</option>
+      key={Flavor._id}
+      value={Flavor.flavor}>{Flavor.flavor}</option>
     )
   })}
 
@@ -44,4 +42,4 @@ const JuiceNikotinInput = ({onSelectChange,categoryId}) => {
   )
 }
 
-export default JuiceNikotinInput
+export default JuiceFlavorInput

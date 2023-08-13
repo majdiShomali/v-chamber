@@ -29,10 +29,6 @@ const AddCompany = ({ item }) => {
   };
   const dispatch = useDispatch();
 
-  const { data: allCompaniesByCategory } = useSelector(
-    (state) => state.fetchCompaniesByCategory
-  );
-console.log(allCompaniesByCategory)
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

@@ -13,6 +13,7 @@ import fetchCompaniesByCategoryReducer from './actions/company/GetCompaniesByCat
 import fetchJuiceTypeByCategoryReducer from './actions/juice/GetJuiceTypeByCategory'
 import fetchJuiceSizeByCategoryReducer from './actions/juice/GetJuiceSizeByCategory'
 import fetchJuiceNikotinByCategoryReducer from './actions/juice/GetJuiceNikotinByCategory'
+import fetchJuiceFlavorByCategoryReducer from './actions/juice/GetJuiceFlavorByCategory'
 import fetchJuiceSizeReducer from './actions/juice/GetJuiceSize'
 import fetchJuiceTypeReducer from './actions/juice/GetJuiceType'
 import fetchJuiceNikotinReducer from './actions/juice/GetJuiceNikotin'
@@ -31,10 +32,13 @@ const store = configureStore({
      fetchAllRelatedItems:fetchAllRelatedItemsReducer,
      fetchOneRelatedItem:fetchOneRelatedItemReducer,
      fetchCompanyItems:fetchCompanyItemsReducer,
+     
      fetchCompaniesByCategory:fetchCompaniesByCategoryReducer,
      fetchJuiceTypeByCategory:fetchJuiceTypeByCategoryReducer,
      fetchJuiceSizeByCategory:fetchJuiceSizeByCategoryReducer,
      fetchJuiceNikotinByCategory:fetchJuiceNikotinByCategoryReducer,
+     fetchJuiceFlavorByCategory:fetchJuiceFlavorByCategoryReducer,
+
      fetchJuiceSize:fetchJuiceSizeReducer,
      fetchJuiceNikotin:fetchJuiceNikotinReducer,
      fetchAllOrders:fetchAllOrdersReducer,

@@ -11,9 +11,9 @@ import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchJuiceTypeByCategory } from "../../../actions/juice/GetJuiceTypeByCategory";
+import { fetchJuiceFlavorByCategory } from "../../../actions/juice/GetJuiceFlavorByCategory";
 
-const AddJuiceType = ({item}) => {
+const AddJuiceFlavor = ({item}) => {
 
     const ApiUrl = process.env.REACT_APP_API_URL;
     const { user } = useContext(UserContext);
@@ -30,11 +30,12 @@ const AddJuiceType = ({item}) => {
     };
     const dispatch = useDispatch();
   
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   
-    const [Type, setType] = useState("");
+    const [Flavor, setFlavor] = useState("");
   
 
     const handleSubmit = async (e) => {
@@ -42,17 +43,17 @@ const AddJuiceType = ({item}) => {
   
     
       const data ={
-        type:Type,
+        flavor:Flavor,
         category:item?.category,
         categoryId:item?._id,
         ProviderId:user?._id,
 
       }
       axios
-        .post(`${ApiUrl}/addJuiceType`, data)
+        .post(`${ApiUrl}/addJuiceFlavor`, data)
         .then(function () {
           dispatch(fetchRelatedItem(item._id));
-          dispatch(fetchJuiceTypeByCategory(item._id));
+         dispatch(fetchJuiceFlavorByCategory(item._id));
           handleClose();
         })
         .catch(function (error) {
@@ -70,7 +71,7 @@ const AddJuiceType = ({item}) => {
         path={mdiPlus}
         size={1}
       />
-      <p>Add  Type</p>
+      <p>Add  Flavor</p>
     </div>
     <Modal
       open={open}
@@ -85,10 +86,10 @@ const AddJuiceType = ({item}) => {
               <Input
                 className=" "
                 type="text"
-                label="Type"
-                value={Type}
+                label="Flavor"
+                value={Flavor}
                 required
-                onChange={(e) => setType(e.target.value)}
+                onChange={(e) => setFlavor(e.target.value)}
               />
             </div>
 
@@ -115,4 +116,4 @@ const AddJuiceType = ({item}) => {
   )
 }
 
-export default AddJuiceType
+export default AddJuiceFlavor

@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { fetchJuiceTypeByCategory } from "../../../../actions/juice/GetJuiceTypeByCategory";
+import { fetchJuiceType } from "../../../actions/juice/GetJuiceType";
 
-const JuiceTypeInput = ({onSelectChange,categoryId}) => {
+const AllJuiceTypeInput = ({onSelectChange,categoryId}) => {
 
     const dispatch = useDispatch()
-    const { data: allJuiceTypeByCategory  } = useSelector(
-      (state) => state.fetchJuiceTypeByCategory
+    const { data: allJuiceType  } = useSelector(
+      (state) => state.fetchJuiceType
     );
 
     useEffect(() =>{
-      if (categoryId !== undefined) {
-        dispatch(fetchJuiceTypeByCategory(categoryId));
-      }
-    },[dispatch,categoryId])
+        dispatch(fetchJuiceType());
+    },[dispatch])
 
     const [selectedChargeVape, setSelectedChargeVape] = useState('');
   
@@ -33,7 +31,7 @@ const JuiceTypeInput = ({onSelectChange,categoryId}) => {
   >
 
        <option value="">All Type</option>
-      {allJuiceTypeByCategory?.map((Type)=>{
+      {allJuiceType?.map((Type)=>{
       return(
       <option 
       key={Type._id}
@@ -45,4 +43,4 @@ const JuiceTypeInput = ({onSelectChange,categoryId}) => {
   )
 }
 
-export default JuiceTypeInput
+export default AllJuiceTypeInput

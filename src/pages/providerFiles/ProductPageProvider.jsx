@@ -160,13 +160,14 @@ const ProductPageProvider = () => {
                 </div>
               </div>
               <div className="md:flex-1 px-4">
-                {ItemData?.category === CategoriesData[0]?.category ? (
+                {/* {ItemData?.category === CategoriesData[0]?.category ? (
                   <AddVapePuff item={ItemData} />
                 ) : ItemData?.category === CategoriesData[1]?.category? (
                   <AddChargeVape item={ItemData} />
                 ) : ItemData?.category === CategoriesData[2]?.category ? (
                   <AddJuice item={ItemData} />
-                ) : null}
+                ) : null} */}
+                  <AddJuice item={ItemData} />
 
                 <h2 className="text-2xl font-bold mb-2">
                   {selectedProduct?.Name}

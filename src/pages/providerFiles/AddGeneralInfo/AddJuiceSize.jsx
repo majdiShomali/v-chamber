@@ -10,8 +10,8 @@ import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 
-import { fetchJuiceSize } from "../../../actions/juice/GetJuiceSize";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchJuiceSizeByCategory } from "../../../actions/juice/GetJuiceSizeByCategory";
 
 const AddJuiceSize = ({item}) => {
 
@@ -33,7 +33,6 @@ const AddJuiceSize = ({item}) => {
     const { data: allJuiceSize } = useSelector(
       (state) => state.fetchJuiceSize
     );
-  console.log(allJuiceSize);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -56,7 +55,7 @@ const AddJuiceSize = ({item}) => {
         .post(`${ApiUrl}/addJuiceSize`, data)
         .then(function () {
           dispatch(fetchRelatedItem(item._id));
-          dispatch(fetchJuiceSize());
+          dispatch(fetchJuiceSizeByCategory(item._id));
           handleClose();
         })
         .catch(function (error) {
@@ -74,7 +73,7 @@ const AddJuiceSize = ({item}) => {
         path={mdiPlus}
         size={1}
       />
-      <p>Add Juice Size</p>
+      <p>Add  Size</p>
     </div>
     <Modal
       open={open}
