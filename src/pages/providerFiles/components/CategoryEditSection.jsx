@@ -8,6 +8,8 @@ import { fetchJuiceSize } from "../../../actions/juice/GetJuiceSize";
 import { fetchJuiceNikotin } from "../../../actions/juice/GetJuiceNikotin";
 import { fetchJuiceType } from "../../../actions/juice/GetJuiceType";
 import { useParams } from "react-router-dom";
+import { fetchJuiceTypeByCategory } from "../../../actions/juice/GetJuiceTypeByCategory";
+import { fetchJuiceSizeByCategory } from "../../../actions/juice/GetJuiceSizeByCategory";
 
 import AddJuiceSize from "../AddGeneralInfo/AddJuiceSize";
 import AddJuiceNikotin from "../AddGeneralInfo/AddJuiceNikotin";
@@ -19,16 +21,24 @@ const CategoryEditSection = ({ ItemData }) => {
   const { data: allCompaniesByCategory  } = useSelector(
     (state) => state.fetchCompaniesByCategory
   );
+  const { data: allJuiceTypeByCategory  } = useSelector(
+    (state) => state.fetchJuiceTypeByCategory
+  );
+  const { data: allJuiceSizeByCategory  } = useSelector(
+    (state) => state.fetchJuiceSizeByCategory
+  );
+
   const { data: allJuiceSize } = useSelector((state) => state.fetchJuiceSize);
   const { data: allJuiceType } = useSelector((state) => state.fetchJuiceType);
   const { data: allJuiceNikotin } = useSelector(
     (state) => state.fetchJuiceNikotin
   );
 
-  console.log(allJuiceNikotin);
   useEffect(() => {
     if (id !== undefined) {
       dispatch(fetchCompaniesByCategory(id));
+      dispatch(fetchJuiceTypeByCategory(id));
+      dispatch(fetchJuiceSizeByCategory(id));
     }
     dispatch(fetchJuiceSize());
     dispatch(fetchJuiceNikotin());
@@ -38,11 +48,12 @@ const CategoryEditSection = ({ ItemData }) => {
   return (
     <>
       <div className="w-full flex items-center justify-center">
-        <div>
+        {/* <div>
           <CategoryCard category={ItemData} />
-        </div>
+        </div> */}
 
         <div>
+
           <div className="">
             <AddCompany item={ItemData} />
             <div className="flex flex-wrap gap-3 p-1">
@@ -59,7 +70,54 @@ const CategoryEditSection = ({ ItemData }) => {
             </div>
           </div>
 
-          {ItemData?.category === allJuiceSize[0]?.category ? 
+          <div className="">
+            <AddJuiceSize item={ItemData} />
+            <div className="flex flex-wrap gap-3 p-1">
+              {allJuiceSizeByCategory?.map((juice) => {
+                return (
+                  <Card
+                    className="p-1 cursor-pointer hover:scale-105"
+                    key={juice._id}
+                  >
+                    {juice.size}
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+          <div className="">
+            <AddJuiceType item={ItemData} />
+            <div className="flex flex-wrap gap-3 p-1">
+              {allJuiceTypeByCategory?.map((juice) => {
+                return (
+                  <Card
+                    className="p-1 cursor-pointer hover:scale-105"
+                    key={juice._id}
+                  >
+                    {juice.type}
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="">
+<AddJuiceNikotin item={ItemData} />
+<div className="flex flex-wrap gap-3 p-1">
+  {allJuiceNikotin?.map((juice) => {
+    return (
+      <Card
+        className="p-1 cursor-pointer hover:scale-105"
+        key={juice._id}
+      >
+        {juice.nikotin}
+      </Card>
+    );
+  })}
+</div>
+</div>
+
+          {/* {ItemData?.category === allJuiceSize[0]?.category ? 
           <>
           <div className="">
             <AddJuiceSize item={ItemData} />
@@ -95,9 +153,9 @@ const CategoryEditSection = ({ ItemData }) => {
           :        
 null
 
-}
+} */}
 
-{ItemData?.category === allJuiceNikotin[0]?.category ? 
+{/* {ItemData?.category === allJuiceNikotin[0]?.category ? 
 
 <div className="">
 <AddJuiceNikotin item={ItemData} />
@@ -114,14 +172,12 @@ null
   })}
 </div>
 </div>
-
-
 : 
 
 null
 
 
-}
+} */}
         
 
         </div>

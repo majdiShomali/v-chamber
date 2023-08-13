@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import {fetchCompanyItems} from "../../../../actions/company/GetCompanies"
-const CompanyInput = ({ onSelectChange }) => {
+import { fetchCompaniesByCategory } from "../../../../actions/company/GetCompaniesByCategory";
+
+const CompanyInput = ({ onSelectChange,categoryId }) => {
 
   const dispatch = useDispatch()
 
@@ -10,10 +12,17 @@ const CompanyInput = ({ onSelectChange }) => {
     data: CompanyData,
     // error: fetchCategoriesDataError,
   } = useSelector((state) => state.fetchCompanyItems);
-
+  const { data: allCompaniesByCategory  } = useSelector(
+    (state) => state.fetchCompaniesByCategory
+  );
   useEffect(() =>{
     dispatch(fetchCompanyItems())
-  },[dispatch])
+    if (categoryId !== undefined) {
+      dispatch(fetchCompaniesByCategory(categoryId));
+    }
+  },[dispatch,categoryId])
+
+
 
   const [selectedChargeVape, setSelectedChargeVape] = useState('');
 
@@ -31,7 +40,7 @@ const CompanyInput = ({ onSelectChange }) => {
     >
 
          <option value="">All Companies</option>
-        {CompanyData?.map((company)=>{
+        {allCompaniesByCategory?.map((company)=>{
         return(
         <option 
         key={company._id}

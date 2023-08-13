@@ -130,9 +130,9 @@ const AddJuice = ({ item }) => {
 
             <div className="flex items-center my-5 mx-5 gap-5">
 
-              <JuiceSizeInput onSelectChange={handleSelectSizeChange}/>
-              <JuiceNikotinInput onSelectChange={handleSelectNikotinChange}/>
-              <JuiceTypeInput onSelectChange={handleSelectTypeChange}/>
+              <JuiceSizeInput onSelectChange={handleSelectSizeChange} categoryId={item?._id}/>
+              <JuiceNikotinInput onSelectChange={handleSelectNikotinChange} categoryId={item?._id}/>
+              <JuiceTypeInput onSelectChange={handleSelectTypeChange} categoryId={item?._id}/>
               </div>
 
 
@@ -145,7 +145,7 @@ const AddJuice = ({ item }) => {
                   required
                   onChange={(e) => setName(e.target.value)}
                 />
-                <CompanyInput onSelectChange={handleSelectChange} />
+                <CompanyInput onSelectChange={handleSelectChange} categoryId={item?._id} />
               </div>
 
               <div className="flex items-center my-5 mx-5 gap-5">

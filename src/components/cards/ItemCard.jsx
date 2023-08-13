@@ -9,6 +9,7 @@ import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";
+import { HashLink } from "react-router-hash-link";
 const ItemCard = ({Items}) => {
 
   // const ApiUrl = process.env.REACT_APP_API_URL;
@@ -57,32 +58,32 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
     }
   }, [dispatch]);
 
-  const handleAddToCart = (card) => {
-    const storedItems = localStorage.getItem("items")   ? JSON.parse(localStorage.getItem("items"))   :   [];                                          
-    const storedItemsQ = localStorage.getItem("itemsQ") ? JSON.parse(localStorage.getItem("itemsQ"))  :   [];                                          
-    const existingCard = storedItems.includes(card._id);
-    if (existingCard) {
-      const allCardsIds = storedItems.filter((itemId) => { return itemId !== card._id});
-      dispatch(fetchItemsCart(allCardsIds)) 
-      setItemsAllIdsInCart(allCardsIds)
-      localStorage.setItem("items", JSON.stringify(allCardsIds));
+  // const handleAddToCart = (card) => {
+  //   const storedItems = localStorage.getItem("items")   ? JSON.parse(localStorage.getItem("items"))   :   [];                                          
+  //   const storedItemsQ = localStorage.getItem("itemsQ") ? JSON.parse(localStorage.getItem("itemsQ"))  :   [];                                          
+  //   const existingCard = storedItems.includes(card._id);
+  //   if (existingCard) {
+  //     const allCardsIds = storedItems.filter((itemId) => { return itemId !== card._id});
+  //     dispatch(fetchItemsCart(allCardsIds)) 
+  //     setItemsAllIdsInCart(allCardsIds)
+  //     localStorage.setItem("items", JSON.stringify(allCardsIds));
 
-      const updatedItems = storedItemsQ.filter((item) => item._id !== card._id);
-      localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
-
-
-    } else {
-      const allCardsIds = [...storedItems, card._id];
-      dispatch(fetchItemsCart(allCardsIds)) 
-      setItemsAllIdsInCart(allCardsIds)
-      localStorage.setItem("items", JSON.stringify(allCardsIds));
+  //     const updatedItems = storedItemsQ.filter((item) => item._id !== card._id);
+  //     localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
 
 
-      const allCards = [...(Array.isArray(storedItemsQ) ? storedItemsQ : []), { ...card, quantity: 1 }];
-      localStorage.setItem("itemsQ", JSON.stringify(allCards));
-    }
+  //   } else {
+  //     const allCardsIds = [...storedItems, card._id];
+  //     dispatch(fetchItemsCart(allCardsIds)) 
+  //     setItemsAllIdsInCart(allCardsIds)
+  //     localStorage.setItem("items", JSON.stringify(allCardsIds));
+
+
+  //     const allCards = [...(Array.isArray(storedItemsQ) ? storedItemsQ : []), { ...card, quantity: 1 }];
+  //     localStorage.setItem("itemsQ", JSON.stringify(allCards));
+  //   }
   
-  };
+  // };
 
   const handleFAv = async (card) => {
     let UsersIdFavorite = [...(card.UsersIdFavorite || [])];
@@ -118,7 +119,6 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
 
 const navigate =useNavigate();
   const handleShowItem = (item) => {
-    console.log(item);
     navigate(`/ProductPage/${item.categoryId}/${item._id}`)
   }
   return (
@@ -127,8 +127,9 @@ const navigate =useNavigate();
     className="w-full flex flex-wrap gap-3 justify-center">   
     {Items?.map((card) => {
             return (
+              <HashLink smooth={true} to = {`/ProductPage/${card.categoryId}/${card._id}#`}>
               <Card
-                onClick={()=>handleShowItem(card)}
+                // onClick={()=>handleShowItem(card)}
                 key={card._id}
                 className=" cursor-pointer flex flex-col items-center justify-center mx-2 h-full w-72  hover:scale-105"
 
@@ -208,14 +209,14 @@ const navigate =useNavigate();
                               <span className="text-gray-400 whitespace-nowrap mr-3">
                                {card.rating}
                               </span>
-                              <span className="mr-2 text-gray-400">India</span>
+                              {/* <span className="mr-2 text-gray-400">India</span> */}
                             </div>
 
                             <div className="flex items-center w-full justify-between min-w-0 ">
                               <h2 className="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">
                                 {card.Name}
                               </h2>
-                              {card.totalQuantity !==0 ? 
+                              {/* {card.totalQuantity !==0 ? 
                                 <div className="flex items-center h-8 bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
                                 INSTOCK
                               </div>
@@ -223,7 +224,7 @@ const navigate =useNavigate();
                               <div className="flex items-center h-8 bg-red-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
                               OUT OF STOCK
                             </div>
-                              }
+                              } */}
                             
                             </div>
                           </div>
@@ -301,6 +302,7 @@ const navigate =useNavigate();
                   </div>
                 </div>
               </Card>
+              </HashLink>
             );
           })}
       </div>   

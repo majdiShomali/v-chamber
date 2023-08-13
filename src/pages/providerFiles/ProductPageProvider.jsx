@@ -80,7 +80,7 @@ const ProductPageProvider = () => {
         </>
       ) : (
 <> 
-        <div className="bg-gray-100 py-8 min-h-[90vh] w-full ">
+        <div className="bg-gray-100 py-8 min-h-[50vh] w-full ">
         <CategoryEditSection
         ItemData={ItemData}
         />
@@ -167,7 +167,6 @@ const ProductPageProvider = () => {
                 ) : ItemData?.category === CategoriesData[2]?.category ? (
                   <AddJuice item={ItemData} />
                 ) : null}
-
 
                 <h2 className="text-2xl font-bold mb-2">
                   {selectedProduct?.Name}

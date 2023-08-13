@@ -12,6 +12,7 @@ import { useContext } from "react";
 
 import { fetchJuiceType } from "../../../actions/juice/GetJuiceType";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchJuiceTypeByCategory } from "../../../actions/juice/GetJuiceTypeByCategory";
 
 const AddJuiceType = ({item}) => {
 
@@ -46,7 +47,7 @@ const AddJuiceType = ({item}) => {
   
     
       const data ={
-        Type:Type,
+        type:Type,
         category:item?.category,
         categoryId:item?._id,
         ProviderId:user?._id,
@@ -56,7 +57,7 @@ const AddJuiceType = ({item}) => {
         .post(`${ApiUrl}/addJuiceType`, data)
         .then(function () {
           dispatch(fetchRelatedItem(item._id));
-          dispatch(fetchJuiceType());
+          dispatch(fetchJuiceTypeByCategory(item._id));
           handleClose();
         })
         .catch(function (error) {
