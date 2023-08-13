@@ -8,7 +8,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 //---------------------user-------------------------//
-import Home from "./pages/Home";
+import Home from "./pages/landing/pages/Home";
 import StickyNavbar from "./components/StickyNavbar";
 import Login from "./pages/registration/Login";
 import SignUp from "./pages/registration/SignUp";

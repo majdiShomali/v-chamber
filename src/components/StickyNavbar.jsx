@@ -28,6 +28,7 @@ import { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../actions/related/GetItemsCart";
+import { HashLink } from "react-router-hash-link";
 
 
 
@@ -81,13 +82,14 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link
+        <HashLink
           onClick={() => setOpenNav(false)}
-          to="/"
+          to="/#"
+          smooth={true}
           className="flex items-center"
         >
           Home
-        </Link>
+        </HashLink>
       </Typography>
       <Typography
         as="li"
@@ -95,13 +97,14 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link
+        <HashLink
           onClick={() => setOpenNav(false)}
-          to="/Store"
+          to="/Store#"
+          smooth={true}
           className="flex items-center"
         >
           Store
-        </Link>
+        </HashLink>
       </Typography>
       <Typography
         as="li"
@@ -109,13 +112,14 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link
+        <HashLink
           onClick={() => setOpenNav(false)}
-          to="/AboutUs"
+          to="/AboutUs#"
+          smooth={true}
           className="flex items-center"
         >
           About
-        </Link>
+        </HashLink>
       </Typography>
       <Typography
         as="li"
@@ -123,13 +127,14 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link
+        <HashLink
           onClick={() => setOpenNav(false)}
-          to="/ContactUs"
+          to="/ContactUs#"
+          smooth={true}
           className="flex items-center"
         >
           Contact
-        </Link>
+        </HashLink>
       </Typography>
     </ul>
   );
