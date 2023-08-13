@@ -13,6 +13,7 @@ import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 import JuiceSizeInput from "../components/inputs/JuiceSizeInput";
 import JuiceNikotinInput from "../components/inputs/JuiceNikotinInput";
+import JuiceTypeInput from "../components/inputs/JuiceTypeInput";
 const AddJuice = ({ item }) => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const { user } = useContext(UserContext);
@@ -55,20 +56,23 @@ const AddJuice = ({ item }) => {
   };
 
   const [selectedCompany, setSelectedValue] = useState("");
-
   const handleSelectChange = (value) => {
     setSelectedValue(value);
   };
 
   const [selectedSize, setSelectedSizeValue] = useState("");
-
   const handleSelectSizeChange = (value) => {
     setSelectedSizeValue(value);
   };
-  const [selectedNikotin, setSelectedNikotinValue] = useState("");
 
+  const [selectedNikotin, setSelectedNikotinValue] = useState("");
   const handleSelectNikotinChange = (value) => {
     setSelectedNikotinValue(value);
+  };
+
+  const [selectedType, setSelectedTypeValue] = useState("");
+  const handleSelectTypeChange = (value) => {
+    setSelectedTypeValue(value);
   };
 
   const handleSubmit = async (e) => {
@@ -90,6 +94,7 @@ const AddJuice = ({ item }) => {
     formData.append("company", selectedCompany);
     formData.append("size", selectedSize);
     formData.append("nikotin", selectedNikotin);
+    formData.append("type", selectedType);
     axios
       .post(`${ApiUrl}/addRelatedItem`, formData)
       .then(function () {
@@ -127,6 +132,7 @@ const AddJuice = ({ item }) => {
 
               <JuiceSizeInput onSelectChange={handleSelectSizeChange}/>
               <JuiceNikotinInput onSelectChange={handleSelectNikotinChange}/>
+              <JuiceTypeInput onSelectChange={handleSelectTypeChange}/>
               </div>
 
 

@@ -128,8 +128,9 @@ const navigate =useNavigate();
     {Items?.map((card) => {
             return (
               <Card
+                onClick={()=>handleShowItem(card)}
                 key={card._id}
-                className=" cursor-pointer flex flex-col items-center justify-center mx-2 h-96 w-72 mb-5 hover:scale-105"
+                className=" cursor-pointer flex flex-col items-center justify-center mx-2 h-full w-72  hover:scale-105"
 
             >
                 <div className="container">
@@ -215,11 +216,11 @@ const navigate =useNavigate();
                                 {card.Name}
                               </h2>
                               {card.totalQuantity !==0 ? 
-                                <div className="flex items-center bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
+                                <div className="flex items-center h-8 bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
                                 INSTOCK
                               </div>
                               :
-                              <div className="flex items-center bg-red-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
+                              <div className="flex items-center h-8 bg-red-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
                               OUT OF STOCK
                             </div>
                               }
@@ -230,7 +231,7 @@ const navigate =useNavigate();
                           {card.price > card.salePrice ? 
                           <div className="flex items-center">
                           <span className="text-xl  font-semibold line-through text-gray-500 mr-3">{card.price} $</span>
-                          <span className="text-xl text-white font-bold">{card.salePrice} $</span>
+                          <span className="text-xl text-white font-bold">{card.salePrice} $ </span>
                           </div>
                           
                           :
@@ -240,7 +241,7 @@ const navigate =useNavigate();
                           }
                          
           
-                          <div className="flex space-x-2 text-sm font-medium justify-between mt-2">
+                          {/* <div className="flex space-x-2 text-sm font-medium justify-between mt-2">
                           <button
                             onClick={()=>handleShowItem(card)}
                             
@@ -293,7 +294,7 @@ const navigate =useNavigate();
        
                         
                  
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>

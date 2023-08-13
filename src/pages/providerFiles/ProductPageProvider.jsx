@@ -5,7 +5,7 @@ import { fetchOneItem } from "../../actions/category/GetOneItem";
 import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
 import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 // import Swal from "sweetalert2";
-import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
+// import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import { Link } from "react-router-dom";
 // import AddRelatedItem from "./AddRelatedItem";
 // import ItemCard from "../../components/cards/ItemCard"

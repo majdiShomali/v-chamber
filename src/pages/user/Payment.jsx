@@ -14,6 +14,9 @@ import SneekPeeks from "../../components/SneekPeeks";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+
 // 4242424242424242
 const stripePromise = loadStripe(
   "pk_test_51NdwltJlIK0RZcLUZ09Y52TRSDmUDQqqTQzWUU58DkB0e2V1Bn80K4rBqiC43EaFVSALScTuAx1MmrGKmL2vfpIA00zgMOkGw8"
@@ -27,6 +30,7 @@ const PaymentForm = () => {
 
   const [userEmail, setUserEmail] = useState("");
   const [cardholder, setCardholder] = useState("");
+  const [userPhone, setUserPhone] = useState('');
 
   const dispatch = useDispatch();
   const {
@@ -35,7 +39,7 @@ const PaymentForm = () => {
     // error: fetchCartError,
   } = useSelector((state) => state.fetchItemsCart);
 
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0.5);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -93,7 +97,11 @@ const PaymentForm = () => {
       const response = await axios.post(`${ApiUrl}/charge`, {
         paymentMethodId: paymentMethod.id,
         email: userEmail,
-        amount: totalPrice, // Replace with your desired amount in cents (e.g., $399.00)
+        phone:userPhone,
+        cardholder:cardholder,
+        amount: totalPrice, 
+        itemsCartData:itemsCartData,
+        itemsCartDataLocal:JSON.parse(localStorage.getItem("itemsQ")),
       });
 
       console.log(response.data)
@@ -153,6 +161,24 @@ const PaymentForm = () => {
                 />
                 {/* ... */}
               </div>
+              <div>
+      {/* Phone input */}
+      <label htmlFor="phone" className="mt-4 mb-2 block text-sm font-medium">
+        Phone Number
+      </label>
+      <div className="relative">
+        <PhoneInput
+          id="phone"
+          name="phone"
+          value={userPhone}
+          onChange={setUserPhone}
+          placeholder="Enter phone number"
+          className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+        required
+        />
+        {/* ... */}
+      </div>
+    </div>
               {/* Card Holder input */}
               <label
                 htmlFor="card-holder"

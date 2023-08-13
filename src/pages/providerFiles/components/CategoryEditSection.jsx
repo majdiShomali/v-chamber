@@ -6,10 +6,12 @@ import AddCompany from "../AddGeneralInfo/AddCompany";
 import { Card } from "@mui/material";
 import { fetchJuiceSize } from "../../../actions/juice/GetJuiceSize";
 import { fetchJuiceNikotin } from "../../../actions/juice/GetJuiceNikotin";
+import { fetchJuiceType } from "../../../actions/juice/GetJuiceType";
 import { useParams } from "react-router-dom";
 
 import AddJuiceSize from "../AddGeneralInfo/AddJuiceSize";
 import AddJuiceNikotin from "../AddGeneralInfo/AddJuiceNikotin";
+import AddJuiceType from "../AddGeneralInfo/AddJuiceType";
 const CategoryEditSection = ({ ItemData }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -18,6 +20,7 @@ const CategoryEditSection = ({ ItemData }) => {
     (state) => state.fetchCompaniesByCategory
   );
   const { data: allJuiceSize } = useSelector((state) => state.fetchJuiceSize);
+  const { data: allJuiceType } = useSelector((state) => state.fetchJuiceType);
   const { data: allJuiceNikotin } = useSelector(
     (state) => state.fetchJuiceNikotin
   );
@@ -29,7 +32,9 @@ const CategoryEditSection = ({ ItemData }) => {
     }
     dispatch(fetchJuiceSize());
     dispatch(fetchJuiceNikotin());
+    dispatch(fetchJuiceType());
   }, [dispatch, id]);
+
   return (
     <>
       <div className="w-full flex items-center justify-center">
@@ -55,6 +60,7 @@ const CategoryEditSection = ({ ItemData }) => {
           </div>
 
           {ItemData?.category === allJuiceSize[0]?.category ? 
+          <>
           <div className="">
             <AddJuiceSize item={ItemData} />
             <div className="flex flex-wrap gap-3 p-1">
@@ -70,10 +76,24 @@ const CategoryEditSection = ({ ItemData }) => {
               })}
             </div>
           </div>
-          :
-          
+          <div className="">
+            <AddJuiceType item={ItemData} />
+            <div className="flex flex-wrap gap-3 p-1">
+              {allJuiceType?.map((juice) => {
+                return (
+                  <Card
+                    className="p-1 cursor-pointer hover:scale-105"
+                    key={juice._id}
+                  >
+                    {juice.Type}
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+          </>   
+          :        
 null
-
 
 }
 

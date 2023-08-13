@@ -10,7 +10,7 @@ const Categories = () => {
     const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
    const [topCategories,setTopCategories]=useState([]) 
     function handleKitchenTypeSelection(id) {
-      navigate(`/ProductPage/${id}/0`);
+      navigate(`/ItemStoreCategory/${id}/0`);
     }
   
     const dispatch = useDispatch();

@@ -19,15 +19,16 @@ import Payment from "./pages/user/Payment";
 import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
 import AllCategories from "./pages/user/AllCategories";
+import ItemStoreCategory from "./pages/user/ItemStoreCategory";
 //---------------------provider-------------------------//
 
 import ProviderHome from "./pages/providerFiles/ProviderHome";
 import ProviderProfile from "./pages/providerFiles/ProviderProfile";
 import ProviderHomeTest from "./pages/providerFiles/ProviderHomeTest";
-
+import ProviderOrders from "./pages/providerFiles/orders/ProviderOrders";
 // import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
 import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
-
+import ProviderNavBar from "./pages/providerFiles/components/ProviderNavBar";
 function App() {
   const [hideRouterUser, setHideRouterUser] = useState(false);
   const [hideRouterProvider, setHideRouterProvider] = useState(true);
@@ -66,6 +67,7 @@ function App() {
            <Route path="/AboutUs" element={<AboutUs />} />
            <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/ProductPage/:id/:relatedId" element={<ProductPage />} />
+          <Route path="/ItemStoreCategory/:id/:relatedId" element={<ItemStoreCategory />} />
         <Route path="/UserProfile" element={<UserProfile />} />
             <Route path="/CartPage" element={<CartPage />} />
             <Route path="/AllCategories" element={<AllCategories />} />
@@ -82,13 +84,14 @@ function App() {
   const AppRouter2 = () => {
     return (
       <Router>
-        <StickyNavbar />
+        <ProviderNavBar />
         <Routes>
           <Route index element={<ProviderHome />} />
            <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/UserProfile" element={<ProviderProfile />} />
           <Route path="/ProviderHomeTest" element={<ProviderHomeTest />} />
+          <Route path="/ProviderOrders" element={<ProviderOrders />} />
           <Route path="/ProductPageProvider/:id" element={<ProductPageProvider />} />
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>

@@ -11,7 +11,12 @@ import fetchOneRelatedItemReducer from './actions/related/GetOneRelatedItem'
 import fetchCompanyItemsReducer from './actions/company/GetCompanies'
 import fetchCompaniesByCategoryReducer from './actions/company/GetCompaniesByCategory'
 import fetchJuiceSizeReducer from './actions/juice/GetJuiceSize'
+import fetchJuiceTypeReducer from './actions/juice/GetJuiceType'
 import fetchJuiceNikotinReducer from './actions/juice/GetJuiceNikotin'
+import fetchAllOrdersReducer from './actions/orders/GetAllOrders'
+import fetchOnWayOrdersReducer from './actions/orders/GetOnWayOrders'
+import fetchDeliverdOrdersReducer from './actions/orders/GetDeliverdOrders'
+import fetchUserOrdersReducer from './actions/orders/GetUserOrders'
 const store = configureStore({
   reducer: {
      fetchCategories:fetchCategoryItemsReducer,
@@ -26,6 +31,11 @@ const store = configureStore({
      fetchCompaniesByCategory:fetchCompaniesByCategoryReducer,
      fetchJuiceSize:fetchJuiceSizeReducer,
      fetchJuiceNikotin:fetchJuiceNikotinReducer,
+     fetchAllOrders:fetchAllOrdersReducer,
+     fetchOnWayOrders:fetchOnWayOrdersReducer,
+     fetchDeliverdOrders:fetchDeliverdOrdersReducer,
+     fetchUserOrders:fetchUserOrdersReducer,
+     fetchJuiceType:fetchJuiceTypeReducer,
   },
   middleware: [thunkMiddleware],
 });

@@ -5,10 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 // import { Card } from "@material-tailwind/react";
 import Pagination from "@mui/material/Pagination";
-import CompanyInput from "../providerFiles/components/inputs/CompanyInput";
-import CategoryInput from "../providerFiles/components/inputs/CategoryInput";
-import SaleInput from "../providerFiles/components/inputs/SaleInput";
+import StoreFilter from "../../components/filters/StoreFilter";
 const ItemsStore = () => {
+
+  const [selectedFilterdItems, setSelectedFilterdItems] = useState([]);
+  const handleSelectChange = (value) => {
+    setSelectedFilterdItems(value);
+  };
+
+
   const dispatch = useDispatch();
 
   const {
@@ -21,106 +26,28 @@ const ItemsStore = () => {
     dispatch(fetchAllRelatedItems());
   }, [dispatch]);
 
-  const [filteredArray, setFilteredArray] = useState([]);
 
   useEffect(() => {
-    if (AllRelatedItems.length > 0) {
-      setFilteredArray(AllRelatedItems);
-      // const vapePuffItems = AllRelatedItems.filter((item)=>{
-      //   return item.category === "vapePuff"
-      // })
-
-      // console.log(vapePuffItems)
-
-      //   // Filter the array based on vapePuff.vapePuffNumber value
-      //   const filteredArray = AllRelatedItems.filter(item => {
-      //     // Check if vapePuff array has any elements
-      //     if (item.vapePuff.length > 0) {
-      //         // Check if any vapePuffNumber matches your filter condition (e.g., "500")
-      //         return item.vapePuff.some(puff => puff.vapePuff  < "100");
-      //     }
-      //     return false; // Return false if vapePuff array is empty
-      // });
-
-      // console.log(filteredArray)
-    }
+      setSelectedFilterdItems(AllRelatedItems)
   }, [AllRelatedItems]);
 
-  const [searchTermProduct, setSearchTermProduct] = useState("");
 
-  const filterDataByNameProduct = (ProductName) => {
-    const newFilter = AllRelatedItems?.filter((item) => {
-      return item.Name?.toLowerCase().includes(ProductName.toLowerCase());
-    });
-    setFilteredArray(newFilter);
-  };
 
   const [currentPageMeals, setCurrentPageMeals] = useState(1);
-
   let totalItemsMeals;
-
   let totalPagesMeals;
+  const itemsPerPage = 12;
+  totalItemsMeals = selectedFilterdItems?.length;
+  totalPagesMeals = Math.ceil(totalItemsMeals / itemsPerPage);
+  const startIndexMeals = (currentPageMeals - 1) * itemsPerPage;
+  const endIndexMeals = startIndexMeals + itemsPerPage;
+  const slicedArrayMeals = selectedFilterdItems?.slice(startIndexMeals, endIndexMeals);
 
   
-
-  const itemsPerPage = 12;
-
-  totalItemsMeals = filteredArray?.length;
-
-  totalPagesMeals = Math.ceil(totalItemsMeals / itemsPerPage);
-
-  const startIndexMeals = (currentPageMeals - 1) * itemsPerPage;
-
-  const endIndexMeals = startIndexMeals + itemsPerPage;
-
-  const slicedArrayMeals = filteredArray?.slice(startIndexMeals, endIndexMeals);
-
   const handlePageChangeMeals = (event, pageNumber) => {
     setCurrentPageMeals(pageNumber);
   };
 
-  const [selectedCompany, setSelectedCompanyValue] = useState("");
-
-  const handleSelectCompanyChange = (value) => {
-    setSelectedCompanyValue(value);
-  };
-
-  const [selectedCategory, setSelectedCategoryValue] = useState("");
-
-  const handleSelectCategoryChange = (value) => {
-    setSelectedCategoryValue(value);
-  };
-
-  const [selectedSale, setSelectedSaleValue] = useState("");
-
-  const handleSelectSaleChange = (value) => {
-    setSelectedSaleValue(value);
-  };
-
-
-  // useEffect(() => {
-  //   const filteredItems = itemsData.filter((item)=>{return  item.price > item.salePrice})
-  //   setSaleItems(filteredItems)
-  // }, [saleItems]);
-
-  useEffect(() => {
-    if (AllRelatedItems) {
-      const newFilter = AllRelatedItems?.filter((item) => {
-        return (
-          item.category
-            ?.toLowerCase()
-            .includes(selectedCategory.toLowerCase()) &&
-          item.company?.toLowerCase().includes(selectedCompany.toLowerCase())       
-        );
-      });
-      if(selectedSale){
-        const newFilterAndSale = newFilter.filter((item)=> {return item.price > item.salePrice})
-        setFilteredArray(newFilterAndSale);
-       return
-      }   
-      setFilteredArray(newFilter);
-    }
-  }, [selectedCategory, selectedCompany,selectedSale,AllRelatedItems]);
 
   return (
     <>
@@ -146,7 +73,10 @@ const ItemsStore = () => {
         </div>
       </div>
 
-      <div className="flex justify-center py-8 mx-5 ">
+      <StoreFilter ProductItems={AllRelatedItems} updateFilteredArray={handleSelectChange} />
+
+
+      {/* <div className="flex justify-center py-8 mx-5 ">
         <div className="w-full md:w-full mx-8  px-5 rounded-lg bg-white  transform transition duration-300 ">
           <div className="flex items-center justify-between flex-col lg:flex-row">
             <div className="relative flex  w-1/2  ">
@@ -177,26 +107,12 @@ const ItemsStore = () => {
               <CompanyInput onSelectChange={handleSelectCompanyChange} />
               <CategoryInput onSelectChange={handleSelectCategoryChange} />
               <SaleInput onSelectChange={handleSelectSaleChange} />
+              <JuiceTypeInput onSelectChange={handleSelectTypeChange} />
        
-              {/* <select
-                  className="px-4 py-3 w-40 md:w-60 rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-[#E8AA42] focus:bg-white focus:ring-0 text-sm appearance"
-                  // value={yourSelectedStateValueAddress}
-                  // onChange={(e) => {
-                  //   setOptionAddress(e.target.value);
-                  //   handleFilterChange(
-                  //     yourSelectedStateValueType,
-                  //     e.target.value
-                  //   );
-                  // }}
-                >
-                  <option value="">all nations</option>
-                  <option value="jordanian">jordanian</option>
-                  <option value="egyptian ">egyptian </option>
-                </select> */}
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className=" lg:min-h-[50vh] flex  flex-col">
         <ItemCard Items={slicedArrayMeals} />
