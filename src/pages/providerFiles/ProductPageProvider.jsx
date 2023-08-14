@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 // import AddRelatedItem from "./AddRelatedItem";
 // import ItemCard from "../../components/cards/ItemCard"
 
-import AddVapePuff from "./productsAdd/AddVapePuff";
-import AddChargeVape from "./productsAdd/AddChargeVape";
+// import AddVapePuff from "./productsAdd/AddVapePuff";
+// import AddChargeVape from "./productsAdd/AddChargeVape";
 import AddJuice from "./productsAdd/AddJuice";
 // import CategoryCard from "../../components/cards/CategoryCard";
 import CategoryEditSection from "./components/CategoryEditSection";
@@ -35,7 +35,7 @@ const ProductPageProvider = () => {
   } = useSelector((state) => state.fetchOneItem);
   const {
     loading: isCategoriesLoading,
-    data: CategoriesData,
+    // data: CategoriesData,
     // error: fetchItemError,
   } = useSelector((state) => state.fetchCategories);
 

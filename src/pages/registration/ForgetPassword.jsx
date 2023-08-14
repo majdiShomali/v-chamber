@@ -15,7 +15,8 @@ const ForgetPassword = () => {
   const handleFind = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(
+      // const response = 
+      await axios.post(
         "http://localhost:5000/api/ForgetUsers",
         {
           email: email,
@@ -52,7 +53,8 @@ const ForgetPassword = () => {
     if(validatePassword(password)){
 
       try {
-        const response = await axios.post(
+        // const response = 
+        await axios.post(
           "http://localhost:5000/api/reset-password",
           {
             email: email,

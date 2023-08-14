@@ -10,7 +10,7 @@ import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchJuiceSizeByCategory } from "../../../actions/juice/GetJuiceSizeByCategory";
 
 const AddJuiceSize = ({item}) => {
@@ -30,9 +30,9 @@ const AddJuiceSize = ({item}) => {
     };
     const dispatch = useDispatch();
   
-    const { data: allJuiceSize } = useSelector(
-      (state) => state.fetchJuiceSize
-    );
+    // const { data: allJuiceSize } = useSelector(
+    //   (state) => state.fetchJuiceSize
+    // );
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

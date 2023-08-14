@@ -57,7 +57,7 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
       }   
       updateFilteredArray(newFilter);
     }
-  }, [selectedCategory, selectedCompany,selectedSale,selectedType]);
+  }, [selectedCategory, selectedCompany,selectedSale,selectedType,ProductItems]);
 
 
 

@@ -7,11 +7,12 @@ const CompanyInput = ({ onSelectChange,categoryId }) => {
 
   const dispatch = useDispatch()
 
-  const {
-    // loading: isCategoriesDataLoading,
-    data: CompanyData,
-    // error: fetchCategoriesDataError,
-  } = useSelector((state) => state.fetchCompanyItems);
+  // const {
+  //   // loading: isCategoriesDataLoading,
+  //   data: CompanyData,
+  //   // error: fetchCategoriesDataError,
+  // } = useSelector((state) => state.fetchCompanyItems);
+
   const { data: allCompaniesByCategory  } = useSelector(
     (state) => state.fetchCompaniesByCategory
   );

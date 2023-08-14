@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneItem } from "../../actions/category/GetOneItem";
+// import { fetchOneItem } from "../../actions/category/GetOneItem";
 import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
 import { fetchOneRelatedItem } from "../../actions/related/GetOneRelatedItem";
 import { updateFavItems } from "../../actions/related/FavoriteItems";
@@ -12,7 +12,7 @@ import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import CardRating from "../../components/cards/CardRating";
 import { Link } from "react-router-dom";
 
-import Gallery from "../landing/pages/Gallery";
+// import Gallery from "../landing/pages/Gallery";
 
 const ProductPage = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;

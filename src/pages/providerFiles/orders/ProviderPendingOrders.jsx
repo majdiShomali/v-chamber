@@ -200,12 +200,15 @@ const showSuccessAlert = (message) => {
           </tr>
         </thead>
 
-        {slicedArrayUsers?.map((e) => {
-          return (
+       
             <tbody
-            key={e._id}
-            role="rowgroup">
-              <tr role="row">
+            
+           >
+               {slicedArrayUsers?.map((e) => {
+          return (
+              <tr 
+              key={e._id}
+              role="row">
                 <td
                   className="pt-[21px] pb-[18px] sm:text-[14px] flex items-center"
                   role="cell"
@@ -276,9 +279,10 @@ const showSuccessAlert = (message) => {
                   </button>
                 </td>
               </tr>
+                 );
+                })}
             </tbody>
-          );
-        })}
+       
       </table>
 
       <div className="flex w-full justify-center mt-5">

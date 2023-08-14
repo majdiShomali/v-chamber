@@ -2,12 +2,12 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 
 import SaleInput from './inputs/AllSaleInput';
-import CategoryInput from './inputs/AllCategoryInput';
+// import CategoryInput from './inputs/AllCategoryInput';
 import CompanyInput from "../../pages/providerFiles/components/inputs/CompanyInput";
-import JuiceSizeInput from "../../pages/providerFiles/components/inputs/JuiceSizeInput";
-import JuiceNikotinInput from "../../pages/providerFiles/components/inputs/CompanyInput";
+// import JuiceSizeInput from "../../pages/providerFiles/components/inputs/JuiceSizeInput";
+// import JuiceNikotinInput from "../../pages/providerFiles/components/inputs/CompanyInput";
 import JuiceTypeInput from "../../pages/providerFiles/components/inputs/JuiceTypeInput";
-import JuiceFlavorInput from "../../pages/providerFiles/components/inputs/JuiceFlavorInput"
+// import JuiceFlavorInput from "../../pages/providerFiles/components/inputs/JuiceFlavorInput"
 const StoreFilterByCategory = ({ProductItems,updateFilteredArray,categoryId}) => {
 
     const [selectedCompany, setSelectedCompanyValue] = useState("");
@@ -16,11 +16,11 @@ const StoreFilterByCategory = ({ProductItems,updateFilteredArray,categoryId}) =>
       setSelectedCompanyValue(value);
     };
   
-    const [selectedCategory, setSelectedCategoryValue] = useState("");
+    // const [selectedCategory, setSelectedCategoryValue] = useState("");
   
-    const handleSelectCategoryChange = (value) => {
-      setSelectedCategoryValue(value);
-    };
+    // const handleSelectCategoryChange = (value) => {
+    //   setSelectedCategoryValue(value);
+    // };
   
     const [selectedSale, setSelectedSaleValue] = useState("");
     const handleSelectSaleChange = (value) => {
@@ -47,7 +47,7 @@ const StoreFilterByCategory = ({ProductItems,updateFilteredArray,categoryId}) =>
     if (ProductItems) {
       const newFilter = ProductItems?.filter((item) => {
         return (
-          item.category?.toLowerCase().includes(selectedCategory.toLowerCase()) &&
+          // item.category?.toLowerCase().includes(selectedCategory.toLowerCase()) &&
           item.company?.toLowerCase().includes(selectedCompany.toLowerCase())
              && item.type?.toLowerCase().includes(selectedType.toLowerCase()) 
         );
@@ -59,7 +59,7 @@ const StoreFilterByCategory = ({ProductItems,updateFilteredArray,categoryId}) =>
       }   
       updateFilteredArray(newFilter);
     }
-  }, [selectedCategory, selectedCompany,selectedSale,selectedType]);
+  }, [ selectedCompany,selectedSale,selectedType,ProductItems]);
 
 
   return (

@@ -12,7 +12,7 @@ const JuiceFlavorInput = ({onSelectChange,categoryId}) => {
     if (categoryId !== undefined) {
       dispatch(fetchJuiceFlavorByCategory(categoryId));
     }
-  },[dispatch])
+  },[dispatch,categoryId])
 
   const [selectedChargeVape, setSelectedChargeVape] = useState('');
 

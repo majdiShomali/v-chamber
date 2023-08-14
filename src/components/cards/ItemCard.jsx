@@ -1,12 +1,12 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 import { updateFavItems } from "../../actions/related/FavoriteItems";
 import { fetchFavItems } from "../../actions/related/FavoriteItems";
 import { UserContext } from "../../context/userContext";
 import { fetchItemsCart } from "../../actions/related/GetItemsCart";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";
 import { HashLink } from "react-router-hash-link";
@@ -23,7 +23,7 @@ const ItemCard = ({Items}) => {
   const { user } = useContext(UserContext);
 // const [filterItems,setFilterItems]=useState([])
 
-const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
+// const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
   const {
     // loading: isLoading,
     data: itemsData,
@@ -58,7 +58,7 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
     const storedItems = localStorage.getItem("items");
     if (storedItems) {
       dispatch(fetchItemsCart(JSON.parse(storedItems)));
-      setItemsAllIdsInCart(JSON.parse(storedItems))
+      // setItemsAllIdsInCart(JSON.parse(storedItems))
     }
   }, [dispatch]);
 

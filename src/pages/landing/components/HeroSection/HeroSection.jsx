@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Carousel } from "@material-tailwind/react";
-import { HashLink } from 'react-router-hash-link';
+import { Carousel } from "@material-tailwind/react";
+// import { HashLink } from 'react-router-hash-link';
 import HeroImageOne from './HeroImageOne';
 import HeroImageTwo from './HeroImageTwo';
 

@@ -5,7 +5,7 @@ import Brand from "../components/Brand";
 // import SalesProducts from '../components/home/SalesProducts'
 import Categories from "../components/Categories";
 import ProductOfTheWeek from "../components/ProductOfTheWeek";
-import Gallery from './Gallery';
+// import Gallery from './Gallery';
 
 
 

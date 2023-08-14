@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import CategoryCard from "../../../components/cards/CategoryCard";
+// import CategoryCard from "../../../components/cards/CategoryCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCompaniesByCategory } from "../../../actions/company/GetCompaniesByCategory";
 import AddCompany from "../AddGeneralInfo/AddCompany";
@@ -37,9 +37,9 @@ const CategoryEditSection = ({ ItemData }) => {
     (state) => state.fetchJuiceFlavorByCategory
   );
 
-  const { data: allJuiceSize } = useSelector((state) => state.fetchJuiceSize);
-  const { data: allJuiceType } = useSelector((state) => state.fetchJuiceType);
-  const { data: allJuiceNikotin } = useSelector((state) => state.fetchJuiceNikotin);
+  // const { data: allJuiceSize } = useSelector((state) => state.fetchJuiceSize);
+  // const { data: allJuiceType } = useSelector((state) => state.fetchJuiceType);
+  // const { data: allJuiceNikotin } = useSelector((state) => state.fetchJuiceNikotin);
 
   useEffect(() => {
     if (id !== undefined) {

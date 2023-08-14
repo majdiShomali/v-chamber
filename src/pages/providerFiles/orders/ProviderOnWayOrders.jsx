@@ -5,14 +5,14 @@ import { fetchDeliverdOrders } from '../../../actions/orders/GetDeliverdOrders'
 
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
-import { mdiFileEdit } from "@mdi/js";
+// import { mdiFileEdit } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
 import axios from "axios";
-import { mdiHumanEdit } from "@mdi/js";
+// import { mdiHumanEdit } from "@mdi/js";
 import Swal from "sweetalert2";
-import { mdiSilverware } from "@mdi/js";
-import { mdiShieldCrownOutline } from "@mdi/js";
-import { mdiAccountOutline } from "@mdi/js";
+// import { mdiSilverware } from "@mdi/js";
+// import { mdiShieldCrownOutline } from "@mdi/js";
+// import { mdiAccountOutline } from "@mdi/js";
 
 
 import { mdiCarClock } from '@mdi/js';
@@ -36,20 +36,20 @@ const ProviderOnWayOrders = () => {
 //-----------------------search------------------------//
 
 
-const [persons, setPersons] = useState([]);
-const [FilterDataUsers, setFilterDataUsers] = useState([]);
+// const [persons, setPersons] = useState([]);
+// const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
 
 
 
-const filterDataByNameUsers = (searchTermUsers) => {
-  const filteredDataUsers = persons.filter((item) =>
-    item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
-  );
-  setFilterDataUsers(filteredDataUsers);
-  console.log(filteredDataUsers);
-  setCurrentPageUsers(1);
-};
+// const filterDataByNameUsers = (searchTermUsers) => {
+//   const filteredDataUsers = persons.filter((item) =>
+//     item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
+//   );
+//   // setFilterDataUsers(filteredDataUsers);
+//   console.log(filteredDataUsers);
+//   setCurrentPageUsers(1);
+// };
 
 const [currentPageUsers, setCurrentPageUsers] = useState(1);
 let totalItemsUsers;
@@ -198,13 +198,13 @@ const handleUpdate = async(id)=>{
             </th>
           </tr>
         </thead>
-
+        <tbody >
         {slicedArrayUsers?.map((e) => {
           return (
-            <tbody 
-            key={e._id}
-            role="rowgroup">
-              <tr role="row">
+            
+              <tr
+              
+              role="row">
                 <td
                   className="pt-[21px] pb-[18px] sm:text-[14px] flex items-center"
                   role="cell"
@@ -275,9 +275,10 @@ const handleUpdate = async(id)=>{
                   </button>
                 </td>
               </tr>
-            </tbody>
+           
           );
         })}
+         </tbody>
       </table>
 
       <div className="flex w-full justify-center mt-5">

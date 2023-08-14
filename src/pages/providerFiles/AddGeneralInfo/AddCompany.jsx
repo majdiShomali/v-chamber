@@ -11,7 +11,7 @@ import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 
 import { fetchCompaniesByCategory } from "../../../actions/company/GetCompaniesByCategory";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const AddCompany = ({ item }) => {
   const ApiUrl = process.env.REACT_APP_API_URL;

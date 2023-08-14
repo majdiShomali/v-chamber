@@ -51,10 +51,10 @@ const AddJuice = ({ item }) => {
     setSelectedColor(event.target.value);
   };
 
-  const [selectedJuice, setSelectedJuice] = useState("");
-  const handleJuiceChange = (event) => {
-    setSelectedJuice(event.target.value);
-  };
+  // const [selectedJuice, setSelectedJuice] = useState("");
+  // const handleJuiceChange = (event) => {
+  //   setSelectedJuice(event.target.value);
+  // };
 
   const [selectedCompany, setSelectedValue] = useState("");
   const handleSelectChange = (value) => {
@@ -95,7 +95,7 @@ const AddJuice = ({ item }) => {
     formData.append("totalQuantity", Quantity);
     formData.append("color", selectedColor);
     formData.append("selectedColor", selectedColor);
-    formData.append("juice", selectedJuice);
+    // formData.append("juice", selectedJuice);
     formData.append("company", selectedCompany);
     formData.append("size", selectedSize);
     formData.append("nikotin", selectedNikotin);

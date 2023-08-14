@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Carousel } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { HashLink } from 'react-router-hash-link';
 
 // import AOS from 'aos';

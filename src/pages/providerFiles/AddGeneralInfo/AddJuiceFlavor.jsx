@@ -10,7 +10,7 @@ import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchJuiceFlavorByCategory } from "../../../actions/juice/GetJuiceFlavorByCategory";
 
 const AddJuiceFlavor = ({item}) => {

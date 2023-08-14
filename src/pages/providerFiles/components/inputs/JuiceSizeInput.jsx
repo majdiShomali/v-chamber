@@ -7,11 +7,11 @@ const JuiceSizeInput = ({onSelectChange,categoryId}) => {
 
     const dispatch = useDispatch()
 
-  const {
-    // loading: isCategoriesDataLoading,
-    data: JuiceSizeData,
-    // error: fetchCategoriesDataError,
-  } = useSelector((state) => state.fetchJuiceSize);
+  // const {
+  //   // loading: isCategoriesDataLoading,
+  //   data: JuiceSizeData,
+  //   // error: fetchCategoriesDataError,
+  // } = useSelector((state) => state.fetchJuiceSize);
 
   const { data: allJuiceSizeByCategory  } = useSelector(
     (state) => state.fetchJuiceSizeByCategory

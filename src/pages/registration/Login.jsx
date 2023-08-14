@@ -11,7 +11,7 @@ export default function LogIn() {
   const [password, setpassword] = useState("");
   const [passwordp, setpasswordp] = useState("");
 
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
 
   const [isPinVerify, setIsPinVerify] = useState(false);
   const [Pin, setPin] = useState();
@@ -105,7 +105,7 @@ export default function LogIn() {
             : response.data.error
         );
 
-        if (response.data.error == "Check your pin code") {
+        if (response.data.error === "Check your pin code") {
           setIsPinVerify(true);
         }
       }

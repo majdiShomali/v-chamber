@@ -20,13 +20,13 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 
-import Icon from "@mdi/react";
-import { mdiCartOutline } from "@mdi/js";
-import { mdiCartArrowDown } from "@mdi/js";
+// import Icon from "@mdi/react";
+// import { mdiCartOutline } from "@mdi/js";
+// import { mdiCartArrowDown } from "@mdi/js";
 // import { CartContext } from "../context/cartContext";
-import { useState, useEffect } from "react";
+// import { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 const ProviderNavBar = () => {
 
   // const ApiUrl = process.env.REACT_APP_API_URL;
@@ -37,8 +37,8 @@ const ProviderNavBar = () => {
 
 
   const [openNav, setOpenNav] = React.useState(false);
-  const [items, setItems] = useState([]);
-  const [itemsStat, setItemsStat] = useState(false);
+  // const [items, setItems] = useState([]);
+  // const [itemsStat, setItemsStat] = useState(false);
   // const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
 
 
