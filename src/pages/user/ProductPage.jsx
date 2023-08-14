@@ -12,6 +12,7 @@ import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import CardRating from "../../components/cards/CardRating";
 import { Link } from "react-router-dom";
 
+import Gallery from "../landing/pages/Gallery";
 
 const ProductPage = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
@@ -116,7 +117,10 @@ if(OneRelatedItemData?.image){
       };
 
         dispatch(updateFavItems(UpdatedData)).then(() => {
-        dispatch(fetchOneItem(id));
+        // dispatch(fetchOneItem(id));
+        fetchRelatedItem(id)
+        dispatch(fetchOneRelatedItem(relatedId));
+
       });
     } catch (error) {}
   };
@@ -193,12 +197,28 @@ if(OneRelatedItemData?.image){
           </div>
           <div className="flex flex-col md:flex-row -mx-4">
             <div className="md:flex-1 px-4">
-              <div className="h-[460px] rounded-lg bg-gray-300 mb-4">                
+              <div className="h-[460px] relative rounded-lg bg-gray-500 mb-4">                
                 <img
                   className="w-full h-full object-cover"
                   src={`${ImagesUrl}/${selectedImage}`}
                   alt="ProductImage"
                 />
+                <div className="absolute top-3 right-3">
+                {localStorage.auth  ? 
+
+
+<CardRating
+Item={selectedProduct}
+CardId={selectedProduct?._id}
+UserId={user?._id}
+/>
+:
+null
+}
+
+
+                </div>
+               
               </div>
               <div className="flex -mx-2 mb-4">
                 <div className="w-1/2 px-2">
@@ -267,7 +287,10 @@ if(OneRelatedItemData?.image){
                   <span className="text-gray-600">In Stock</span>
                 </div>
               </div>
-              {selectedProduct?.color ? 
+            
+            
+ 
+              {/* {selectedProduct?.color ? 
               
               <>
               <div className="mb-4">
@@ -290,9 +313,9 @@ if(OneRelatedItemData?.image){
               </>
               :
               null
-            }
+            } */}
        
-       {  selectedProduct?.size ?
+       {/* {  selectedProduct?.size ?
               <>
               <div className="mb-4 flex flex-col">
                 <span className="font-bold text-gray-700">Select by Size:</span>
@@ -314,9 +337,32 @@ if(OneRelatedItemData?.image){
                 </div>
               </div>
               </>
-              :null}
+              :null} */}
+       {/* {  selectedProduct?.type ?
+              <>
+              <div className="mb-4 flex flex-col">
+                <span className="font-bold text-gray-700">Select by Type:</span>
+                <div className="flex items-center mt-2">
+                      {AllRelatedItemData?.map((product) =>{
+                        return(
+                          <button 
+                          key={product.image}
+                          onClick={()=>
+                           { setSelectedProduct(product)
+                            setSelectedImage(product.image)}
+                          }
+                          className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400">
+                          {product.type}
+                        </button> 
+                        )
+                      })}         
+                                         
+                </div>
+              </div>
+              </>
+              :null} */}
 
-                {selectedProduct?.vapePuff ? (
+                {/* {selectedProduct?.vapePuff ? (
                   <>
                     <div className="mb-4">
                       <span className="font-bold text-gray-700">
@@ -338,7 +384,7 @@ if(OneRelatedItemData?.image){
                       </div>
                     </div>
                   </>
-                ) : null}
+                ) : null} */}
 
               <div>
                 <span className="font-bold text-gray-700">
@@ -348,17 +394,42 @@ if(OneRelatedItemData?.image){
                   {selectedProduct?.description}
                 </p>
               </div>
-              {localStorage.auth  ? 
+       
+
+               {/* <Gallery
+                AllRelatedItemData={AllRelatedItemData} setSelectedProduct={setSelectedProduct} selectedProduct={selectedProduct}
+                /> */}
 
 
-              <CardRating
-              Item={selectedProduct}
-              CardId={relatedId}
-              UserId={user?._id}
-              />
+                           
+              {selectedProduct?.image ? 
+              
+              <>
+              <div className="mt-5">
+                  <span className="font-bold text-gray-700">Related Products</span>
+              <div className="flex flex-wrap items-center mt-2">
+                    {AllRelatedItemData?.map((product)=>{
+                      return(
+
+                        <img
+                        src={`${ImagesUrl}/${product.image}`}   
+                          alt={product.image}
+                          className="w-20 mx-3 h-20 rounded-full shadow-md object-cover hover:scale-105 cursor-pointer "
+                                  onClick={()=>{
+                          setSelectedProduct(product)
+                          setSelectedImage(product.image)}}
+                          />
+                        
+                      )
+                    })}
+                     
+               
+              </div>
+              </div>
+              </>
               :
               null
-              }
+            }
               
             </div>
           </div>

@@ -4,5 +4,8 @@ module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {  
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    
+  ],
 });
