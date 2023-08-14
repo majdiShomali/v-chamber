@@ -42,16 +42,16 @@ const CardRating = ({Item,CardId,UserId}) => {
   
       let ids = Item.UsersIdRate.length > 0 ?  [...Item.UsersIdRate,UserId]  : [UserId]
       let newrate =Item.rate.length  > 0   ? [...Item.rate,starIndex + 1]      :    [starIndex + 1]  
-      const  sum=   Item.rate.length === 0 ? (5+newrate[0]) :  Item.rate?.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0);
-      const  avg = Item.rate.length === 0 ? 2 :Item.rate?.length
+      const  sum=   Item.rate.length === 0 ? (5+newrate[0]) :  newrate?.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0);
+      const  avg = Item.rate.length === 0 ? 2 :newrate?.length
   
       try {
         const updatedProduct = {
           UsersIdRate:ids,
           rate:newrate,
-          rating:sum/avg
+          rating:(sum/avg).toFixed(1)
         };
-
+     
       // const NupdatedRecipe= 
         await axios.put(`http://localhost:5000/api/updateProductRate/${CardId}`, updatedProduct);
         showSuccessAlert(newrate)

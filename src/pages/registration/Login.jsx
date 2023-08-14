@@ -114,6 +114,18 @@ export default function LogIn() {
       console.log(error.message);
     }
   };
+
+
+  const handleResetPin = async()=>{
+try {
+   await axios.post(`${ApiUrl}/ResendPinCode`, {email:email});
+
+} catch (error) {
+  console.log(error);
+}
+    
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -188,6 +200,7 @@ export default function LogIn() {
                       />
 
                       <p className="text-red-500">{Pinp}</p>
+                      <p onClick={handleResetPin} className="text-blue-500 cursor-pointer">ReSend PIN code</p>
 
                       <button
                         type="button"

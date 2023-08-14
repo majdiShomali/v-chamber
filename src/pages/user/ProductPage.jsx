@@ -353,7 +353,7 @@ if(OneRelatedItemData?.image){
 
               <CardRating
               Item={selectedProduct}
-              CardId={id}
+              CardId={relatedId}
               UserId={user?._id}
               />
               :

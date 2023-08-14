@@ -22,7 +22,7 @@ export default function Signup() {
   const [password, setpassword] = useState("");
   const [passwordp, setpasswordp] = useState("");
 
-  const [Pin, setPin] = useState(null);
+  const [Pin, setPin] = useState("");
   const [Pinp, setPinp] = useState("");
   const [verifyEmail, setVerifyEmail] = useState(true);
   const [user, setUser] = useState({});
@@ -139,6 +139,9 @@ export default function Signup() {
             <form onSubmit={handleSubmit}>
               <div className="w-full flex-1 mt-8">
                 <div className="mx-auto max-w-xs">
+                 
+                {verifyEmail ? (
+                    <>
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                     type="email"
@@ -147,8 +150,7 @@ export default function Signup() {
                     onChange={(e) => setemail(e.target.value)}
                   />
                   <p className="text-red-500">{emailp}</p>
-                  {verifyEmail ? (
-                    <>
+                 
                       <input
                         className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                         type="text"
@@ -177,18 +179,20 @@ export default function Signup() {
                     </>
                   ) : (
                     <>
-                      <p className="text-black mt-8">
-                        enter pin code sent to your email
+                
+                     <p className=" ">
+                         PIN code sent to {email}
                       </p>
-
                       <input
-                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                        className="w-full mt-5 px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
                         type="number"
                         placeholder="Pin code"
                         value={Pin}
                         onChange={(e) => setPin(e.target.value)}
+                        required
                       />
                       <p className="text-red-500">{Pinp}</p>
+                  
                     </>
                   )}
                   {verifyEmail ? (
@@ -231,7 +235,7 @@ export default function Signup() {
                           <circle cx="8.5" cy="7" r="4" />
                           <path d="M20 8v6M23 11h-6" />
                         </svg>
-                        <span className="ml-3">Pin Code</span>
+                        <span className="ml-3">Confirm Pin</span>
                       </button>
                     </>
                   )}
