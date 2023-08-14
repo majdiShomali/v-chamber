@@ -41,7 +41,7 @@ const TopProducts = () => {
     <>
 
 
-          <div id='TopProducts'
+          <div id='TopProducts' 
           
           className="py-5 lg:h-[100vh] flex justify-center items-center flex-col ">
       <div className=" max-w-xl text-center">
@@ -55,7 +55,7 @@ const TopProducts = () => {
       <div className="mt-8 flex flex-wrap justify-center gap-4">
       </div>
     </div>
-    <ItemCard
+    <ItemCard 
     Items={topProducts}
     />
 

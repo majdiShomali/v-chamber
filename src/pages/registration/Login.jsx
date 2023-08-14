@@ -1,44 +1,51 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LogIn() {
-
-const ApiUrl= process.env.REACT_APP_API_URL
-const ReactUrl= process.env.REACT_APP_API_REACT_URL
+  const ApiUrl = process.env.REACT_APP_API_URL;
+  const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const [email, setemail] = useState("");
   const [emailp, setemailp] = useState("");
   const [password, setpassword] = useState("");
   const [passwordp, setpasswordp] = useState("");
+
+  const [user, setUser] = useState();
+
+  const [isPinVerify, setIsPinVerify] = useState(false);
+  const [Pin, setPin] = useState();
+  const [Pinp, setPinp] = useState();
   // const [userGoogle, setUserGoogle] = useState([]);
   // const [errorG, setErrorG] = useState("");
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      
       // setUserGoogle(codeResponse)
-    
-      getGoogleLogin(codeResponse)
+
+      getGoogleLogin(codeResponse);
     },
     onError: (error) => console.log("Login Failed:", error),
   });
 
-
-
-  const getGoogleLogin = async (userGoogle)=>{
-
+  const getGoogleLogin = async (userGoogle) => {
     if (userGoogle.length !== 0) {
       try {
-        const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${userGoogle.access_token}`,
-            Accept: "application/json",
-          },
-        });
-    
+        const response = await axios.get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${userGoogle.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        );
+
         try {
-          const newUserResponse = await axios.post(`${ApiUrl}/newUserGoogle`, response.data);
+          const newUserResponse = await axios.post(
+            `${ApiUrl}/newUserGoogle`,
+            response.data
+          );
           localStorage.setItem("auth", newUserResponse.data.token);
           window.location.href = `${ReactUrl}/`;
         } catch (err) {
@@ -49,9 +56,23 @@ const ReactUrl= process.env.REACT_APP_API_REACT_URL
         console.log(err.message);
       }
     }
-    
-    
-  }
+  };
+
+  const handleVerify = async () => {
+    console.log(Pin);
+    try {
+      const response = await axios.put(`${ApiUrl}/verifyOldEmail`, {
+        Pin: Pin,
+        email: email,
+      });
+      console.log(response.data);
+      localStorage.setItem("auth", response.data.token);
+      window.location.href = `${ReactUrl}/`;
+    } catch (error) {
+      console.error(error.response.data.error);
+      setPinp(error.response.data.error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -62,24 +83,31 @@ const ReactUrl= process.env.REACT_APP_API_REACT_URL
 
     try {
       // Send the data to the server using an HTTP POST request
-      const response = await axios.post(
-        `${ApiUrl}/usersLogin`,
-        userData
-      );
+      const response = await axios.post(`${ApiUrl}/usersLogin`, userData);
       console.log(response.data.error);
-      if (response.data.error !== "incorrect password" && response.data.error === undefined) {
+      if (
+        response.data.error !== "incorrect password" &&
+        response.data.error === undefined
+      ) {
         localStorage.setItem("auth", response.data.token);
         window.location.href = `${ReactUrl}/`;
         setpasswordp("");
         setemailp("");
       } else {
-        setpasswordp(response.data.error === "incorrect password" ? "incorrect password": "");
-        setemailp(response.data.error === "incorrect password" ? " ": response.data.error );
-        console.log(response.data.error == "Check your pin code")
-        console.log(response.data.error == "Check your pin code")
-        console.log(response.data.error == "Check your pin code")
-        console.log(response.data.error == "Check your pin code")
-        console.log(response.data.error == "Check your pin code0")
+        setpasswordp(
+          response.data.error === "incorrect password"
+            ? "incorrect password"
+            : ""
+        );
+        setemailp(
+          response.data.error === "incorrect password"
+            ? " "
+            : response.data.error
+        );
+
+        if (response.data.error == "Check your pin code") {
+          setIsPinVerify(true);
+        }
       }
     } catch (error) {
       console.error("Error inserting data:", error);
@@ -97,6 +125,7 @@ const ReactUrl= process.env.REACT_APP_API_REACT_URL
               alt="loginimage"
             />
           </div>
+
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Sign-In</h1>
             <div className="w-full flex-1 mt-8">
@@ -147,36 +176,64 @@ const ReactUrl= process.env.REACT_APP_API_REACT_URL
                   />
                   <p className="text-red-500">{emailp}</p>
 
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    required
-                    onChange={(e) => setpassword(e.target.value)}
-                  />
+                  {isPinVerify ? (
+                    <>
+                      <input
+                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                        type="number"
+                        placeholder="Pin code"
+                        value={Pin}
+                        required
+                        onChange={(e) => setPin(e.target.value)}
+                      />
 
-                  <p className="text-red-500">{passwordp}</p>
+                      <p className="text-red-500">{Pinp}</p>
 
-                  <button
-                    type="submit"
-                    className="mt-5 bg-purple-500 tracking-wide font-semibold text-white w-full py-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                  >
-                    <svg
-                      className="w-6 h-6 -ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="8.5" cy="7" r="4" />
-                      <path d="M20 8v6M23 11h-6" />
-                    </svg>
-                    <span className="ml-3">Sign-In</span>
-                  </button>
-                  <Link to="/ForgetPassword" className="text-blue-500">forget password ?</Link>
+                      <button
+                        type="button"
+                        className="mt-5 bg-purple-500 tracking-wide font-semibold text-white w-full py-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                        onClick={handleVerify}
+                      >
+                        <span className="ml-3">LogIn </span>
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <input
+                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        required
+                        onChange={(e) => setpassword(e.target.value)}
+                      />
+
+                      <p className="text-red-500">{passwordp}</p>
+
+                      <button
+                        type="submit"
+                        className="mt-5 bg-purple-500 tracking-wide font-semibold text-white w-full py-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                      >
+                        <svg
+                          className="w-6 h-6 -ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="8.5" cy="7" r="4" />
+                          <path d="M20 8v6M23 11h-6" />
+                        </svg>
+                        <span className="ml-3">Sign-In</span>
+                      </button>
+                    </>
+                  )}
+
+                  <Link to="/ForgetPassword" className="text-blue-500">
+                    forget password ?
+                  </Link>
 
                   <p className="mt-6 text-xs text-gray-600 text-center">
                     No Account?
@@ -193,8 +250,9 @@ const ReactUrl= process.env.REACT_APP_API_REACT_URL
           </div>
         </div>
         <div className="flex-1 bg-indigo-100 text-center hidden lg:flex imageSign bg-cover bg-center bg-no-repeat ">
-          <img src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg" 
-          alt="loginimage"
+          <img
+            src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg"
+            alt="loginimage"
           />
         </div>
       </div>

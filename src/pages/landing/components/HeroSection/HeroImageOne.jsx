@@ -1,9 +1,14 @@
 import React from 'react'
 import { Button, Carousel } from "@material-tailwind/react";
 import { HashLink } from 'react-router-hash-link';
+
+// import AOS from 'aos';
+// import 'aos/dist/aos.css'; // Import the AOS styles
+// AOS.init();
+// data-aos="fade-up"
 const HeroImageOne = () => {
   return (
-    <div className='relative h-full w-full object-cover'>
+    <div className='relative h-full w-full object-cover' >
 
     <section className="bg-gray-50 h-full w-full object-cover bg-cover bg-no-repeat bg-[url(https://images.pexels.com/photos/9694216/pexels-photo-9694216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] ">
 <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-full lg:items-center">

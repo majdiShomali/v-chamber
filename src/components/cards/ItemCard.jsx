@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";
 import { HashLink } from "react-router-hash-link";
+
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+AOS.init();
 const ItemCard = ({Items}) => {
 
   // const ApiUrl = process.env.REACT_APP_API_URL;
@@ -117,19 +121,20 @@ const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
     }).then(() => {});
   };
 
-const navigate =useNavigate();
-  const handleShowItem = (item) => {
-    navigate(`/ProductPage/${item.categoryId}/${item._id}`)
-  }
+// const navigate =useNavigate();
+  // const handleShowItem = (item) => {
+  //   navigate(`/ProductPage/${item.categoryId}/${item._id}`)
+  // }
   return (
     <>  
     <div 
-    className="w-full flex flex-wrap gap-3 justify-center">   
+    className="w-full flex flex-wrap gap-3 justify-center" data-aos="fade-up" data-aos-duration="1000" >   
     {Items?.map((card) => {
             return (
-              <HashLink smooth={true} to = {`/ProductPage/${card.categoryId}/${card._id}#`}>
+              
               <Card
                 // onClick={()=>handleShowItem(card)}
+                
                 key={card._id}
                 className=" cursor-pointer flex flex-col items-center justify-center mx-2 h-full w-72  hover:scale-105"
 
@@ -188,12 +193,15 @@ const navigate =useNavigate();
                               )}
                             </>
                           ) : null}
+              <HashLink smooth={true} to = {`/ProductPage/${card.categoryId}/${card._id}#`}>
 
                           <img
                             src={`${ImagesUrl}/${card.image}`}
                             alt="Just a flower"
                             className=" w-full  h-full  object-fill  rounded-2xl "
                           />
+                                        </HashLink>
+
                         </div>
                         <div className="flex-auto justify-evenly">
                           <div className="flex flex-wrap ">
@@ -302,7 +310,6 @@ const navigate =useNavigate();
                   </div>
                 </div>
               </Card>
-              </HashLink>
             );
           })}
       </div>   

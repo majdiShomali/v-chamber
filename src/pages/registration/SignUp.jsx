@@ -5,8 +5,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export default function Signup() {
-  const ApiUrl= process.env.REACT_APP_API_URL
-  const ReactUrl= process.env.REACT_APP_API_REACT_URL
+  const ApiUrl = process.env.REACT_APP_API_URL;
+  const ReactUrl = process.env.REACT_APP_API_REACT_URL;
 
   const { type } = useParams();
 
@@ -48,25 +48,20 @@ export default function Signup() {
         phone: phone,
         role: type === "user" ? 0 : 2,
       };
-       console.log(userData);
+      console.log(userData);
       try {
         // Send the data to the server using an HTTP POST request
-        const response = await axios.post(
-          `${ApiUrl}/users`,
-          userData
-        );
-        console.log(response.data)
-        setVerifyEmail(false)
-        setemail(response.data.email)
-        setUser(response.data)
+        const response = await axios.post(`${ApiUrl}/users`, userData);
+        console.log(response.data);
+        setVerifyEmail(false);
+        setemail(response.data.email);
+        setUser(response.data);
         // setemailp(response.data.error)
         // localStorage.setItem("auth", response.data.token);
         // window.location.href = `${ReactUrl}/`;
       } catch (error) {
         console.error("Error inserting data:", error);
       }
-
-    
     }
   };
 
@@ -113,19 +108,20 @@ export default function Signup() {
     }
   }
 
-
-  const handleVerify = async() =>{
-try {
- const response = await axios.put(`${ApiUrl}/verifyEmail`,{Pin:Pin,PinCode:user.pinCode,userId:user._id})
-
-         localStorage.setItem("auth", response.data.token);
-        window.location.href = `${ReactUrl}/`;
-} catch (error) {
-  console.error(error);  
-}
-
-
-  }
+  const handleVerify = async () => {
+    try {
+      const response = await axios.put(`${ApiUrl}/verifyEmail`, {
+        Pin: Pin,
+        PinCode: user.pinCode,
+        userId: user._id,
+      });
+      localStorage.setItem("auth", response.data.token);
+      window.location.href = `${ReactUrl}/`;
+    } catch (error) {
+      console.error(error.response.data.error);
+      setPinp(error.response.data.error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -151,98 +147,94 @@ try {
                     onChange={(e) => setemail(e.target.value)}
                   />
                   <p className="text-red-500">{emailp}</p>
-                  {verifyEmail ? <>
-                  
-                    <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="text"
-                    placeholder="Full Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <p className="text-red-500">{namep}</p>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="tel"
-                    placeholder="07xxxxxxxx"
-                    value={phone}
-                    onChange={(e) => setphone(e.target.value)}
-                  />
-                  <p className="text-red-500">{phonep}</p>
+                  {verifyEmail ? (
+                    <>
+                      <input
+                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                        type="text"
+                        placeholder="Full Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                      <p className="text-red-500">{namep}</p>
+                      <input
+                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                        type="tel"
+                        placeholder="07xxxxxxxx"
+                        value={phone}
+                        onChange={(e) => setphone(e.target.value)}
+                      />
+                      <p className="text-red-500">{phonep}</p>
 
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setpassword(e.target.value)}
-                  />
-                  <p className="text-red-500">{passwordp}</p>
-                  
-                  
-                  </> :
-                  <>
-                        <p className="text-black mt-8">enter pin code sent to your email</p>
+                      <input
+                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setpassword(e.target.value)}
+                      />
+                      <p className="text-red-500">{passwordp}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-black mt-8">
+                        enter pin code sent to your email
+                      </p>
 
-                           <input
-                           className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                           type="number"
-                           placeholder="Pin code"
-                           value={Pin}
-                           onChange={(e) => setPin(e.target.value)}
-                         />
-                         <p className="text-red-500">{Pinp}</p>
-                          
-                         </>
-                  
-                  }
-                  {verifyEmail ? <>
-                    <button
-                    type="submit"
-                    className="mt-5 bg-purple-500 tracking-wide font-semibold  text-white w-full py-4 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                  >
-                    <svg
-                      className="w-6 h-6 -ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="8.5" cy="7" r="4" />
-                      <path d="M20 8v6M23 11h-6" />
-                    </svg>
-                    <span className="ml-3">Sign-Up</span>
-                  </button>
-                  </> :<>
-                  
-                     <button
-                    type="button"
-                    className="mt-5 bg-purple-500 tracking-wide font-semibold  text-white w-full py-4 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                 onClick={handleVerify}
-                 
-                 >
-                    <svg
-                      className="w-6 h-6 -ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="8.5" cy="7" r="4" />
-                      <path d="M20 8v6M23 11h-6" />
-                    </svg>
-                    <span className="ml-3">Pin Code</span>
-                  </button>
-                  
-                  </>
-               
-                  }
-
-
+                      <input
+                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                        type="number"
+                        placeholder="Pin code"
+                        value={Pin}
+                        onChange={(e) => setPin(e.target.value)}
+                      />
+                      <p className="text-red-500">{Pinp}</p>
+                    </>
+                  )}
+                  {verifyEmail ? (
+                    <>
+                      <button
+                        type="submit"
+                        className="mt-5 bg-purple-500 tracking-wide font-semibold  text-white w-full py-4 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                      >
+                        <svg
+                          className="w-6 h-6 -ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="8.5" cy="7" r="4" />
+                          <path d="M20 8v6M23 11h-6" />
+                        </svg>
+                        <span className="ml-3">Sign-Up</span>
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="mt-5 bg-purple-500 tracking-wide font-semibold  text-white w-full py-4 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                        onClick={handleVerify}
+                      >
+                        <svg
+                          className="w-6 h-6 -ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="8.5" cy="7" r="4" />
+                          <path d="M20 8v6M23 11h-6" />
+                        </svg>
+                        <span className="ml-3">Pin Code</span>
+                      </button>
+                    </>
+                  )}
 
                   <p className="mt-6 text-xs text-gray-600 text-center">
                     Have An Account?
@@ -259,8 +251,9 @@ try {
           </div>
         </div>
         <div className="flex-1 bg-indigo-100 text-center hidden lg:flex login_img bg-cover bg-center bg-no-repeat ">
-          <img src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg" 
-          alt="signupimage"
+          <img
+            src="https://thecity.brightspotcdn.com/dims4/default/227a365/2147483647/strip/true/crop/2000x3000+0+0/resize/1024x1536!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FfB6R4e7cKfK1_UUnfOvbeMvzAXY%3D%2F0x0%3A2000x3000%2F2000x3000%2Ffilters%3Afocal%281000x1500%3A1001x1501%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24000309%2F090622_marijuana_shop_2.jpg"
+            alt="signupimage"
           />
         </div>
       </div>

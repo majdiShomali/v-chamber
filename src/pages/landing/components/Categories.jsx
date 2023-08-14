@@ -4,6 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoryItems } from "../../../actions/category/GetCategoryItems";
 import { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
+
+
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // Import the AOS styles
+AOS.init();
+
 const Categories = () => {
   const navigate = useNavigate();
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
@@ -35,14 +41,19 @@ const Categories = () => {
           All categories
         </h2>
 
-        <div className="flex flex-wrap items-center justify-center mb-10 mx-20">
+        <div className="flex flex-wrap items-center justify-center mb-10 mx-20"
+        
+        data-aos="fade-up"
+        data-aos-duration="700"
+        >
           {topCategories?.map((category) => {
             return (
               <div
                 key={category._id}
                 onClick={() => handleKitchenTypeSelection(category._id)}
                 className="w-full sm:w-1/2 md:w-1/3 p-4 hover:scale-110 hover:cursor-pointer"
-              >
+             
+            >
                 <div className="relative rounded-lg overflow-hidden">
                   <img
                     className="w-full h-64 object-cover object-center"

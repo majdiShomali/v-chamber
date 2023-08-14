@@ -8,21 +8,23 @@ import CartProvider from './context/cartContext';
 
 import { Provider } from 'react-redux';
 import store from './store';
-const GoogleClientId= process.env.REACT_APP_GOOGLE_CLIENT_ID
+const GoogleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={GoogleClientId}>
-   <UserProvider>
-    <CartProvider>
-    <Provider store={store}>
-    <App />
-    </Provider>
-    </CartProvider>
-    </UserProvider>
+      <UserProvider>
+        <CartProvider>
+          <Provider store={store}>
+    
+              <App />
+        
+          </Provider>
+        </CartProvider>
+      </UserProvider>
     </GoogleOAuthProvider>
   </React.StrictMode>
 );
-
-
