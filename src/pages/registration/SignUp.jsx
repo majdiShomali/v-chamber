@@ -22,6 +22,11 @@ export default function Signup() {
   const [password, setpassword] = useState("");
   const [passwordp, setpasswordp] = useState("");
 
+  const [Pin, setPin] = useState(null);
+  const [Pinp, setPinp] = useState("");
+  const [verifyEmail, setVerifyEmail] = useState(true);
+  const [user, setUser] = useState({});
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -50,9 +55,13 @@ export default function Signup() {
           `${ApiUrl}/users`,
           userData
         );
-        setemailp(response.data.error)
-        localStorage.setItem("auth", response.data.token);
-        window.location.href = `${ReactUrl}/`;
+        console.log(response.data)
+        setVerifyEmail(false)
+        setemail(response.data.email)
+        setUser(response.data)
+        // setemailp(response.data.error)
+        // localStorage.setItem("auth", response.data.token);
+        // window.location.href = `${ReactUrl}/`;
       } catch (error) {
         console.error("Error inserting data:", error);
       }
@@ -104,6 +113,20 @@ export default function Signup() {
     }
   }
 
+
+  const handleVerify = async() =>{
+try {
+ const response = await axios.put(`${ApiUrl}/verifyEmail`,{Pin:Pin,PinCode:user.pinCode,userId:user._id})
+
+         localStorage.setItem("auth", response.data.token);
+        window.location.href = `${ReactUrl}/`;
+} catch (error) {
+  console.error(error);  
+}
+
+
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -128,7 +151,9 @@ export default function Signup() {
                     onChange={(e) => setemail(e.target.value)}
                   />
                   <p className="text-red-500">{emailp}</p>
-                  <input
+                  {verifyEmail ? <>
+                  
+                    <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="text"
                     placeholder="Full Name"
@@ -153,7 +178,26 @@ export default function Signup() {
                     onChange={(e) => setpassword(e.target.value)}
                   />
                   <p className="text-red-500">{passwordp}</p>
-                  <button
+                  
+                  
+                  </> :
+                  <>
+                        <p className="text-black mt-8">enter pin code sent to your email</p>
+
+                           <input
+                           className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                           type="number"
+                           placeholder="Pin code"
+                           value={Pin}
+                           onChange={(e) => setPin(e.target.value)}
+                         />
+                         <p className="text-red-500">{Pinp}</p>
+                          
+                         </>
+                  
+                  }
+                  {verifyEmail ? <>
+                    <button
                     type="submit"
                     className="mt-5 bg-purple-500 tracking-wide font-semibold  text-white w-full py-4 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
@@ -171,6 +215,35 @@ export default function Signup() {
                     </svg>
                     <span className="ml-3">Sign-Up</span>
                   </button>
+                  </> :<>
+                  
+                     <button
+                    type="button"
+                    className="mt-5 bg-purple-500 tracking-wide font-semibold  text-white w-full py-4 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                 onClick={handleVerify}
+                 
+                 >
+                    <svg
+                      className="w-6 h-6 -ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                      <circle cx="8.5" cy="7" r="4" />
+                      <path d="M20 8v6M23 11h-6" />
+                    </svg>
+                    <span className="ml-3">Pin Code</span>
+                  </button>
+                  
+                  </>
+               
+                  }
+
+
+
                   <p className="mt-6 text-xs text-gray-600 text-center">
                     Have An Account?
                     <Link

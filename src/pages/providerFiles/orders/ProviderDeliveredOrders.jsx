@@ -1,24 +1,17 @@
 import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDeliverdOrders } from '../../../actions/orders/GetDeliverdOrders' 
-
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
-import { mdiFileEdit } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
-import axios from "axios";
-import { mdiHumanEdit } from "@mdi/js";
-import Swal from "sweetalert2";
-import { mdiSilverware } from "@mdi/js";
-import { mdiShieldCrownOutline } from "@mdi/js";
-import { mdiAccountOutline } from "@mdi/js";
-
-
+import {fetchOrder}  from "../../../actions/orders/GetOrder"
 import { mdiCarOutline } from '@mdi/js';
+
+import { useNavigate } from 'react-router-dom';
 
 const ProviderDeliveredOrders = () => {
 
-
+ const navigate =useNavigate()
     const dispatch =useDispatch();
 
     const {
@@ -30,25 +23,25 @@ const ProviderDeliveredOrders = () => {
      useEffect(() =>{
       dispatch(fetchDeliverdOrders())
      },[dispatch])
-     console.log(DeliverdOrdersData)
+
 
 //-----------------------search------------------------//
 
 
-const [persons, setPersons] = useState([]);
-const [FilterDataUsers, setFilterDataUsers] = useState([]);
+// const [persons, setPersons] = useState([]);
+// const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
 
 
 
-const filterDataByNameUsers = (searchTermUsers) => {
-  const filteredDataUsers = persons.filter((item) =>
-    item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
-  );
-  setFilterDataUsers(filteredDataUsers);
-  console.log(filteredDataUsers);
-  setCurrentPageUsers(1);
-};
+// const filterDataByNameUsers = (searchTermUsers) => {
+//   const filteredDataUsers = persons.filter((item) =>
+//     item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
+//   );
+//   setFilterDataUsers(filteredDataUsers);
+//   console.log(filteredDataUsers);
+//   setCurrentPageUsers(1);
+// };
 
 const [currentPageUsers, setCurrentPageUsers] = useState(1);
 let totalItemsUsers;
@@ -74,6 +67,11 @@ const handlePageChangeUsers = (event, pageNumber) => {
 };
 
 
+
+const handleUpdate = (order) =>{
+navigate(`/PdfTest/${order._id}`)
+
+}
 
 
   return (
@@ -222,7 +220,7 @@ const handlePageChangeUsers = (event, pageNumber) => {
                   role="cell"
                 >
                   <button
-                  //   onClick={() => handleUpdate(e._id, e.role, e.firstName)}
+                    onClick={() => handleUpdate(e)}
                   >
                    
                   <Icon  color="blue" path={mdiCarOutline} size={1.5} />

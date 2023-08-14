@@ -1,22 +1,21 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect,useState,useContext } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllOrders } from '../../../actions/orders/GetAllOrders' 
 import { fetchOnWayOrders } from '../../../actions/orders/GetOnWayOrders' 
+import { UserContext } from "../../../context/userContext";
 
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
-import { mdiFileEdit } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
 import axios from "axios";
-import { mdiHumanEdit } from "@mdi/js";
+
 import Swal from "sweetalert2";
-import { mdiSilverware } from "@mdi/js";
-import { mdiShieldCrownOutline } from "@mdi/js";
-import { mdiAccountOutline } from "@mdi/js";
+
 
 import { mdiCarConnected } from '@mdi/js';
 const ProviderPendingOrders = () => {
   const ApiUrl = process.env.REACT_APP_API_URL;
+  const { user } = useContext(UserContext);
 
     const dispatch =useDispatch();
 
@@ -34,20 +33,20 @@ const ProviderPendingOrders = () => {
 //-----------------------search------------------------//
 
 
-const [persons, setPersons] = useState([]);
-const [FilterDataUsers, setFilterDataUsers] = useState([]);
+// const [persons, setPersons] = useState([]);
+// const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
 
 
 
-const filterDataByNameUsers = (searchTermUsers) => {
-  const filteredDataUsers = persons.filter((item) =>
-    item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
-  );
-  setFilterDataUsers(filteredDataUsers);
-  console.log(filteredDataUsers);
-  setCurrentPageUsers(1);
-};
+// const filterDataByNameUsers = (searchTermUsers) => {
+//   const filteredDataUsers = persons.filter((item) =>
+//     item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
+//   );
+//   setFilterDataUsers(filteredDataUsers);
+//   console.log(filteredDataUsers);
+//   setCurrentPageUsers(1);
+// };
 
 const [currentPageUsers, setCurrentPageUsers] = useState(1);
 let totalItemsUsers;
@@ -75,9 +74,22 @@ const handlePageChangeUsers = (event, pageNumber) => {
   
 const handleUpdate = async(id)=>{
 
+  const options = {
+    month: 'numeric',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+  
+  const currentDate = new Date();
+  const startDeliverTime = currentDate.toLocaleString(undefined, options);
+
 try {
-  const response = await axios.put(`${ApiUrl}/PendingToOnWay/${id}`)
+  const response = await axios.put(`${ApiUrl}/PendingToOnWay/${id}`,{user:user,startDeliverTime:startDeliverTime})
   console.log(response.data)
+  showSuccessAlert("order On the way")
   dispatch(fetchAllOrders())
   dispatch(fetchOnWayOrders())
 } catch (error) {
@@ -87,6 +99,13 @@ try {
 }
 
 
+const showSuccessAlert = (message) => {
+  Swal.fire({
+    title: message,
+    icon: "success",
+    confirmButtonText: "OK",
+  }).then(() => {});
+};
 
 
 

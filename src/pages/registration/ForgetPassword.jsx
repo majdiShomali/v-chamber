@@ -147,8 +147,8 @@ const ForgetPassword = () => {
                       className="block text-gray-700 text-sm font-bold mb-2"
                       htmlFor="password"
                     >
-                      Pin code send to{" "}
-                      <span className="text-blue-gray-600">{email}</span>
+                      Pin code send to your email{" "}
+                      {/* <span className="text-blue-gray-600">{email}</span> */}
                     </label>
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

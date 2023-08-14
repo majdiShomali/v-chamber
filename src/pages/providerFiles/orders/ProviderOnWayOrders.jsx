@@ -76,9 +76,24 @@ const handlePageChangeUsers = (event, pageNumber) => {
 
 const handleUpdate = async(id)=>{
 
+  const options = {
+    month: 'numeric',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+  
+  const currentDate = new Date();
+  const deliveredTime = currentDate.toLocaleString(undefined, options);
+
+
+
   try {
-    const response = await axios.put(`${ApiUrl}/OnWayToDeliverd/${id}`)
+    const response = await axios.put(`${ApiUrl}/OnWayToDeliverd/${id}`,{deliveredTime:deliveredTime})
     console.log(response.data)
+    showSuccessAlert("order Delivered")
     dispatch(fetchOnWayOrders())
     dispatch(fetchDeliverdOrders())
   } catch (error) {
@@ -87,6 +102,14 @@ const handleUpdate = async(id)=>{
   
   }
 
+  const showSuccessAlert = (message) => {
+    Swal.fire({
+      title: message,
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then(() => {});
+  };
+  
   return (
     <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(50vh)]   ">
     <div className="relative flex items-center justify-between pt-4">

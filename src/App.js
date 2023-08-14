@@ -14,7 +14,7 @@ import Login from "./pages/registration/Login";
 import SignUp from "./pages/registration/SignUp";
 import UserProfile from "./pages/user/UserProfile";
 import CartPage from "./pages/user/CartPage";
-// import ForgetPassword from "./pages/registration/ForgetPassword"
+import ForgetPassword from "./pages/registration/ForgetPassword"
 import Payment from "./pages/user/Payment";
 import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
@@ -31,6 +31,7 @@ import ProviderNavBar from "./pages/providerFiles/components/ProviderNavBar";
 
 
 import PdfTest from "./pages/providerFiles/CreatePDF/PdfTest";
+import axios from "axios";
 
 
 
@@ -78,8 +79,8 @@ function App() {
             <Route path="/AllCategories" element={<AllCategories />} />
          <Route path="/Store" element={<ItemsStore />} />
           <Route path="/Payment" element={<Payment />} />
-         {/*  <Route path="/ForgetPassword" element={<ForgetPassword />} />
-          <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}
+        <Route path="/ForgetPassword" element={<ForgetPassword />} />
+        {/*     <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
         <Footer/>
@@ -97,7 +98,7 @@ function App() {
           <Route path="/UserProfile" element={<ProviderProfile />} />
           <Route path="/ProviderOrders" element={<ProviderOrders />} />
           <Route path="/ProductPageProvider/:id" element={<ProductPageProvider />} />
-          <Route path="/PdfTest" element={<PdfTest />} />
+          <Route path="/PdfTest/:orderId" element={<PdfTest />} />
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
       </Router>
@@ -116,6 +117,52 @@ function App() {
       </Router>
     );
   };
+
+
+  // useEffect(() => {
+  //   const fetchProtectedData = async () => {
+  //     try {
+  //       const token = localStorage.getItem("auth");
+  //       if (token) {
+  //         const response = await axios.post(
+  //           "http://localhost:5000/api/testPost",
+  //           null, // No data to send in the request body
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         console.log(response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error(error?.response.data);
+  //     }
+  //   };
+  //   fetchProtectedData();
+  // }, []); 
+
+  // useEffect(() => {
+  //   const fetchProtectedData = async () => {
+  //     try {
+  //       const token = localStorage.getItem("auth");
+  //       if (token) {
+  //         const response = await axios.get(
+  //           "http://localhost:5000/api/testGet",
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         console.log(response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error(error?.response.data);
+  //     }
+  //   };
+  //   fetchProtectedData();
+  // }, []); 
 
   return (
     <>

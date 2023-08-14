@@ -34,7 +34,6 @@ const TopProducts = () => {
       // const TopItems=itemsData.slice(-4);
       const TopItemsRelated=AllRelatedItemsData.slice(-4);
       setTopProducts(TopItemsRelated)
-      console.log(AllRelatedItemsData)
     }, [AllRelatedItemsData]);
   
 

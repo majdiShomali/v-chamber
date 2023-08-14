@@ -21,6 +21,7 @@ import fetchAllOrdersReducer from './actions/orders/GetAllOrders'
 import fetchOnWayOrdersReducer from './actions/orders/GetOnWayOrders'
 import fetchDeliverdOrdersReducer from './actions/orders/GetDeliverdOrders'
 import fetchUserOrdersReducer from './actions/orders/GetUserOrders'
+import fetchOrderReducer from './actions/orders/GetOrder'
 const store = configureStore({
   reducer: {
      fetchCategories:fetchCategoryItemsReducer,
@@ -45,6 +46,9 @@ const store = configureStore({
      fetchOnWayOrders:fetchOnWayOrdersReducer,
      fetchDeliverdOrders:fetchDeliverdOrdersReducer,
      fetchUserOrders:fetchUserOrdersReducer,
+     fetchOrder:fetchOrderReducer,
+
+
      fetchJuiceType:fetchJuiceTypeReducer,
   },
   middleware: [thunkMiddleware],

@@ -75,6 +75,11 @@ const ReactUrl= process.env.REACT_APP_API_REACT_URL
       } else {
         setpasswordp(response.data.error === "incorrect password" ? "incorrect password": "");
         setemailp(response.data.error === "incorrect password" ? " ": response.data.error );
+        console.log(response.data.error == "Check your pin code")
+        console.log(response.data.error == "Check your pin code")
+        console.log(response.data.error == "Check your pin code")
+        console.log(response.data.error == "Check your pin code")
+        console.log(response.data.error == "Check your pin code0")
       }
     } catch (error) {
       console.error("Error inserting data:", error);
