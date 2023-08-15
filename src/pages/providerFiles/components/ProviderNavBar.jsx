@@ -200,7 +200,7 @@ const ProviderNavBar = () => {
   }
     
   return (
-    <Navbar className="max-h-[768px] max-w-[100%] w-[100%]  px-10 sticky top-0 z-10">
+    <Navbar className="max-h-[768px] max-w-[100%] w-[100%]  px-10 sticky top-0 z-50">
     <div className="flex items-center justify-between text-blue-gray-900">
       <Link to="/">
         <Typography className="mr-4 cursor-pointer py-1.5 font-medium">

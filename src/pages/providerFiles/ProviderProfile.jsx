@@ -7,6 +7,7 @@ import { fetchProviderItems } from "../../actions/category/GetProviderItems";
 // import ItemCard from "../../components/cards/ItemCard"
 // import ItemCardProvider from "../../components/cards/ItemCardProvider";
 import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
+
 const ProviderProfile = () => {
 
     const { user } = useContext(UserContext);

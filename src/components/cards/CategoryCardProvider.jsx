@@ -2,8 +2,14 @@ import { useNavigate } from 'react-router-dom';
 // import { Button } from "@material-tailwind/react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { fetchItems } from "../actions/GetItems";
-// import { useEffect } from 'react'
+import { useContext } from 'react'
+import { UserContext } from "../../context/userContext";
+
+
+import EditCategoryCardProvider from './EditCategoryCardProvider';
+import EditCategoryImageProvider from './EditCategoryImageProvider';
 const CategoryCardProvider = ({itemsData}) => {
+  const { user } = useContext(UserContext);
 
     const navigate = useNavigate();
     const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
@@ -28,9 +34,24 @@ const CategoryCardProvider = ({itemsData}) => {
        return (
           <div
           key={category._id}
-          onClick={() => handleKitchenTypeSelection(category._id)}
-          className="w-full sm:w-1/2 md:w-1/3 p-4 hover:scale-110 hover:cursor-pointer">
-          <div className="relative rounded-lg overflow-hidden">
+          
+            className="w-full sm:w-1/2 md:w-1/3 p-4 hover:scale-105   relative">
+           {category?.ProviderId === user?._id ?
+           <>
+                   <EditCategoryCardProvider
+            category={category}           
+            />
+            <EditCategoryImageProvider
+            category={category}
+            />
+           
+           </>
+           
+           : null} 
+    
+          
+          <div className="relative rounded-lg overflow-hidden"
+          onClick={() => handleKitchenTypeSelection(category._id)}>
             <img
               className="w-full h-64 object-cover object-center"
               src={`${ImagesUrl}/${category.image}`}
