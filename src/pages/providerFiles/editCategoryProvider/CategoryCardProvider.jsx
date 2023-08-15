@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 // import { useDispatch, useSelector } from "react-redux";
 // import { fetchItems } from "../actions/GetItems";
 import { useContext } from 'react'
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../../context/userContext";
 
 
 import EditCategoryCardProvider from './EditCategoryCardProvider';

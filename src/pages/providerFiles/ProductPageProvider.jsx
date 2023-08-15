@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import AddJuice from "./productsAdd/AddJuice";
 // import CategoryCard from "../../components/cards/CategoryCard";
 import CategoryEditSection from "./components/CategoryEditSection";
+import ItemCardProvider from "../../components/cards/ItemCardProvider";
 const ProductPageProvider = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -280,6 +281,7 @@ const ProductPageProvider = () => {
         </>
       )}
 
+<ItemCardProvider Items={RelatedItemData}/>
 
     </>
   );

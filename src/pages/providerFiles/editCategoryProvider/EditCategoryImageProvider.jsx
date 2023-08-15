@@ -4,19 +4,23 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { useState, useEffect,useContext } from "react";
 // import { useNavigate } from "react-router";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../../context/userContext";
 import Icon from '@mdi/react';
-import { mdiFileEdit } from '@mdi/js';
-import Swal from "sweetalert2";
+import { mdiImageEdit  } from '@mdi/js';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProviderItems } from "../../../actions/category/GetProviderItems";
+import { fetchCategoryItems } from "../../../actions/category/GetCategoryItems";
 
 import {
-    // Card,
+    Card,
     Input,
     // Checkbox,
     Button,
     Textarea,
     // Typography,
   } from "@material-tailwind/react";
+  import Swal from "sweetalert2";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -29,25 +33,23 @@ const style = {
   p: 4,
 };
 
-const EditCategoryCardProvider = ({category}) => {
+const EditCategoryImageProvider = ({category}) => {
     const ApiUrl= process.env.REACT_APP_API_URL
-     const [name, setName] = useState("");
-     const [description, setDescription] = useState("");
-     const [OptionType, setOptionType] = useState("");
-     const { user } = useContext(UserContext);
+    const { user } = useContext(UserContext);
+
+    const dispatch = useDispatch();
+      
+
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   
-
-    useEffect(()=>{
-        setName(category.Name) 
-        setDescription(category.description) 
-        setOptionType(category.category) 
-    },[category])
-
-   
+    const [productImage, setProductImage] = useState(null);
+    const handleProductImageChange = (event) => {
+      setProductImage(event.target.files[0]);
+    };
+  
     const showSuccessAlert = (message) => {
         Swal.fire({
           title: message,
@@ -55,30 +57,33 @@ const EditCategoryCardProvider = ({category}) => {
           confirmButtonText: "OK",
         }).then(() => {});
       };
-  
     const handleSubmit = async (e) => {
-        e.preventDefault();
-       const UpdatedData={ 
-             Name:name,
-             description :description,
-             category  :OptionType,
-              }
-        try {
-          const response = await axios.put(`${ApiUrl}/updateItemData/${category._id}`,{UpdatedData});
-          console.log(response.data);
-          handleClose()
+      e.preventDefault();
+  
+      const formData = new FormData()
+      formData.append('image',productImage)
+  
+      axios
+        .put(`${ApiUrl}/updateItemImage/${category._id}`,
+        formData
+        )
+        .then(function (response) {
+          console.log(response);
           showSuccessAlert(response.data.Name)
-        } catch (error) {
-          console.error(error);
-        }
-   
-      }
+          dispatch(fetchProviderItems(user._id));
+          dispatch(fetchCategoryItems());
+          handleClose()
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   return (
     <div className="w-full">
 
  <Icon
  onClick={handleOpen}
- color={"blue"} path={mdiFileEdit} size={1.5}  className='absolute top-5 right-5 z-10 hover:scale-110 hover:cursor-pointer'/>
+ color={"blue"} path={mdiImageEdit } size={1.5}  className='absolute top-16 right-5 z-10 hover:scale-110 hover:cursor-pointer'/>
 
     <Modal
       open={open}
@@ -89,31 +94,20 @@ const EditCategoryCardProvider = ({category}) => {
       <Box sx={style}>
       <form onSubmit={handleSubmit} className="  ">
             <div className="mb-4 flex flex-col gap-6">
+         
+      
+
               <Input
                 size="lg"
-                label="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-              <Input
-                size="lg"
-                type="text"
-                label="Category"
-                value={OptionType}
-                onChange={(e) => setOptionType(e.target.value)}
+                type="file"
+                name="image"
+                label="image"
+                onChange={handleProductImageChange}
+                accept="image/*"
                 required
               />
 
-
-
-              <Textarea
-                size="lg"
-                label="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
+        
             </div>
 
    
@@ -141,4 +135,4 @@ const EditCategoryCardProvider = ({category}) => {
   )
 }
 
-export default EditCategoryCardProvider
+export default EditCategoryImageProvider

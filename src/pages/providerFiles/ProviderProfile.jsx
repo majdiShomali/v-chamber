@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProviderItems } from "../../actions/category/GetProviderItems";
 // import ItemCard from "../../components/cards/ItemCard"
 // import ItemCardProvider from "../../components/cards/ItemCardProvider";
-import CategoryCardProvider from "../../components/cards/CategoryCardProvider";
-
+import CategoryCardProvider from "./editCategoryProvider/CategoryCardProvider";
 const ProviderProfile = () => {
 
     const { user } = useContext(UserContext);

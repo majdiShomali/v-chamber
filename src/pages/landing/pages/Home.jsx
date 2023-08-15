@@ -15,10 +15,10 @@ const Home = () => {
     {/* <Gallery/> */}
 
       <HeroSection /> 
-     <ProductOfTheWeek/>
       <Categories />
       <TopProducts />
       {/* <SalesProducts/> */}
+     <ProductOfTheWeek/>
       <Brand />
       </>
   );
