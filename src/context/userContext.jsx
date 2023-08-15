@@ -21,8 +21,8 @@ const UserProvider = ( {children} ) => {
         }
       } catch (error) {
         console.error(error);
-        localStorage.removeItem("auth");
-        window.location.href = "http://localhost:3000/Login";
+        // localStorage.removeItem("auth");
+        // window.location.href = "http://localhost:3000/Login";
       } finally {
         // console.log(false);
       }
