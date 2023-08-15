@@ -45,7 +45,7 @@ const StoreFilterByCategory = ({ProductItems,updateFilteredArray,categoryId}) =>
 
   useEffect(() => {
     if (ProductItems) {
-      const newFilter = ProductItems?.filter((item) => {
+      let newFilter = ProductItems?.filter((item) => {
         return (
           // item.category?.toLowerCase().includes(selectedCategory.toLowerCase()) &&
           item.company?.toLowerCase().includes(selectedCompany.toLowerCase())
@@ -53,9 +53,7 @@ const StoreFilterByCategory = ({ProductItems,updateFilteredArray,categoryId}) =>
         );
       });
       if(selectedSale){
-        const newFilterAndSale = newFilter.filter((item)=> {return item.price > item.salePrice})
-        updateFilteredArray(newFilterAndSale);
-       return
+        newFilter=  newFilter.filter((item)=> {return item.price > item.salePrice})
       }   
       updateFilteredArray(newFilter);
     }

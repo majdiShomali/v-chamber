@@ -51,7 +51,7 @@ const ItemsStore = () => {
 
   return (
     <>
-      <div className="px-6 py-12 text-center md:px-12 lg:text-left bg-blue-gray-100">
+      {/* <div className="px-6 py-12 text-center md:px-12 lg:text-left bg-blue-gray-100">
         <div className="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl xl:px-32">
           <div className="grid items-center lg:grid-cols-2">
             <div className="mb-12 md:mt-12 lg:mt-0 lg:mb-0">
@@ -71,7 +71,7 @@ const ItemsStore = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <StoreFilter ProductItems={AllRelatedItems} updateFilteredArray={handleSelectChange} />
 

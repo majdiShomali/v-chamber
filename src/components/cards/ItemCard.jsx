@@ -5,6 +5,7 @@ import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 import { updateFavItems } from "../../actions/related/FavoriteItems";
 import { fetchFavItems } from "../../actions/related/FavoriteItems";
 import { UserContext } from "../../context/userContext";
+
 import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 // import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -135,7 +136,7 @@ const ItemCard = ({Items}) => {
               <Card
                 // onClick={()=>handleShowItem(card)}
                 
-                key={card._id}
+                key={card?._id}
                 className=" cursor-pointer flex flex-col items-center justify-center mx-2 h-full w-72  hover:scale-105"
 
             >
@@ -146,7 +147,7 @@ const ItemCard = ({Items}) => {
                         <div className="relative h-56 w-full mb-3">
                           {localStorage.auth !== undefined ? (
                             <>
-                              {card.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
+                              {card?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
                                 <div
                                   className="absolute flex flex-col top-0 right-0 p-3"
                                   onClick={() => handleFAv(card)}
@@ -193,10 +194,10 @@ const ItemCard = ({Items}) => {
                               )}
                             </>
                           ) : null}
-              <HashLink smooth={true} to = {`/ProductPage/${card.categoryId}/${card._id}#`}>
+              <HashLink smooth={true} to = {`/ProductPage/${card?.categoryId}/${card?._id}#`}>
 
                           <img
-                            src={`${ImagesUrl}/${card.image}`}
+                            src={`${ImagesUrl}/${card?.image}`}
                             alt="Just a flower"
                             className=" w-full  h-full  object-fill  rounded-2xl "
                           />
@@ -215,14 +216,14 @@ const ItemCard = ({Items}) => {
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                               </svg>
                               <span className="text-gray-400 whitespace-nowrap mr-3">
-                               {card.rating}
+                               {card?.rating}
                               </span>
                               {/* <span className="mr-2 text-gray-400">India</span> */}
                             </div>
 
                             <div className="flex items-center w-full justify-between min-w-0 ">
                               <h2 className="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">
-                                {card.Name}
+                                {card?.Name}
                               </h2>
                               {/* {card.totalQuantity !==0 ? 
                                 <div className="flex items-center h-8 bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
@@ -237,15 +238,14 @@ const ItemCard = ({Items}) => {
                             </div>
                           </div>
 
-                          {card.price > card.salePrice ? 
+                          {card?.price > card?.salePrice ? 
                           <div className="flex items-center">
-                          <span className="text-xl  font-semibold line-through text-gray-500 mr-3">{card.price} $</span>
-                          <span className="text-xl text-white font-bold">{card.salePrice} $ </span>
-                          </div>
-                          
+                          <span className="text-xl  font-semibold line-through text-gray-500 mr-3">{card?.price} $</span>
+                          <span className="text-xl text-white font-bold">{card?.salePrice} $ </span>
+                          </div>                      
                           :
                           <div className="text-xl text-white font-semibold mt-1">
-                          {card.price} $
+                          {card?.price} $
                            </div>                         
                           }
                          

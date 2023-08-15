@@ -34,7 +34,7 @@ const { data: OrderData  } = useSelector(
             <img
               className="object-cover h-12"
               src="https://pbs.twimg.com/profile_images/1513243060834123776/dL8-d7zI_400x400.png"
-            alt='pdf'
+              alt='pdf'
             />
             <p className="text-xl font-extrabold tracking-tight uppercase font-body">
               Unwrapped.design

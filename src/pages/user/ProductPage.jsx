@@ -13,8 +13,12 @@ import CardRating from "../../components/cards/CardRating";
 import { Link } from "react-router-dom";
 
 // import Gallery from "../landing/pages/Gallery";
+import {CartContext} from "../../context/cartContext"
+
 
 const ProductPage = () => {
+  const {cartNavRefresh ,setCartNavRefresh}=useContext(CartContext)
+
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
@@ -84,7 +88,12 @@ if(OneRelatedItemData?.image){
       setItemsAllIdsInCart(allCardsIds);
       localStorage.setItem("items", JSON.stringify(allCardsIds));
       const updatedItems = storedItemsQ.filter((item) => item._id !== card._id);
+
+      const totalQuantity = updatedItems.reduce((acc, product) => acc + product.quantity, 0);
+
+      setCartNavRefresh(totalQuantity)
       localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
+
     } else {
       const allCardsIds = [...storedItems, card._id];
       dispatch(fetchItemsCart(allCardsIds));
@@ -95,6 +104,9 @@ if(OneRelatedItemData?.image){
         ...(Array.isArray(storedItemsQ) ? storedItemsQ : []),
         { ...card, quantity: 1 },
       ];
+
+      const totalQuantity = allCards.reduce((acc, product) => acc + product.quantity, 0);
+      setCartNavRefresh(totalQuantity)
       localStorage.setItem("itemsQ", JSON.stringify(allCards));
     }
   };

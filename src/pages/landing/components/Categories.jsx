@@ -40,11 +40,9 @@ const Categories = () => {
         <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
           All categories
         </h2>
-
-        <div className="flex flex-wrap items-center justify-center mb-10 mx-20"
-        
-        data-aos="fade-up"
-        data-aos-duration="700"
+        <div className="flex flex-wrap items-center justify-center mb-10 mx-20"  
+        data-aos="zoom-out"
+        data-aos-duration="1000"
         >
           {topCategories?.map((category) => {
             return (

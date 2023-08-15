@@ -1,16 +1,19 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { Link } from "react-router-dom";
 import SneekPeeksShipping from "../../components/SneekPeeksShipping";
 // import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../../actions/related/GetItemsCart";
+import CartBill from "./pdf/CartBill";
+import {CartContext} from "../../context/cartContext"
 
 const CartPage = () => {
   // const ApiUrl= process.env.REACT_APP_API_URL
   // const ReactUrl= process.env.REACT_APP_API_REACT_URL
   const ImagesUrl= process.env.REACT_APP_IMAGES_URL
+  const {cartNavRefresh ,setCartNavRefresh}=useContext(CartContext)
 
   const dispatch = useDispatch();
 
@@ -75,6 +78,10 @@ const CartPage = () => {
       item._id === itemId ? { ...item, quantity: item.quantity + 1 } : item
     );
     localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
+
+    const totalQuantity = updatedItems.reduce((acc, product) => acc + product.quantity, 0);
+    setCartNavRefresh(totalQuantity)
+
     setItems(updatedItems);
   };
 
@@ -85,6 +92,8 @@ const CartPage = () => {
         : item
     );
     localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
+    const totalQuantity = updatedItems.reduce((acc, product) => acc + product.quantity, 0);
+    setCartNavRefresh(totalQuantity)
     setItems(updatedItems);
   };
 
@@ -98,9 +107,9 @@ const CartPage = () => {
      localStorage.setItem("items", JSON.stringify(allCardsIds));
 
      const updatedItems = storedItemsQ.filter((item) => item._id !== itemId);
-     console.log(updatedItems)
      localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
-
+     const totalQuantity = updatedItems.reduce((acc, product) => acc + product.quantity, 0);
+     setCartNavRefresh(totalQuantity)
      dispatch(fetchItemsCart(allCardsIds)) 
 
   };
@@ -118,7 +127,7 @@ const CartPage = () => {
     
  
       <SneekPeeksShipping />
-      <div className="flex p-5 flex-col lg:flex-row ">
+      <div className="flex p-5 flex-col lg:flex-row bg-gray-50">
         <div className=" w-full lg:w-1/2 lg:p-5 lg:m-5">
           <p className="text-xl font-medium">Order Summary {totalPrice}$</p>
           <p className="text-gray-400">
@@ -200,8 +209,8 @@ const CartPage = () => {
             })}
           </div>
         </div>
-
-        <div className="w-full lg:w-1/2 lg:p-5 lg:m-5">
+        <div className="flex flex-col w-full lg:w-1/2 lg:p-5 lg:m-5">
+        <div >
           <p className="text-xl font-medium">Shipping Methods</p>
           <p className="text-gray-400">select a suitable shipping method.</p>
 
@@ -267,6 +276,12 @@ const CartPage = () => {
            </Link>
 
           </form>
+        </div>
+<CartBill
+items={items}
+
+/>
+       
         </div>
       </div>
     </>

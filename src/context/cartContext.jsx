@@ -8,9 +8,11 @@ const CartProvider = ( {children} ) => {
     const [cartNavRefresh ,setCartNavRefresh] = useState([])
 
     useEffect(() => {
-        const storedItems = localStorage.getItem('items');
+        const storedItems = localStorage.items ? JSON.parse(localStorage.getItem('itemsQ')) :[];
         if (storedItems) {
-          setCartNavRefresh(JSON.parse(storedItems));
+       const totalQuantity = storedItems.reduce((acc, product) => acc + product.quantity, 0);
+
+          setCartNavRefresh(totalQuantity);
         }
       }, []);
 

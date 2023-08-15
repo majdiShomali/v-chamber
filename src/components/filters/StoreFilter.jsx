@@ -9,13 +9,11 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
 
 
     const [selectedCompany, setSelectedCompanyValue] = useState("");
-
     const handleSelectCompanyChange = (value) => {
       setSelectedCompanyValue(value);
     };
   
     const [selectedCategory, setSelectedCategoryValue] = useState("");
-  
     const handleSelectCategoryChange = (value) => {
       setSelectedCategoryValue(value);
     };
@@ -32,7 +30,6 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
 
 
     const [searchTermProduct, setSearchTermProduct] = useState("");
-
     const filterDataByNameProduct = (ProductName) => {
         const newFilter = ProductItems?.filter((item) => {
           return item.Name?.toLowerCase().includes(ProductName.toLowerCase());
@@ -43,7 +40,7 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
 
   useEffect(() => {
     if (ProductItems) {
-      const newFilter = ProductItems?.filter((item) => {
+      let newFilter = ProductItems?.filter((item) => {
         return (
           item.category?.toLowerCase().includes(selectedCategory.toLowerCase()) &&
           item.company?.toLowerCase().includes(selectedCompany.toLowerCase())
@@ -51,9 +48,7 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
         );
       });
       if(selectedSale){
-        const newFilterAndSale = newFilter.filter((item)=> {return item.price > item.salePrice})
-        updateFilteredArray(newFilterAndSale);
-       return
+         newFilter = newFilter.filter((item)=> {return item.price > item.salePrice})   
       }   
       updateFilteredArray(newFilter);
     }

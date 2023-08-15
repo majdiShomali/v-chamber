@@ -24,15 +24,16 @@ import Icon from "@mdi/react";
 import { mdiCartOutline } from "@mdi/js";
 import { mdiCartArrowDown } from "@mdi/js";
 // import { CartContext } from "../context/cartContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../actions/related/GetItemsCart";
 import { HashLink } from "react-router-hash-link";
-
+import {CartContext} from "../context/cartContext"
 
 
 export default function StickyNavbar() {
+ const {cartNavRefresh ,setCartNavRefresh}=useContext(CartContext)
 
   // const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -45,9 +46,14 @@ export default function StickyNavbar() {
     // error: fetchCartError,
   } = useSelector((state) => state.fetchItemsCart);
 
+  const [itemsCartLocal , setItemsCartLocal]=useState([])
   useEffect(() => {
     if (localStorage.items) {
-      const itemsIds = JSON.parse(localStorage.getItem("items"));
+      const itemsIds = JSON.parse(localStorage.getItem("items")) || [];
+      const itemsCart = JSON.parse(localStorage.getItem("itemsQ")) || [];
+      
+      const totalQuantity = itemsCart.reduce((acc, product) => acc + product.quantity, 0);
+      setItemsCartLocal(totalQuantity)
       dispatch(fetchItemsCart(itemsIds)) } 
     },[dispatch] )
   
@@ -65,7 +71,7 @@ export default function StickyNavbar() {
       setItemsStat(true);
     }, 2000);
     setItemsStat(false);
-  }, [itemsCartData]);
+  }, [cartNavRefresh]);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -246,14 +252,14 @@ export default function StickyNavbar() {
                   <Icon path={mdiCartOutline} size={1.5} className="mr-2" />
 
                   <div className=" absolute right-0 top-0  bg-purple-500 rounded-full w-6 h-6 text-center items-center">
-                    {items.length}
+                    {cartNavRefresh}
                   </div>
                 </div>
               ) : (
                 <div className="relative p-1 animate-bounce">
                   <Icon path={mdiCartArrowDown} size={1.5} className="mr-2" />
                   <div className=" absolute right-0 top-0  bg-purple-500 rounded-full w-6 h-6 text-center items-center">
-                    {items.length}
+                    {cartNavRefresh}
                   </div>
                 </div>
               )}

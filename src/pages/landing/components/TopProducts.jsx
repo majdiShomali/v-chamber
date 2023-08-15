@@ -31,7 +31,6 @@ const TopProducts = () => {
     }, [dispatch]);
   
     useEffect(() => {
-      // const TopItems=itemsData.slice(-4);
       const TopItemsRelated=AllRelatedItemsData.slice(-4);
       setTopProducts(TopItemsRelated)
     }, [AllRelatedItemsData]);

@@ -18,7 +18,6 @@ const Home = () => {
      <ProductOfTheWeek/>
       <Categories />
       <TopProducts />
-
       {/* <SalesProducts/> */}
       <Brand />
       </>
