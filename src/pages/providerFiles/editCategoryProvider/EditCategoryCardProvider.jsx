@@ -8,6 +8,10 @@ import { UserContext } from "../../../context/userContext";
 import Icon from '@mdi/react';
 import { mdiFileEdit } from '@mdi/js';
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchProviderItems } from "../../../actions/category/GetProviderItems";
+import { fetchCategoryItems } from "../../../actions/category/GetCategoryItems";
 
 import {
     // Card,
@@ -35,6 +39,7 @@ const EditCategoryCardProvider = ({category}) => {
      const [description, setDescription] = useState("");
      const [OptionType, setOptionType] = useState("");
      const { user } = useContext(UserContext);
+     const dispatch = useDispatch();
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -68,6 +73,8 @@ const EditCategoryCardProvider = ({category}) => {
           console.log(response.data);
           handleClose()
           showSuccessAlert(response.data.Name)
+          dispatch(fetchProviderItems(user._id));
+          dispatch(fetchCategoryItems());
         } catch (error) {
           console.error(error);
         }
