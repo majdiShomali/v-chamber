@@ -4,7 +4,8 @@ import axios from "axios";
 
 export const UserContext = createContext();
 const UserProvider = ( {children} ) => {
-  
+  const ApiUrl= process.env.REACT_APP_API_URL
+
     const [user ,setUser] = useState(null)
     const [userUpdateRefresh ,setUpdateRefresh] = useState(null)
 
@@ -12,7 +13,7 @@ const UserProvider = ( {children} ) => {
       try {
         const token = localStorage.getItem("auth");
         if (token) {
-          const response = await axios.get("http://localhost:5000/api/userData", {
+          const response = await axios.get(`${ApiUrl}/userData`, {
             headers: {
               Authorization: token,
             },
