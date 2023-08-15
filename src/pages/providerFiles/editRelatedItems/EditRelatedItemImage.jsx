@@ -8,9 +8,7 @@ import { UserContext } from "../../../context/userContext";
 import Icon from '@mdi/react';
 import { mdiImageEdit  } from '@mdi/js';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProviderItems } from "../../../actions/category/GetProviderItems";
-import { fetchCategoryItems } from "../../../actions/category/GetCategoryItems";
-
+import { fetchRelatedItem } from "../../../actions/related/GetRelatedItems";
 import {
     Card,
     Input,
@@ -32,7 +30,7 @@ const style = {
   boxShadow: 3,
   p: 4,
 };
-const EditRelatedItemImage = ({category}) => {
+const EditRelatedItemImage = ({item}) => {
     const ApiUrl= process.env.REACT_APP_API_URL
     const { user } = useContext(UserContext);
 
@@ -62,20 +60,19 @@ const EditRelatedItemImage = ({category}) => {
       const formData = new FormData()
       formData.append('image',productImage)
   
-    //   axios
-    //     .put(`${ApiUrl}/updateItemImage/${category._id}`,
-    //     formData
-    //     )
-    //     .then(function (response) {
-    //       console.log(response);
-    //       showSuccessAlert(response.data.Name)
-    //       dispatch(fetchProviderItems(user._id));
-    //       dispatch(fetchCategoryItems());
-    //       handleClose()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
+      axios
+        .put(`${ApiUrl}/updateRelatedItemImage/${item._id}`,
+        formData
+        )
+        .then(function (response) {
+          showSuccessAlert(response.data.Name)
+          dispatch(fetchRelatedItem(item.categoryId));
+
+          handleClose()
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   return (
     <div className="w-full">

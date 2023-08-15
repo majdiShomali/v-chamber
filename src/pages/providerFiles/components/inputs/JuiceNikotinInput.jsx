@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchJuiceNikotinByCategory } from "../../../../actions/juice/GetJuiceNikotinByCategory";
 
-const JuiceNikotinInput = ({onSelectChange,categoryId}) => {
+const JuiceNikotinInput = ({onSelectChange,categoryId,valueEd}) => {
 
     const dispatch = useDispatch()
 
@@ -17,6 +17,12 @@ const JuiceNikotinInput = ({onSelectChange,categoryId}) => {
   
 
   const [selectedChargeVape, setSelectedChargeVape] = useState('');
+  
+  useEffect(() =>{
+    if (valueEd) {
+      setSelectedChargeVape(valueEd)
+    }
+  },[valueEd])
 
   const handleChargeVapeChange = (event) => {
     const selectedValue = event.target.value;

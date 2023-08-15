@@ -3,7 +3,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import {fetchCompanyItems} from "../../../../actions/company/GetCompanies"
 import { fetchCompaniesByCategory } from "../../../../actions/company/GetCompaniesByCategory";
 
-const CompanyInput = ({ onSelectChange,categoryId }) => {
+const CompanyInput = ({ onSelectChange,categoryId,valueEd }) => {
 
   const dispatch = useDispatch()
 
@@ -22,6 +22,12 @@ const CompanyInput = ({ onSelectChange,categoryId }) => {
       dispatch(fetchCompaniesByCategory(categoryId));
     }
   },[dispatch,categoryId])
+
+  useEffect(() =>{
+    if (valueEd) {
+      setSelectedChargeVape(valueEd)
+    }
+  },[valueEd])
 
 
 

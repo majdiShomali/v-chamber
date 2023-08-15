@@ -87,8 +87,8 @@ const ItemCardProvider = ({ Items }) => {
                                
                                
 
-<EditRelatedItemData card={card}/>
-<EditRelatedItemImage card={card}/>
+<EditRelatedItemData item={card}/>
+<EditRelatedItemImage item={card}/>
 
 
 

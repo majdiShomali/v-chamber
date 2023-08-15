@@ -3,7 +3,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import {fetchJuiceSize} from "../../../../actions/juice/GetJuiceSize"
 import { fetchJuiceSizeByCategory } from "../../../../actions/juice/GetJuiceSizeByCategory";
 
-const JuiceSizeInput = ({onSelectChange,categoryId}) => {
+const JuiceSizeInput = ({onSelectChange,categoryId,valueEd}) => {
 
     const dispatch = useDispatch()
 
@@ -23,8 +23,14 @@ const JuiceSizeInput = ({onSelectChange,categoryId}) => {
     dispatch(fetchJuiceSize())
   },[dispatch,categoryId])
 
+
   const [selectedChargeVape, setSelectedChargeVape] = useState('');
 
+  useEffect(() =>{
+    if (valueEd) {
+      setSelectedChargeVape(valueEd)
+    }
+  },[valueEd])
   const handleChargeVapeChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedChargeVape(selectedValue);
