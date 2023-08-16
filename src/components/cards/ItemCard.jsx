@@ -14,6 +14,7 @@ import { HashLink } from "react-router-hash-link";
 
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import ItemCardSkelaton from "./ItemCardSkelaton";
 AOS.init();
 const ItemCard = ({Items}) => {
 
@@ -26,7 +27,7 @@ const ItemCard = ({Items}) => {
 
 // const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
   const {
-    // loading: isLoading,
+    loading: isItemsDataLoading,
     data: itemsData,
     // error: fetchError,
   } = useSelector((state) => state.fetchAllRelatedItems);
@@ -128,6 +129,8 @@ const ItemCard = ({Items}) => {
   // }
   return (
     <>  
+    {isItemsDataLoading ? <ItemCardSkelaton/>:
+    
     <div 
     className="w-full flex flex-wrap gap-3 justify-center" data-aos="fade-up" data-aos-duration="1000" >   
     {Items?.map((card) => {
@@ -312,7 +315,10 @@ const ItemCard = ({Items}) => {
               </Card>
             );
           })}
-      </div>   
+      </div> 
+    }
+
+      
     </>
   )
 }

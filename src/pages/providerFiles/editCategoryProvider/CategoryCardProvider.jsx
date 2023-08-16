@@ -28,7 +28,7 @@ const CategoryCardProvider = ({itemsData}) => {
         All categories 
       </h2>
 
-      <div className="flex flex-wrap items-center justify-center mb-10 mx-20">
+      <div id="edit-category" className="flex flex-wrap items-center justify-center mb-10 mx-20">
         
         {itemsData?.map((category)=>{
        return (

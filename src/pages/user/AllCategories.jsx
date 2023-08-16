@@ -2,8 +2,9 @@ import { useNavigate } from 'react-router-dom';
 // import { Button } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 // import { HashLink } from 'react-router-hash-link';
+import DynamicPagenation from '../../components/pagenation/DynamicPagenation';
 const AllCategories = () => {
 
     const navigate = useNavigate();
@@ -24,9 +25,15 @@ const AllCategories = () => {
       dispatch(fetchCategoryItems());
     }, [dispatch]);
   
+    const [arrayToPagenation, setArrayToPagenation] = useState([]);
+    const UpdateArrayToPagenation = (value) => {
+      setArrayToPagenation(value)
+    }
   return (
-    <div className="bg-white mt-3 shadow-lg min-h-screen">
-    <section id="food">
+    <>
+    <div className="bg-white mt-3 shadow-lg h-screen">
+    <section className='h-full' id="food">
+     
       <br />
       <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
         All categories 
@@ -34,7 +41,7 @@ const AllCategories = () => {
 
       <div className="flex flex-wrap items-center justify-center mb-10 mx-20">
         
-        {itemsData?.map((category)=>{
+        {arrayToPagenation?.map((category)=>{
        return (
           <div
           onClick={() => handleKitchenTypeSelection(category._id)}
@@ -69,9 +76,20 @@ const AllCategories = () => {
 
 
       </div>
+
+      <DynamicPagenation
+      itemsPerPageD= {6}
+      items={itemsData}
+      UpdateArrayToPagenation={UpdateArrayToPagenation}
+      />
     </section>
 
+
+
+ 
   </div>
+
+  </>
   )
 }
 

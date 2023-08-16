@@ -4,15 +4,20 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 // import { Card } from "@material-tailwind/react";
-import Pagination from "@mui/material/Pagination";
+// import Pagination from "@mui/material/Pagination";
 import StoreFilter from "../../components/filters/StoreFilter";
+import DynamicPagenation from "../../components/pagenation/DynamicPagenation";
 const ItemsStore = () => {
 
   const [selectedFilterdItems, setSelectedFilterdItems] = useState([]);
+  const [arrayToPagenation, setArrayToPagenation] = useState([]);
   const handleSelectChange = (value) => {
     setSelectedFilterdItems(value);
   };
 
+  const UpdateArrayToPagenation = (value) => {
+    setArrayToPagenation(value)
+  }
 
   const dispatch = useDispatch();
 
@@ -30,23 +35,6 @@ const ItemsStore = () => {
   useEffect(() => {
       setSelectedFilterdItems(AllRelatedItems)
   }, [AllRelatedItems]);
-
-
-
-  const [currentPageMeals, setCurrentPageMeals] = useState(1);
-  let totalItemsMeals;
-  let totalPagesMeals;
-  const itemsPerPage = 12;
-  totalItemsMeals = selectedFilterdItems?.length;
-  totalPagesMeals = Math.ceil(totalItemsMeals / itemsPerPage);
-  const startIndexMeals = (currentPageMeals - 1) * itemsPerPage;
-  const endIndexMeals = startIndexMeals + itemsPerPage;
-  const slicedArrayMeals = selectedFilterdItems?.slice(startIndexMeals, endIndexMeals);
-
-
-  const handlePageChangeMeals = (event, pageNumber) => {
-    setCurrentPageMeals(pageNumber);
-  };
 
 
   return (
@@ -76,20 +64,16 @@ const ItemsStore = () => {
       <StoreFilter ProductItems={AllRelatedItems} updateFilteredArray={handleSelectChange} />
 
 
-
       <div className=" lg:min-h-[50vh] flex  flex-col">
-        <ItemCard Items={slicedArrayMeals} />
+        <ItemCard Items={arrayToPagenation} />
       </div>
 
-      <div className="w-full flex items-center justify-center mt-5">
-        {
-          <Pagination
-            count={totalPagesMeals}
-            page={currentPageMeals}
-            onChange={handlePageChangeMeals}
-          />
-        }
-      </div>
+      <DynamicPagenation
+      itemsPerPageD= {6}
+      items={selectedFilterdItems}
+      UpdateArrayToPagenation={UpdateArrayToPagenation}
+      />
+
     </>
   );
 };
