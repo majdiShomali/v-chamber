@@ -305,7 +305,6 @@ const ItemCard = ({Items}) => {
                          }
        
                         
-                         
                  
                           </div> */}
                         </div>
