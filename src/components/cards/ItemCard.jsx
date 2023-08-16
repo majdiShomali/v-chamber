@@ -148,7 +148,7 @@ const ItemCard = ({Items}) => {
                     <div className="flex flex-col ">
                       <div className="">
                         <div className="relative h-56 w-full mb-3">
-                          {localStorage.auth !== undefined ? (
+                          {/* {localStorage.auth !== undefined ? (
                             <>
                               {card?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
                                 <div
@@ -196,7 +196,7 @@ const ItemCard = ({Items}) => {
                                 </div>
                               )}
                             </>
-                          ) : null}
+                          ) : null} */}
               <HashLink smooth={true} to = {`/ProductPage/${card?.categoryId}/${card?._id}#`}>
 
                           <img

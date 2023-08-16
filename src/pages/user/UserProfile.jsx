@@ -5,7 +5,7 @@ import { UserContext } from "../../context/userContext";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFavItems } from "../../actions/related/FavoriteItems";
 import ItemCard from "../../components/cards/ItemCard"
-import Orders from "./components/Orders";
+import Orders from "./userOrders/Orders";
 
 
 const UserProfile = () => {

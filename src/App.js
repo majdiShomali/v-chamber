@@ -20,6 +20,7 @@ import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
 import AllCategories from "./pages/user/AllCategories";
 import ItemStoreCategory from "./pages/user/ItemStoreCategory";
+import UserPdfBill from "./pages/user/pdf/UserPdfBill";
 //---------------------provider-------------------------//
 
 import ProviderHome from "./pages/providerFiles/ProviderHome";
@@ -80,6 +81,7 @@ function App() {
          <Route path="/Store" element={<ItemsStore />} />
           <Route path="/Payment" element={<Payment />} />
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
+        <Route path="/UserPdfBill/:orderId" element={<UserPdfBill />} />
         {/*     <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
