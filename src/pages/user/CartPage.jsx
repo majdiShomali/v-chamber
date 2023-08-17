@@ -63,7 +63,7 @@ const CartPage = () => {
   useEffect(() => {
     if (items) {
       const priceQ = items.map((item) => {
-        return parseInt(item.price, 10) * item.quantity;
+        return parseInt(item.salePrice, 10) * item.quantity;
       });
       const sum = priceQ.reduce(
         (accumulator, currentValue) => accumulator + currentValue,

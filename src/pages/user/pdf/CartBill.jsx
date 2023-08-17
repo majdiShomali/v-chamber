@@ -63,17 +63,17 @@ useEffect(()=>{
                        {order.Name}
                      </div>
                      <div className="mt-0.5 text-slate-500 sm:hidden">
-                       1 unit at ${order.price}
+                       1 unit at ${order.salePrice}
                      </div>
                    </td>
                    <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
                      {order.quantity}
                    </td>
                    <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                     ${order.price} USD
+                     ${order.salePrice} USD
                    </td>
                    <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                     ${order.price*order.quantity} USD
+                     ${order.salePrice*order.quantity} USD
                    </td>
                  </tr>
    

@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import UserPendingOrders from './UserPendingOrders'
 import UserStartedOrders from './UserStartedOrders'
+import UserDoneOrders from './UserDoneOrders';
 import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../../../context/userContext";
 import {fetchUserOrdersPending} from "../../../actions/orders/userOrders/GetUserOrdersPending"
 import {fetchUserOrdersStarted} from "../../../actions/orders/userOrders/GetUserOrdersStarted"
-
-const TrakingBar = ({UserPendingOrdersData,UserStartedOrdersData}) => {
+import {fetchUserOrdersDone} from "../../../actions/orders/userOrders/GetUserOrdersDone"
+const TrakingBar = ({UserPendingOrdersData,UserStartedOrdersData,UserDoneOrdersData}) => {
   // const { user } = useContext(UserContext);
   // const {
   //   // loading: isOneRelatedItemLoading,
@@ -122,9 +123,10 @@ const handleOrder = (status) => {
     <UserStartedOrders UserStartedOrdersData={UserStartedOrdersData}/>
     :
     
+    <UserDoneOrders UserDoneOrdersData={UserDoneOrdersData}/>
+
     
-    
-    null}
+    }
 
 
   

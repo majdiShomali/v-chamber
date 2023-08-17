@@ -8,9 +8,9 @@ import { HashLink } from 'react-router-hash-link';
 // data-aos="fade-up"
 const HeroImageOne = () => {
   return (
-    <div className='relative h-full w-full object-cover' >
+    <div className='relative h-full w-full object-cover'  >
 
-    <section className="bg-gray-50 h-full w-full object-cover bg-cover bg-no-repeat bg-[url(https://images.pexels.com/photos/9694216/pexels-photo-9694216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] ">
+    <section style={{backgroundAttachment: 'fixed'}} className="bg-gray-50 h-full w-full object-cover bg-cover bg-no-repeat bg-[url(https://images.pexels.com/photos/9694216/pexels-photo-9694216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] ">
 <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-full lg:items-center">
   <div className="mx-auto max-w-xl text-center">
     <h1 className="text-3xl text-white font-extrabold sm:text-5xl">

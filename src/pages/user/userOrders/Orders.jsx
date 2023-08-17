@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../../../context/userContext";
 import {fetchUserOrdersPending} from "../../../actions/orders/userOrders/GetUserOrdersPending"
 import {fetchUserOrdersStarted} from "../../../actions/orders/userOrders/GetUserOrdersStarted"
+import {fetchUserOrdersDone} from "../../../actions/orders/userOrders/GetUserOrdersDone"
 
 import TrakingBar from "./TrackingBar";
 
@@ -25,13 +26,22 @@ const Orders = () => {
     // error: fetchUserStartedOrdersError,
   } = useSelector((state) => state.fetchUserOrdersStarted);
 
+  const {
+    // loading: isUserDoneOrdersDataLoading,
+    data: UserDoneOrdersData,
+    // error: fetchUserDoneOrdersError,
+  } = useSelector((state) => state.fetchUserOrdersDone);
 
+// console.log(UserPendingOrdersData)
+console.log(UserStartedOrdersData)
+// console.log(UserDoneOrdersData)
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (user?.email !== undefined) {
       dispatch(fetchUserOrdersPending(user?.email));
       dispatch(fetchUserOrdersStarted(user?.email));
+      dispatch(fetchUserOrdersDone(user?.email));
     }
   }, [dispatch,user]);
 
@@ -45,7 +55,11 @@ const Orders = () => {
           <div className="m-5">
       
 
-<TrakingBar UserPendingOrdersData={UserPendingOrdersData} UserStartedOrdersData={UserStartedOrdersData} />
+<TrakingBar
+ UserPendingOrdersData={UserPendingOrdersData}
+  UserStartedOrdersData={UserStartedOrdersData} 
+  UserDoneOrdersData={UserDoneOrdersData}
+  />
 
  
 
