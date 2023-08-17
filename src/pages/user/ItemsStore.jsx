@@ -7,6 +7,7 @@ import { fetchAllRelatedItems } from "../../actions/related/GetAllRelatedItems";
 // import Pagination from "@mui/material/Pagination";
 import StoreFilter from "../../components/filters/StoreFilter";
 import DynamicPagenation from "../../components/pagenation/DynamicPagenation";
+import ItemCardSkelaton from "../../components/cards/ItemCardSkelaton";
 const ItemsStore = () => {
 
   const [selectedFilterdItems, setSelectedFilterdItems] = useState([]);
@@ -22,7 +23,7 @@ const ItemsStore = () => {
   const dispatch = useDispatch();
 
   const {
-    // loading: isAllRelatedItemsLoading,
+    loading: isAllRelatedItemsLoading,
     data: AllRelatedItems,
     // error: fetchAllRelatedItemsError,
   } = useSelector((state) => state.fetchAllRelatedItems);
@@ -65,7 +66,21 @@ const ItemsStore = () => {
 
 
       <div className=" lg:min-h-[50vh] flex  flex-col">
+
+        {isAllRelatedItemsLoading  ? <ItemCardSkelaton/> :
+        
         <ItemCard Items={arrayToPagenation} />
+
+        // null
+        
+        }
+        
+         
+        
+
+        
+       
+
       </div>
 
       <DynamicPagenation

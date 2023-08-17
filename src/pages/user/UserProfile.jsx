@@ -4,7 +4,7 @@ import { UserContext } from "../../context/userContext";
 // import EditProfile from "./components/UserEditProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFavItems } from "../../actions/related/FavoriteItems";
-import ItemCard from "../../components/cards/ItemCard"
+import ItemCardUserProfile from "../../components/cards/ItemCardUserProfile";
 import Orders from "./userOrders/Orders";
 
 
@@ -111,7 +111,7 @@ const [favoriteItems,setFavoriteItems] =useState([])
             <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
               <h4 className="text-xl text-gray-900 font-bold">wishlist Products</h4>
               <div className="m-5">
-              <ItemCard
+              <ItemCardUserProfile
                 Items={favoriteItems}
                          />
               </div>

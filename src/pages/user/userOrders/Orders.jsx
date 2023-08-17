@@ -1,10 +1,40 @@
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from 'react'
+import UserPendingOrders from './UserPendingOrders'
+import UserStartedOrders from './UserStartedOrders'
+import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../../../context/userContext";
+import {fetchUserOrdersPending} from "../../../actions/orders/userOrders/GetUserOrdersPending"
+import {fetchUserOrdersStarted} from "../../../actions/orders/userOrders/GetUserOrdersStarted"
+
 import TrakingBar from "./TrackingBar";
 
 const Orders = () => {
+  const ImagesUrl= process.env.REACT_APP_IMAGES_URL
+
   const { user } = useContext(UserContext);
+  const {
+    // loading: isOneRelatedItemLoading,
+    data: UserPendingOrdersData,
+    // error: fetchOneRelatedItemError,
+  } = useSelector((state) => state.fetchUserOrdersPending);
+
+  const {
+    // loading: isUserStartedOrdersDataLoading,
+    data: UserStartedOrdersData,
+    // error: fetchUserStartedOrdersError,
+  } = useSelector((state) => state.fetchUserOrdersStarted);
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user?.email !== undefined) {
+      dispatch(fetchUserOrdersPending(user?.email));
+      dispatch(fetchUserOrdersStarted(user?.email));
+    }
+  }, [dispatch,user]);
+
 
 
   return (
@@ -15,12 +45,13 @@ const Orders = () => {
           <div className="m-5">
       
 
+<TrakingBar UserPendingOrdersData={UserPendingOrdersData} UserStartedOrdersData={UserStartedOrdersData} />
+
  
-<TrakingBar/>
 
 
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <canvas
               id="verticalBarChart"
               style={{
@@ -32,7 +63,7 @@ const Orders = () => {
               width={1656}
               height={828}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,20 +1,56 @@
 import React, { useContext, useEffect, useState } from 'react'
 import UserPendingOrders from './UserPendingOrders'
 import UserStartedOrders from './UserStartedOrders'
+import { useDispatch, useSelector } from "react-redux";
+import { UserContext } from "../../../context/userContext";
+import {fetchUserOrdersPending} from "../../../actions/orders/userOrders/GetUserOrdersPending"
+import {fetchUserOrdersStarted} from "../../../actions/orders/userOrders/GetUserOrdersStarted"
 
-const TrakingBar = () => {
+const TrakingBar = ({UserPendingOrdersData,UserStartedOrdersData}) => {
+  // const { user } = useContext(UserContext);
+  // const {
+  //   // loading: isOneRelatedItemLoading,
+  //   data: UserPendingOrdersData,
+  //   // error: fetchOneRelatedItemError,
+  // } = useSelector((state) => state.fetchUserOrdersPending);
+
+  // const {
+  //   // loading: isUserStartedOrdersDataLoading,
+  //   data: UserStartedOrdersData,
+  //   // error: fetchUserStartedOrdersError,
+  // } = useSelector((state) => state.fetchUserOrdersStarted);
+
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   if (user?.email !== undefined) {
+  //     dispatch(fetchUserOrdersPending(user?.email));
+  //     dispatch(fetchUserOrdersStarted(user?.email));
+  //   }
+  // }, [dispatch,user]);
+
+
+
 const [orderStatus,setOrderStatus]=useState("pending")
 const handleOrder = (status) => {
   setOrderStatus(status)
 }
+
   return (
     <>
+
+
       <div className="w-full flex justify-center items-center">
+
+
+    <div className={UserPendingOrdersData?.length>0 ||  UserStartedOrdersData?.length>0  ? 'animate-pulse' :""}> 
     <ol className="flex w-96 ">
       <li 
       onClick={()=>handleOrder("pending")}
       className="flex w-full items-center text-blue-600 dark:text-blue-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-100 after:border-4 after:inline-block dark:after:border-blue-800">
-        <span className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
+        
+        <span className="cursor-pointer hover:scale-110 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
           <svg
             className="w-3.5 h-3.5 text-blue-600 lg:w-4 lg:h-4 dark:text-blue-300"
             aria-hidden="true"
@@ -39,7 +75,7 @@ const handleOrder = (status) => {
       >
         
         
-        <span className={orderStatus === "pending" ? "flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0" : "flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-700 shrink-0"}>
+        <span className={orderStatus === "pending" ? "flex cursor-pointer hover:scale-110 items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0" : "cursor-pointer hover:scale-110 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-700 shrink-0"}>
 
           <svg
             className={orderStatus === "pending" ? "w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100" : "w-3.5 h-3.5 text-blue-600 lg:w-4 lg:h-4 dark:text-blue-300"}
@@ -57,9 +93,7 @@ const handleOrder = (status) => {
       className="flex items-center w-full">
         <span 
         
-        className={orderStatus === "done" ? "flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-700 shrink-0" : "flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"}
-
-        
+        className={orderStatus === "done" ? "cursor-pointer hover:scale-110 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-700 shrink-0" : "cursor-pointer hover:scale-110 flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"}  
         >
          
          
@@ -77,15 +111,16 @@ const handleOrder = (status) => {
     </ol>
     </div>
 
+    </div>
+
     {orderStatus === "pending" ?
-        <UserPendingOrders/>
+        <UserPendingOrders UserPendingOrdersData={UserPendingOrdersData}/>
     : 
     
     orderStatus === "started" ?
     
-    <UserStartedOrders/>
+    <UserStartedOrders UserStartedOrdersData={UserStartedOrdersData}/>
     :
-    
     
     
     

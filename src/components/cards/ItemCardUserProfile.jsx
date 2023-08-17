@@ -16,7 +16,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import ItemCardSkelaton from "./ItemCardSkelaton";
 AOS.init();
-const ItemCard = ({Items}) => {
+const ItemCardUserProfile = ({Items}) => {
 
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -150,7 +150,7 @@ const ItemCard = ({Items}) => {
                     <div className="flex flex-col ">
                       <div className="">
                         <div className="relative h-56 w-full mb-3">
-                          {/* {localStorage.auth !== undefined ? (
+                          {localStorage.auth !== undefined ? (
                             <>
                               {card?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
                                 <div
@@ -198,7 +198,7 @@ const ItemCard = ({Items}) => {
                                 </div>
                               )}
                             </>
-                          ) : null}  */}
+                          ) : null} 
               <HashLink smooth={true} to = {`/ProductPage/${card?.categoryId}/${card?._id}#`}>
 
                           <img
@@ -325,4 +325,4 @@ const ItemCard = ({Items}) => {
   )
 }
 
-export default ItemCard
+export default ItemCardUserProfile

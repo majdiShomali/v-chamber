@@ -35,7 +35,6 @@ const TopProducts = () => {
       setTopProducts(TopItemsRelated)
     }, [AllRelatedItemsData]);
   
-
   return (
     <>
 

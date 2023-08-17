@@ -1,27 +1,14 @@
 import React, { useContext, useEffect } from 'react'
 import { mdiCarConnected, mdiCloudPrintOutline, mdiDelete, mdiEyeOutline } from "@mdi/js";
 import Icon from "@mdi/react";
-import { useDispatch, useSelector } from "react-redux";
-import { UserContext } from "../../../context/userContext";
-import { fetchUserOrders } from "../../../actions/orders/GetUserOrders";
 import { useNavigate } from 'react-router-dom';
-import {fetchUserOrdersPending} from "../../../actions/orders/userOrders/GetUserOrdersPending"
-const UserPendingOrders = ({orders}) => {
-    const { user } = useContext(UserContext);
-
-    const {
-      // loading: isOneRelatedItemLoading,
-      data: UserPendingOrdersData,
-      // error: fetchOneRelatedItemError,
-    } = useSelector((state) => state.fetchUserOrdersPending);
-  
-    const dispatch = useDispatch();
-  
-    useEffect(() => {
-      if (user?.email !== undefined) {
-        dispatch(fetchUserOrdersPending(user?.email));
-      }
-    }, [dispatch,user]);
+import { useState } from 'react';
+import UserShowOrders from './UserShowOrders';
+const UserPendingOrders = ({UserPendingOrdersData}) => {
+  const [selectedOrder, setSelectedOrder] = useState([])
+  const handleShow = (order) =>{
+    setSelectedOrder(order.itemsCartData)
+    }
 
     const navigate =useNavigate()
     const handleUpdate = (orderId) =>{
@@ -175,7 +162,7 @@ const UserPendingOrders = ({orders}) => {
                   role="cell"
                 >
                   <button
-                  //   onClick={() => handleDelete(e._id, e.firstName)}
+                    onClick={() => handleShow(e)}
                   >
                     <Icon color="green" path={mdiEyeOutline} size={1.5} />
                   </button>
@@ -197,6 +184,8 @@ const UserPendingOrders = ({orders}) => {
         }
       </div> */}
     </div>
+    <UserShowOrders selectedOrder={selectedOrder}/>
+
   </div>
   )
 }

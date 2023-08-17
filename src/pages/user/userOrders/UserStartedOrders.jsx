@@ -1,27 +1,16 @@
-import React, { useContext, useEffect } from 'react'
-import { mdiCarConnected, mdiDelete ,mdiCloudPrintOutline, mdiEyeOutline } from "@mdi/js";
+import React from 'react'
+import {mdiCloudPrintOutline, mdiEyeOutline } from "@mdi/js";
 import Icon from "@mdi/react";
-import { useDispatch, useSelector } from "react-redux";
-import { UserContext } from "../../../context/userContext";
 import { useNavigate } from 'react-router-dom';
-import {fetchUserOrdersStarted} from "../../../actions/orders/userOrders/GetUserOrdersStarted"
-const UserStartedOrders = () => {
-  const { user } = useContext(UserContext);
+import { useState } from 'react';
+import UserShowOrders from './UserShowOrders';
 
-  const {
-    // loading: isUserStartedOrdersDataLoading,
-    data: UserStartedOrdersData,
-    // error: fetchUserStartedOrdersError,
-  } = useSelector((state) => state.fetchUserOrdersStarted);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (user?.email !== undefined) {
-      dispatch(fetchUserOrdersStarted(user?.email));
-    }
-  }, [dispatch,user]);
-
+const UserStartedOrders = ({UserStartedOrdersData}) => {
+ const [selectedOrder, setSelectedOrder] = useState([])
   const navigate =useNavigate()
+  const handleShow = (order) =>{
+    setSelectedOrder(order.itemsCartData)
+    }
   const handleUpdate = (orderId) =>{
     navigate(`/UserPdfBill/${orderId}`)     
     }
@@ -172,7 +161,7 @@ const UserStartedOrders = () => {
                   role="cell"
                 >
                   <button
-                  //   onClick={() => handleDelete(e._id, e.firstName)}
+                    onClick={() => handleShow(e)}
                   >
                     <Icon color="green" path={mdiEyeOutline} size={1.5} />
                   </button>
@@ -194,6 +183,8 @@ const UserStartedOrders = () => {
         }
       </div> */}
     </div>
+
+   <UserShowOrders selectedOrder={selectedOrder}/>
   </div>
   )
 }
