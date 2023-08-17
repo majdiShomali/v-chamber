@@ -24,16 +24,15 @@ import Icon from "@mdi/react";
 import { mdiCartOutline } from "@mdi/js";
 import { mdiCartArrowDown } from "@mdi/js";
 // import { CartContext } from "../context/cartContext";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../actions/related/GetItemsCart";
 import { HashLink } from "react-router-hash-link";
-import {CartContext} from "../context/cartContext"
-
+import { CartContext } from "../context/cartContext";
 
 export default function StickyNavbar() {
- const {cartNavRefresh ,setCartNavRefresh}=useContext(CartContext)
+  const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
 
   // const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -46,25 +45,29 @@ export default function StickyNavbar() {
     // error: fetchCartError,
   } = useSelector((state) => state.fetchItemsCart);
 
-  const [itemsCartLocal , setItemsCartLocal]=useState([])
+  const [itemsCartLocal, setItemsCartLocal] = useState([]);
   useEffect(() => {
     if (localStorage.items) {
       const itemsIds = JSON.parse(localStorage.getItem("items")) || [];
       const itemsCart = JSON.parse(localStorage.getItem("itemsQ")) || [];
-      
-      const totalQuantity = itemsCart.reduce((acc, product) => acc + product.quantity, 0);
-      setItemsCartLocal(totalQuantity)
-      dispatch(fetchItemsCart(itemsIds)) } 
-    },[dispatch] )
-  
+
+      const totalQuantity = itemsCart.reduce(
+        (acc, product) => acc + product.quantity,
+        0
+      );
+      setItemsCartLocal(totalQuantity);
+      dispatch(fetchItemsCart(itemsIds));
+    }
+  }, [dispatch]);
 
   const [openNav, setOpenNav] = React.useState(false);
   const [items, setItems] = useState([]);
   const [itemsStat, setItemsStat] = useState(false);
   // const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
   useEffect(() => {
-    setItems(itemsCartData)
-    },[itemsCartData] )
+    if (itemsCartData.length === 0) return;
+    setItems(itemsCartData);
+  }, [itemsCartData]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -133,14 +136,17 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <HashLink
+        {/* <HashLink
           onClick={() => setOpenNav(false)}
           to="/ContactUs#"
           smooth={true}
           className="flex items-center"
         >
           Contact
-        </HashLink>
+        </HashLink> */}
+        <Link to={'/ContactUs'}>
+          Contact
+        </Link>
       </Typography>
     </ul>
   );
@@ -325,38 +331,33 @@ export default function StickyNavbar() {
       </div>
       <Collapse open={openNav}>
         {navList}
-        {localStorage.auth !== undefined ?  
-        <Link to="/UserProfile">
-          <Button
-          onClick={() => setOpenNav(false)}
-          variant="gradient"
-          size="sm"
-          fullWidth
-          className="mb-2"
-          color="purple"
-        >
-          <span>Profile</span>
-        </Button>
-        </Link>
-        
-        
-        :
-        
-        <Link to="/login">
-        <Button
-        onClick={() => setOpenNav(false)}
-        variant="gradient"
-        size="sm"
-        fullWidth
-        className="mb-"
-        color="purple"
-      >
-        <span>Login</span>
-      </Button>
-      </Link> 
-        
-        }
-
+        {localStorage.auth !== undefined ? (
+          <Link to="/UserProfile">
+            <Button
+              onClick={() => setOpenNav(false)}
+              variant="gradient"
+              size="sm"
+              fullWidth
+              className="mb-2"
+              color="purple"
+            >
+              <span>Profile</span>
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <Button
+              onClick={() => setOpenNav(false)}
+              variant="gradient"
+              size="sm"
+              fullWidth
+              className="mb-"
+              color="purple"
+            >
+              <span>Login</span>
+            </Button>
+          </Link>
+        )}
       </Collapse>
     </Navbar>
   );
