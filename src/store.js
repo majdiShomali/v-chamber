@@ -26,6 +26,8 @@ import fetchOrderReducer from './actions/orders/GetOrder'
 import fetchUserOrdersPendingReducer from "./actions/orders/userOrders/GetUserOrdersPending"
 import fetchUserOrdersStartedReducer from "./actions/orders/userOrders/GetUserOrdersStarted"
 import fetchUserOrdersDoneReducer from "./actions/orders/userOrders/GetUserOrdersDone"
+
+import fetchProductStikersReducer from "./actions/stickers/GetProductStickers"
 const store = configureStore({
   reducer: {
      fetchCategories:fetchCategoryItemsReducer,
@@ -59,6 +61,8 @@ const store = configureStore({
      fetchUserOrdersPending:fetchUserOrdersPendingReducer,
      fetchUserOrdersStarted:fetchUserOrdersStartedReducer,
      fetchUserOrdersDone:fetchUserOrdersDoneReducer,
+
+     fetchProductStikers:fetchProductStikersReducer,
   },
   middleware: [thunkMiddleware],
 });

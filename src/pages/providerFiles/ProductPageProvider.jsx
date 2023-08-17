@@ -16,6 +16,8 @@ import AddJuice from "./productsAdd/AddJuice";
 // import CategoryCard from "../../components/cards/CategoryCard";
 import CategoryEditSection from "./components/CategoryEditSection";
 import ItemCardProvider from "../../components/cards/ItemCardProvider";
+import AddSticker from "./productsAdd/AddSticker";
+import {fetchProductStikers} from "../../actions/stickers/GetProductStickers"
 const ProductPageProvider = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -39,7 +41,11 @@ const ProductPageProvider = () => {
     // data: CategoriesData,
     // error: fetchItemError,
   } = useSelector((state) => state.fetchCategories);
-
+  const {
+    // loading: isProductStikersLoading,
+    data: ProductStikersData,
+    // error: fetchProductStikersError,
+  } = useSelector((state) => state.fetchProductStikers);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -64,16 +70,15 @@ const ProductPageProvider = () => {
     }
   }, [RelatedItemData, ItemData]);
 
+  useEffect(() => {
+    if (selectedProduct._id) {
+      dispatch(fetchProductStikers(selectedProduct._id))
+
+    }
+  }, [dispatch, selectedProduct]);
+
   return (
     <>
-
-
-
-
-
-
-
-
       {isRelatedItemLoading && isCategoriesLoading && isItemLoading ? (
         // <ProductPageSkeleton />
         <>
@@ -169,7 +174,7 @@ const ProductPageProvider = () => {
                   <AddJuice item={ItemData} />
                 ) : null} */}
                   <AddJuice item={ItemData} />
-
+                  <AddSticker item={ItemData} selectedProduct={selectedProduct}/>
                 <h2 className="text-2xl font-bold mb-2">
                   {selectedProduct?.Name}
                 </h2>

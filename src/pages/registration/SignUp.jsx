@@ -32,18 +32,18 @@ export default function Signup() {
 
     validateName(name);
     validatePassword(password);
-    validateEmail(email);
+    validateEmail(email.toLowerCase());
     validatePhone(phone);
 
     if (
       validateName(name) &&
       validatePassword(password) &&
-      validateEmail(email) &&
+      validateEmail(email.toLowerCase()) &&
       validatePhone(phone)
     ) {
       const userData = {
         userName: name,
-        email: email,
+        email: email.toLowerCase(),
         password: password,
         phone: phone,
         role: type === "user" ? 0 : 2,

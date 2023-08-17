@@ -75,13 +75,12 @@ const ItemsStore = () => {
         
         }
         
-         
-        
-
-        
-       
-
       </div>
+
+      {/* const [arrayToPagenation, setArrayToPagenation] = useState([]);
+  const UpdateArrayToPagenation = (value) => {
+    setArrayToPagenation(value)
+  } */}
 
       <DynamicPagenation
       itemsPerPageD= {6}

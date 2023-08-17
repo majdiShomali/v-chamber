@@ -4,7 +4,10 @@ const UserShowOrders = ({selectedOrder}) => {
     const ImagesUrl= process.env.REACT_APP_IMAGES_URL
 
   return (
-    <div className=" flex flex-wrap items-center justify-center  rounded-lg border bg-white px-2 py-4 sm:px-6  overflow-y-auto">
+    <>
+   {selectedOrder.length > 0 ?
+   
+   <div className=" flex flex-wrap items-center justify-center  rounded-lg border bg-white px-2 py-4 sm:px-6  overflow-y-auto">
             {selectedOrder?.map((item) => {
               return (
                 <div 
@@ -43,6 +46,10 @@ const UserShowOrders = ({selectedOrder}) => {
               );
             })}
           </div>
+   
+   : null}
+    
+          </>
   )
 }
 

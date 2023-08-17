@@ -63,7 +63,7 @@ export default function LogIn() {
     try {
       const response = await axios.put(`${ApiUrl}/verifyOldEmail`, {
         Pin: Pin,
-        email: email,
+        email: email.toLowerCase(),
       });
       console.log(response.data);
       localStorage.setItem("auth", response.data.token);
@@ -78,7 +78,7 @@ export default function LogIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userData = {
-      email: email,
+      email: email.toLowerCase(),
       password: password,
     };
 
