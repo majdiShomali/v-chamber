@@ -18,6 +18,7 @@ import CategoryEditSection from "./components/CategoryEditSection";
 import ItemCardProvider from "../../components/cards/ItemCardProvider";
 import AddSticker from "./productsAdd/AddSticker";
 import {fetchProductStikers} from "../../actions/stickers/GetProductStickers"
+import Gallery from "../landing/pages/Gallery";
 const ProductPageProvider = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -47,7 +48,7 @@ const ProductPageProvider = () => {
     // error: fetchProductStikersError,
   } = useSelector((state) => state.fetchProductStikers);
   const dispatch = useDispatch();
-
+const [ProductStikersDataState,setProductStikersDataState] =useState([])
   useEffect(() => {
     if (id !== undefined) {
       dispatch(fetchRelatedItem(id));
@@ -58,13 +59,14 @@ const ProductPageProvider = () => {
 
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [selectedProductSticker, setSelectedProductSticker] = useState({});
 
   useEffect(() => {
-    if (ItemData?.image) {
-      setSelectedProduct(ItemData);
-      setSelectedImage(ItemData?.image);
-    }
-    if (RelatedItemData?.length > 0) {
+    // if (ItemData?.image) {
+    //   setSelectedProduct(ItemData);
+    //   setSelectedImage(ItemData?.image);
+    // }
+    if (RelatedItemData?.length > 0 ) {
       setSelectedProduct(RelatedItemData[0]);
       setSelectedImage(RelatedItemData[0]?.image);
     }
@@ -73,12 +75,26 @@ const ProductPageProvider = () => {
   useEffect(() => {
     if (selectedProduct._id) {
       dispatch(fetchProductStikers(selectedProduct._id))
-
     }
   }, [dispatch, selectedProduct]);
 
+  useEffect(() => {
+    if (ProductStikersData.length > 0 && selectedProduct) {
+      setSelectedProductSticker({...selectedProduct})
+      setProductStikersDataState([selectedProduct,...ProductStikersData])
+    }else if (ProductStikersData.length === 0 && selectedProduct){
+      setSelectedProductSticker({...selectedProduct})
+    }
+  }, [ProductStikersData,selectedProduct]);
+
+  const updateSelectedProductSticker =(value )=>{
+    setSelectedProductSticker(value)
+  }
+
   return (
     <>
+
+
       {isRelatedItemLoading && isCategoriesLoading && isItemLoading ? (
         // <ProductPageSkeleton />
         <>
@@ -94,9 +110,9 @@ const ProductPageProvider = () => {
 
 
 
-        <div className="bg-gray-100 py-8 min-h-[90vh] w-full flex items-center justify-center flex-col lg:flex-row">
+        <div className="bg-gray-100 py-8 my-7 min-h-[90vh] w-full flex items-center justify-center flex-col lg:flex-row">
       
-          <div className="max-w-6xl  px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl  px-4 sm:px-6 ">
           
             <div className="flex flex-wrap -mx-4">
               <div className="w-full px-4">
@@ -156,16 +172,25 @@ const ProductPageProvider = () => {
             </div>
 
             <div className="flex flex-col md:flex-row -mx-4">
-              <div className="md:flex-1 px-4">
-                <div className="h-[460px] rounded-lg bg-gray-300 mb-4">
-                  <img
+              <div className="md:flex-1 ">
+                <div className="h-[30rem] w-[30rem] rounded-lg mr-5 bg-gray-300 ">
+              
+
+                  {ProductStikersData.length > 0 ?
+                 <Gallery ProductStikersData={ProductStikersDataState} updateSelectedProductSticker={updateSelectedProductSticker} selectedProductSticker={selectedProductSticker} />
+
+                  :
+                   <img
                     className="w-full h-full object-cover"
                     src={`${ImagesUrl}/${selectedImage}`}
                     alt="ProductImage"
-                  />
+                  /> 
+                  
+                  }
+
                 </div>
               </div>
-              <div className="md:flex-1 px-4">
+              <div className="md:flex-1 px-4 w-[30rem]">
                 {/* {ItemData?.category === CategoriesData[0]?.category ? (
                   <AddVapePuff item={ItemData} />
                 ) : ItemData?.category === CategoriesData[1]?.category? (
@@ -176,14 +201,14 @@ const ProductPageProvider = () => {
                   <AddJuice item={ItemData} />
                   <AddSticker item={ItemData} selectedProduct={selectedProduct}/>
                 <h2 className="text-2xl font-bold mb-2">
-                  {selectedProduct?.Name}
+                  {selectedProductSticker?.Name}
                 </h2>
 
                 <div className="flex mb-4">
                   <div className="mr-4">
                     <span className="font-bold text-gray-700">Price:</span>
                     <span className="text-gray-600">
-                      ${selectedProduct?.price}
+                      ${selectedProductSticker?.price}
                     </span>
                   </div>
                   <div>
@@ -191,16 +216,16 @@ const ProductPageProvider = () => {
                       Availability:
                     </span>
                     <span className="text-gray-600">
-                      In Stock : {selectedProduct?.totalQuantity}
+                      In Stock : {selectedProductSticker?.totalQuantity}
                     </span>
                   </div>
                 </div>
 
-                {RelatedItemData[0]?.color ? (
+                {/* {RelatedItemData[0]?.color ? (
                   <>
                     <div className="mb-4">
                       <span className="font-bold text-gray-700">
-                        Select Color:
+                        Select Related Products:
                       </span>
                       <div className="flex items-center mt-2">
                         {RelatedItemData?.map((item) => {
@@ -219,9 +244,9 @@ const ProductPageProvider = () => {
                       </div>
                     </div>
                   </>
-                ) : null}
+                ) : null} */}
 
-                {RelatedItemData[0]?.vapePuff ? (
+                {/* {RelatedItemData[0]?.vapePuff ? (
                   <>
                     <div className="mb-4">
                       <span className="font-bold text-gray-700">
@@ -245,9 +270,9 @@ const ProductPageProvider = () => {
                       </div>
                     </div>
                   </>
-                ) : null}
+                ) : null} */}
 
-                {RelatedItemData[0]?.size ? (
+                {/* {RelatedItemData[0]?.size ? (
                   <div className="mb-4">
                     <span className="font-bold text-gray-700">
                       Select Size:
@@ -269,7 +294,7 @@ const ProductPageProvider = () => {
                       })}
                     </div>
                   </div>
-                ) : null}
+                ) : null} */}
 
                 <div>
                   <span className="font-bold text-gray-700">

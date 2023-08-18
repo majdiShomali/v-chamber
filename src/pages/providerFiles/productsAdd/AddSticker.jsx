@@ -11,6 +11,13 @@ import { useContext } from "react";
 import {fetchProductStikers} from "../../../actions/stickers/GetProductStickers"
 import { useDispatch, useSelector } from "react-redux";
 
+
+
+
+
+
+
+
 const AddSticker = ({item,selectedProduct}) => {
     const style = {
         position: "absolute",
@@ -51,19 +58,23 @@ const AddSticker = ({item,selectedProduct}) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("Name", name);
-    formData.append("category", item?.category);
-    formData.append("categoryId", item?._id);
-    formData.append("ProviderId", user?._id);
+    formData.append("SName", name);
+    formData.append("SProviderId", user?._id);
     formData.append("RelatedItemId", selectedProduct?._id);
     formData.append("image", productImage);
-    formData.append("price", price);
-    formData.append("salePrice", salePrice);
-    formData.append("quantity", Quantity);
-    // selectedProduct
+    formData.append("Sprice", price);
+    formData.append("SsalePrice", salePrice);
+    formData.append("Squantity", Quantity);
 
+    let dataToAppend = {
+...selectedProduct,
+    };
+   
+    for (const [key, value] of Object.entries(dataToAppend)) {
+      formData.append(key, value);
+    }
     try {
-      const response = await axios.post(`${ApiUrl}/addProductSticker`, formData)
+      const response = await axios.post(`${ApiUrl}/addProductSticker`, (formData))
       
       dispatch(fetchProductStikers(response.data._id))
         handleClose();
