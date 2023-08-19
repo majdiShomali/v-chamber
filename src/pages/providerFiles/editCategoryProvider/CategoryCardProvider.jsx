@@ -15,7 +15,7 @@ const CategoryCardProvider = ({itemsData}) => {
     const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
   
     function handleKitchenTypeSelection(id) {
-      navigate(`/ProductPageProvider/${id}`);
+      navigate(`/ProductPageProvider/${id}/0`);
     }
 
 

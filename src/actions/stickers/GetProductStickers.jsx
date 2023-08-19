@@ -7,6 +7,7 @@ export const fetchProductStikers = createAsyncThunk(
   "ProductStikers/fetchProductStikers",
   async (id) => {
     const response = await axios.get(`${ApiUrl}/ProductStikers/${id}`);
+    console.log(response.data);
     return response.data;
   }
 );

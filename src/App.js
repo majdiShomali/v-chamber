@@ -101,7 +101,7 @@ function App() {
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/UserProfile" element={<ProviderProfile />} />
           <Route path="/ProviderOrders" element={<ProviderOrders />} />
-          <Route path="/ProductPageProvider/:id" element={<ProductPageProvider />} />
+          <Route path="/ProductPageProvider/:id/:relatedId" element={<ProductPageProvider />} />
           <Route path="/PdfTest/:orderId" element={<PdfTest />} />
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>

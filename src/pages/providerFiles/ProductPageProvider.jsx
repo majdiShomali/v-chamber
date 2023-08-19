@@ -7,25 +7,20 @@ import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 // import Swal from "sweetalert2";
 // import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import { Link } from "react-router-dom";
-// import AddRelatedItem from "./AddRelatedItem";
-// import ItemCard from "../../components/cards/ItemCard"
-
-// import AddVapePuff from "./productsAdd/AddVapePuff";
-// import AddChargeVape from "./productsAdd/AddChargeVape";
 import AddJuice from "./productsAdd/AddJuice";
-// import CategoryCard from "../../components/cards/CategoryCard";
 import CategoryEditSection from "./components/CategoryEditSection";
 import ItemCardProvider from "../../components/cards/ItemCardProvider";
 import AddSticker from "./productsAdd/AddSticker";
 import {fetchProductStikers} from "../../actions/stickers/GetProductStickers"
 import Gallery from "../landing/pages/Gallery";
+import { fetchOneRelatedItem } from "../../actions/related/GetOneRelatedItem";
+
 const ProductPageProvider = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
-  const { id } = useParams();
-
+  const { id,relatedId } = useParams();
   const {
     loading: isRelatedItemLoading,
     data: RelatedItemData,
@@ -47,6 +42,12 @@ const ProductPageProvider = () => {
     data: ProductStikersData,
     // error: fetchProductStikersError,
   } = useSelector((state) => state.fetchProductStikers);
+  const {
+    loading: isOneRelatedItemLoading,
+    data: OneRelatedItemData,
+    // error: fetchOneRelatedItemError,
+  } = useSelector((state) => state.fetchOneRelatedItem);
+
   const dispatch = useDispatch();
 const [ProductStikersDataState,setProductStikersDataState] =useState([])
   useEffect(() => {
@@ -62,15 +63,31 @@ const [ProductStikersDataState,setProductStikersDataState] =useState([])
   const [selectedProductSticker, setSelectedProductSticker] = useState({});
 
   useEffect(() => {
-    // if (ItemData?.image) {
-    //   setSelectedProduct(ItemData);
-    //   setSelectedImage(ItemData?.image);
-    // }
-    if (RelatedItemData?.length > 0 ) {
+    if (relatedId !== undefined && relatedId !== "0") {
+      dispatch(fetchOneRelatedItem(relatedId));
+    } else if (relatedId !== undefined && relatedId === "0") {
       setSelectedProduct(RelatedItemData[0]);
       setSelectedImage(RelatedItemData[0]?.image);
     }
-  }, [RelatedItemData, ItemData]);
+  }, [dispatch, relatedId, RelatedItemData]);
+
+  useEffect(() => {
+    if (OneRelatedItemData?.image) {
+      setSelectedProduct(OneRelatedItemData);
+      setSelectedImage(OneRelatedItemData?.image);
+    }
+  }, [OneRelatedItemData]);
+
+  // useEffect(() => {
+  //   // if (ItemData?.image) {
+  //   //   setSelectedProduct(ItemData);
+  //   //   setSelectedImage(ItemData?.image);
+  //   // }
+  //   if (RelatedItemData?.length > 0 ) {
+  //     setSelectedProduct(RelatedItemData[0]);
+  //     setSelectedImage(RelatedItemData[0]?.image);
+  //   }
+  // }, [RelatedItemData, ItemData]);
 
   useEffect(() => {
     if (selectedProduct._id) {
@@ -86,6 +103,9 @@ const [ProductStikersDataState,setProductStikersDataState] =useState([])
       setSelectedProductSticker({...selectedProduct})
     }
   }, [ProductStikersData,selectedProduct]);
+
+
+
 
   const updateSelectedProductSticker =(value )=>{
     setSelectedProductSticker(value)
@@ -223,80 +243,7 @@ const [ProductStikersDataState,setProductStikersDataState] =useState([])
                   </div>
                 </div>
 
-                {/* {RelatedItemData[0]?.color ? (
-                  <>
-                    <div className="mb-4">
-                      <span className="font-bold text-gray-700">
-                        Select Related Products:
-                      </span>
-                      <div className="flex items-center mt-2">
-                        {RelatedItemData?.map((item) => {
-                          return (
-                            <button
-                              key={item._id}
-                              onClick={() => {
-                                setSelectedImage(item.image);
-                                setSelectedProduct(item);
-                              }}
-                              className="w-5 h-5  m-1 rounded-full"
-                              style={{ backgroundColor: item.color }}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </>
-                ) : null} */}
-
-                {/* {RelatedItemData[0]?.vapePuff ? (
-                  <>
-                    <div className="mb-4">
-                      <span className="font-bold text-gray-700">
-                        Select Vape Puff:
-                      </span>
-                      <div className="flex items-center mt-2">
-                        {RelatedItemData?.map((item) => {
-                          return (
-                            <button
-                              key={item.image}
-                              onClick={() => {
-                                setSelectedImage(item.image);
-                                setSelectedProduct(item);
-                              }}
-                              className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
-                            >
-                              {item.vapePuff}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </>
-                ) : null} */}
-
-                {/* {RelatedItemData[0]?.size ? (
-                  <div className="mb-4">
-                    <span className="font-bold text-gray-700">
-                      Select Size:
-                    </span>
-                    <div className="flex items-center mt-2">
-                      {RelatedItemData?.map((item) => {
-                        return (
-                          <button
-                            key={item.image}
-                            onClick={() => {
-                              setSelectedImage(item.image);
-                              setSelectedProduct(item);
-                            }}
-                            className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400"
-                          >
-                            {item.size}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : null} */}
+               
 
                 <div>
                   <span className="font-bold text-gray-700">

@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-const Gallery = ({ProductStikersData,updateSelectedProductSticker,selectedProductSticker}) => {
+const Gallery = ({ProductStikersData,updateSelectedProductSticker}) => {
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
   const [activeIndex, setActiveIndex] = useState(0);
+  
   useEffect(() => {
- if(ProductStikersData.length === 1){
   setActiveIndex(0)
- }
   },[ProductStikersData])
+
   const handleSlideChange = (index) => {
     setActiveIndex(index);
     updateSelectedProductSticker(ProductStikersData[index]);

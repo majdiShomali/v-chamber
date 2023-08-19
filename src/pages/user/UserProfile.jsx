@@ -11,28 +11,13 @@ import Orders from "./userOrders/Orders";
 const UserProfile = () => {
   const { user } = useContext(UserContext);
 const [favoriteItems,setFavoriteItems] =useState([])
-  const {
-    // loading: isFavLoading,
-    data: itemsFavData,
-    // error: fetchFavError,
-  } = useSelector((state) => state.FavoriteItems);
-
-
-  const dispatch = useDispatch();
-
-
 
   useEffect(() => {
-    if(user){
-      dispatch(fetchFavItems(user._id));
-    }
-  }, [dispatch,user]);
+    const UsersFavorite = JSON.parse(localStorage.getItem("itemsFav")) || [];
 
-  useEffect(() => {
+    setFavoriteItems(UsersFavorite)
 
-    setFavoriteItems(itemsFavData)
-
-  }, [itemsFavData]);
+  }, []);
 
   return (
     <>

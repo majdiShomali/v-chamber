@@ -75,8 +75,7 @@ const AddSticker = ({item,selectedProduct}) => {
     }
     try {
       const response = await axios.post(`${ApiUrl}/addProductSticker`, (formData))
-      
-      dispatch(fetchProductStikers(response.data._id))
+      dispatch(fetchProductStikers(selectedProduct._id))
         handleClose();
     } catch (error) {
       console.log(error);

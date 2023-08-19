@@ -216,8 +216,8 @@ const CartPage = () => {
         </div>
         <div className="flex flex-col w-full lg:w-1/2 lg:p-5 lg:m-5">
         <div >
-          <p className="text-xl font-medium">Shipping Methods</p>
-          <p className="text-gray-400">select a suitable shipping method.</p>
+          <p className="text-xl font-medium">Payment Methods</p>
+          <p className="text-gray-400">select a suitable payment method.</p>
 
           <form className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6  flex flex-col justify-center items-center">
             <div className="relative w-full">
@@ -240,7 +240,7 @@ const CartPage = () => {
                   alt=""
                 />
                 <div className="ml-5">
-                  <span className="mt-2 font-semibold">Fedex Delivery</span>
+                  <span className="mt-2 font-semibold">Pay Online</span>
                   <p className="text-slate-500 text-sm leading-6">
                     Delivery: 2-4 Days
                   </p>
@@ -267,7 +267,7 @@ const CartPage = () => {
                   alt=""
                 />
                 <div className="ml-5">
-                  <span className="mt-2 font-semibold">Fedex Delivery</span>
+                  <span className="mt-2 font-semibold">Pay on Delivery</span>
                   <p className="text-slate-500 text-sm leading-6">
                     Delivery: 2-4 Days
                   </p>

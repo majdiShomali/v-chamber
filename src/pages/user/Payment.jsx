@@ -35,6 +35,22 @@ const PaymentForm = () => {
   const [cardholder, setCardholder] = useState("");
   const [userPhone, setUserPhone] = useState('');
 
+  const [country, setCountry] = useState('');
+  const [address, setAddress] = useState('');
+  const [state, setState] = useState('');
+
+  const handleCountryChange = (event) => {
+    setCountry(event.target.value);
+  };
+
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  };
+  const handleStateChange = (event) => {
+    setState(event.target.value);
+  };
+
+
   const dispatch = useDispatch();
   const {
     // loading: isCartLoading,
@@ -104,6 +120,9 @@ const PaymentForm = () => {
         cardholder:cardholder,
         amount: totalPrice, 
         itemsCartData:itemsCartData,
+        country: country ,
+        state:  state ,
+        address: address  ,
         itemsCartDataLocal:JSON.parse(localStorage.getItem("itemsQ")),
       });
 
@@ -185,6 +204,48 @@ const PaymentForm = () => {
         {/* ... */}
       </div>
     </div>
+
+
+
+
+    <div className="space-y-4">
+      <label htmlFor="country" className="block font-medium">
+        Country:
+      </label>
+      <input
+        type="text"
+        id="country"
+        className="w-full border rounded-lg p-2"
+        value={country}
+        onChange={handleCountryChange}
+      />
+      <label htmlFor="state" className="block font-medium">
+        State:
+      </label>
+      <input
+        type="text"
+        id="state"
+        className="w-full border rounded-lg p-2"
+        value={state}
+        onChange={handleStateChange}
+      />
+
+      <label htmlFor="address" className="block font-medium">
+        Address Line:
+      </label>
+      <input
+        type="text"
+        id="address"
+        className="w-full border rounded-lg p-2"
+        value={address}
+        onChange={handleAddressChange}
+      />
+            </div>
+
+
+
+
+
               {/* Card Holder input */}
               <label
                 htmlFor="card-holder"
@@ -230,6 +291,7 @@ const PaymentForm = () => {
                   }}
                 />
               </div>
+              
               {loading ?  
               
               <button

@@ -9,8 +9,10 @@ export const fetchItemsCart = createAsyncThunk(
     const  data={
         Ids:Ids
     }
-    const response = await axios.post(`${ApiUrl}/allCartItems`,data);
-    return response.data;
+    const response0 = await axios.post(`${ApiUrl}/allCartItems`,data);
+    const response1 = await axios.post(`${ApiUrl}/ProductStikersCart`,data);
+    const response = [...response0.data, ...response1.data];
+    return response;
   }
 );
 const fetchItemsCartSlice = createSlice({

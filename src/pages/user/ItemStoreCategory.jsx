@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
 import ItemCard from "../../components/cards/ItemCard";
 import StoreFilterByCategory from "../../components/filters/StoreFilterByCategory";
+import ItemCardSkelaton from "../../components/cards/ItemCardSkelaton";
 const ItemStoreCategory = () => {
 
     // const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
@@ -16,7 +17,7 @@ const ItemStoreCategory = () => {
     };
   
     const {
-      // loading: isItemLoading,
+      loading: isRelatedItemLoading,
       data: AllRelatedItemData,
       // error: fetchAllRelatedItemError,
     } = useSelector((state) => state.fetchRelatedItems);
@@ -34,19 +35,21 @@ const ItemStoreCategory = () => {
        }, [AllRelatedItemData]);
   
 
-
-
-
-
   return (
     <>
 {id !== undefined ?
   <StoreFilterByCategory ProductItems={AllRelatedItemData} categoryId={id} updateFilteredArray={handleSelectChange} />
 : null}
 
-    <div className=" lg:min-h-[50vh] flex  flex-col">
-        <ItemCard Items={selectedFilterdItems} />
-      </div>
+{isRelatedItemLoading ? 
+<ItemCardSkelaton/>
+: 
+<div className=" lg:min-h-[50vh] flex  flex-col">
+<ItemCard Items={selectedFilterdItems} />
+</div>
+
+}
+   
   
       
     </>

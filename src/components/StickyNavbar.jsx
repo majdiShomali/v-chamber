@@ -27,7 +27,6 @@ import { mdiCartArrowDown } from "@mdi/js";
 import { useState, useEffect,useContext } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItemsCart } from "../actions/related/GetItemsCart";
 import { HashLink } from "react-router-hash-link";
 import {CartContext} from "../context/cartContext"
 
@@ -40,31 +39,23 @@ export default function StickyNavbar() {
   // const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const dispatch = useDispatch();
-  const {
-    // loading: isCartLoading,
-    data: itemsCartData,
-    // error: fetchCartError,
-  } = useSelector((state) => state.fetchItemsCart);
 
   const [itemsCartLocal , setItemsCartLocal]=useState([])
   useEffect(() => {
     if (localStorage.items) {
-      const itemsIds = JSON.parse(localStorage.getItem("items")) || [];
       const itemsCart = JSON.parse(localStorage.getItem("itemsQ")) || [];
       
       const totalQuantity = itemsCart.reduce((acc, product) => acc + product.quantity, 0);
       setItemsCartLocal(totalQuantity)
-      dispatch(fetchItemsCart(itemsIds)) } 
+    
+    } 
     },[dispatch] )
   
 
   const [openNav, setOpenNav] = React.useState(false);
-  const [items, setItems] = useState([]);
   const [itemsStat, setItemsStat] = useState(false);
   // const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
-  useEffect(() => {
-    setItems(itemsCartData)
-    },[itemsCartData] )
+
 
   useEffect(() => {
     setTimeout(() => {

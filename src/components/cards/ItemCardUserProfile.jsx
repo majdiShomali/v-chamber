@@ -15,108 +15,59 @@ import { HashLink } from "react-router-hash-link";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import ItemCardSkelaton from "./ItemCardSkelaton";
+import { useState } from "react";
 AOS.init();
-const ItemCardUserProfile = ({Items}) => {
-
-  // const ApiUrl = process.env.REACT_APP_API_URL;
-  // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
+const ItemCardUserProfile = () => {
+const [Items,setItems] =useState([])
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const { user } = useContext(UserContext);
-// const [filterItems,setFilterItems]=useState([])
 
-// const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
-
-  // const {
-  //   loading: isItemsDataLoading,
-  //   data: itemsData,
-  //   // error: fetchError,
-  // } = useSelector((state) => state.fetchAllRelatedItems);
-
-  // const {
-  //   loading: isFavLoading,
-  //   data: itemsFavData,
-  //   error: fetchFavError,
-  // } = useSelector((state) => state.FavoriteItems);
-  // const {
-  //   loading: isCartLoading,
-  //   data: itemsCartData,
-  //   error: fetchCartError,
-  // } = useSelector((state) => state.fetchItemsCart);
-
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // dispatch(fetchAllRelatedItems());
-    if(user){
-      dispatch(fetchFavItems(user._id));
-    }
-  }, [dispatch,user]);
+  // const dispatch = useDispatch();
 
   // useEffect(() => {
-  // // setFilterItems(itemsData)
-  
-  // }, [itemsData]);
-  useEffect(() => {
-    const storedItems = localStorage.getItem("items");
-    if (storedItems) {
-      dispatch(fetchItemsCart(JSON.parse(storedItems)));
-      // setItemsAllIdsInCart(JSON.parse(storedItems))
-    }
-  }, [dispatch]);
-
-  // const handleAddToCart = (card) => {
-  //   const storedItems = localStorage.getItem("items")   ? JSON.parse(localStorage.getItem("items"))   :   [];                                          
-  //   const storedItemsQ = localStorage.getItem("itemsQ") ? JSON.parse(localStorage.getItem("itemsQ"))  :   [];                                          
-  //   const existingCard = storedItems.includes(card._id);
-  //   if (existingCard) {
-  //     const allCardsIds = storedItems.filter((itemId) => { return itemId !== card._id});
-  //     dispatch(fetchItemsCart(allCardsIds)) 
-  //     setItemsAllIdsInCart(allCardsIds)
-  //     localStorage.setItem("items", JSON.stringify(allCardsIds));
-
-  //     const updatedItems = storedItemsQ.filter((item) => item._id !== card._id);
-  //     localStorage.setItem("itemsQ", JSON.stringify(updatedItems));
-
-
-  //   } else {
-  //     const allCardsIds = [...storedItems, card._id];
-  //     dispatch(fetchItemsCart(allCardsIds)) 
-  //     setItemsAllIdsInCart(allCardsIds)
-  //     localStorage.setItem("items", JSON.stringify(allCardsIds));
-
-
-  //     const allCards = [...(Array.isArray(storedItemsQ) ? storedItemsQ : []), { ...card, quantity: 1 }];
-  //     localStorage.setItem("itemsQ", JSON.stringify(allCards));
+  //   if(user){
+  //     dispatch(fetchFavItems(user._id));
   //   }
-  
-  // };
+  // }, [dispatch,user]);
+
+
+  // useEffect(() => {
+  //   const storedItems = localStorage.getItem("items");
+  //   if (storedItems) {
+  //     dispatch(fetchItemsCart(JSON.parse(storedItems)));
+  //   }
+  // }, [dispatch]);
+
+  const [localFavId,setLocalId]=useState([])
+
+  useEffect(() => {
+    const UsersIdFavorite = JSON.parse(localStorage.getItem("itemsIdFav")) || [];
+    const UsersFavorite = JSON.parse(localStorage.getItem("itemsFav")) || [];
+    setLocalId(UsersIdFavorite)
+    setItems(UsersFavorite)
+  },[])
+
 
   const handleFAv = async (card) => {
-    let UsersIdFavorite = [...(card.UsersIdFavorite || [])];
-    const indexToRemove = UsersIdFavorite.indexOf(user._id);
+    const UsersIdFavorite = JSON.parse(localStorage.getItem("itemsIdFav")) || [];
+    const UsersFavorite = JSON.parse(localStorage.getItem("itemsFav")) || [];
+    const indexToRemove = UsersIdFavorite.indexOf(card._id);
+
     if (indexToRemove !== -1) {
       UsersIdFavorite.splice(indexToRemove, 1);
+      UsersFavorite.splice(indexToRemove, 1);
       showSuccessAlert("removed from favorites");
     } else {
-      UsersIdFavorite.push(user._id);
+      UsersIdFavorite.push(card._id);
+      UsersFavorite.push(card);
       showSuccessAlert("added to favorites");
     }
-    try {
-      const UpdatedData = {
-        UsersIdFavorite: UsersIdFavorite,
-        CardId: card._id,
-        UserId:user._id,
-      };
-
-      dispatch(updateFavItems(UpdatedData)).then(() => {
-        dispatch(fetchAllRelatedItems());
-        dispatch(fetchFavItems(user._id));
-      });
-    } catch (error) {}
+    setLocalId(UsersIdFavorite)
+    localStorage.setItem("itemsIdFav", JSON.stringify(UsersIdFavorite));
+    localStorage.setItem("itemsFav", JSON.stringify(UsersFavorite));
+    setItems(UsersFavorite)
   };
-
   const showSuccessAlert = (message) => {
     Swal.fire({
       title: message,
@@ -152,7 +103,7 @@ const ItemCardUserProfile = ({Items}) => {
                         <div className="relative h-56 w-full mb-3">
                           {localStorage.auth !== undefined ? (
                             <>
-                              {card?.UsersIdFavorite?.indexOf(user?._id) !== -1 ? (
+                              {localFavId?.indexOf( card?._id) !== -1 ? (
                                 <div
                                   className="absolute flex flex-col top-0 right-0 p-3"
                                   onClick={() => handleFAv(card)}

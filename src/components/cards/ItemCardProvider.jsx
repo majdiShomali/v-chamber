@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { Card } from "@material-tailwind/react";
 import EditRelatedItemData from "../../pages/providerFiles/editRelatedItems/EditRelatedItemData";
 import EditRelatedItemImage from "../../pages/providerFiles/editRelatedItems/EditRelatedItemImage";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ItemCardProvider = ({ Items }) => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
@@ -64,8 +64,11 @@ const ItemCardProvider = ({ Items }) => {
       confirmButtonText: "OK",
     }).then(() => {});
   };
+  const navigate =useNavigate()
 
-
+  function handleProduct(card) {
+    navigate(`/ProductPageProvider/${card.categoryId}/${card._id}`);
+  }
   return (
     <>
       <div className="w-full flex flex-wrap gap-3 justify-center">
@@ -74,7 +77,8 @@ const ItemCardProvider = ({ Items }) => {
             <Card
               key={card._id}
               className=" flex flex-col items-center justify-center mx-2 h-96 w-72 mb-5 hover:scale-105"
-            >
+           onClick={()=> handleProduct(card)}
+           >
               <div className="container">
                 <div className=" w-full bg-gray-900  rounded-xl p-6">
                   <div className="flex flex-col ">
