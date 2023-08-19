@@ -5,7 +5,7 @@ import { fetchOnWayOrders } from '../../../actions/orders/GetOnWayOrders'
 import { UserContext } from "../../../context/userContext";
 
 import Icon from "@mdi/react";
-import { mdiDelete } from "@mdi/js";
+import { mdiCloudPrintOutline, mdiDelete } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
 import axios from "axios";
 
@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 
 
 import { mdiCarConnected } from '@mdi/js';
+import { useNavigate } from 'react-router-dom';
 const ProviderPendingOrders = () => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const { user } = useContext(UserContext);
@@ -74,17 +75,8 @@ const handlePageChangeUsers = (event, pageNumber) => {
   
 const handleUpdate = async(id)=>{
 
-  const options = {
-    month: 'numeric',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  };
-  
-  const currentDate = new Date();
-  const startDeliverTime = currentDate.toLocaleString(undefined, options);
+
+  const startDeliverTime = new Date();
 
 try {
   const response = await axios.put(`${ApiUrl}/PendingToOnWay/${id}`,{user:user,startDeliverTime:startDeliverTime})
@@ -107,8 +99,10 @@ const showSuccessAlert = (message) => {
   }).then(() => {});
 };
 
-
-
+const navigate=useNavigate()
+const handleBill = (orderId) =>{
+  navigate(`/UserPdfBill/${orderId}`)     
+  }
 
 
   return (
@@ -195,7 +189,7 @@ const showSuccessAlert = (message) => {
               className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
               style={{ cursor: "pointer" }}
             >
-              <p className="text-xs tracking-wide text-gray-600">DELETE</p>
+              <p className="text-xs tracking-wide text-gray-600">Show bill</p>
             </th>
           </tr>
         </thead>
@@ -273,9 +267,9 @@ const showSuccessAlert = (message) => {
                   role="cell"
                 >
                   <button
-                  //   onClick={() => handleDelete(e._id, e.firstName)}
-                  >
-                    <Icon color="red" path={mdiDelete} size={1} />
+                    onClick={() => handleBill(e._id)}
+                    >
+                    <Icon color="green" path={mdiCloudPrintOutline} size={1.5} />
                   </button>
                 </td>
               </tr>

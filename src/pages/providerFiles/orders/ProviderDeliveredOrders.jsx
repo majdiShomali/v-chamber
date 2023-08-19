@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDeliverdOrders } from '../../../actions/orders/GetDeliverdOrders' 
 import Icon from "@mdi/react";
-import { mdiDelete } from "@mdi/js";
+import { mdiCloudPrintOutline, mdiDelete } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
 // import {fetchOrder}  from "../../../actions/orders/GetOrder"
 import { mdiCarOutline } from '@mdi/js';
@@ -70,8 +70,10 @@ const handlePageChangeUsers = (event, pageNumber) => {
 
 const handleUpdate = (order) =>{
 navigate(`/PdfTest/${order._id}`)
-
 }
+const handleBill = (orderId) =>{
+  navigate(`/UserPdfBill/${orderId}`)     
+  }
 
 
   return (
@@ -158,7 +160,7 @@ navigate(`/PdfTest/${order._id}`)
               className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
               style={{ cursor: "pointer" }}
             >
-              <p className="text-xs tracking-wide text-gray-600">DELETE</p>
+              <p className="text-xs tracking-wide text-gray-600">Show Bill</p>
             </th>
           </tr>
         </thead>
@@ -220,7 +222,7 @@ navigate(`/PdfTest/${order._id}`)
                   role="cell"
                 >
                   <button
-                    onClick={() => handleUpdate(e)}
+                    // onClick={() => handleUpdate(e)}
                   >
                    
                   <Icon  color="blue" path={mdiCarOutline} size={1.5} />
@@ -233,9 +235,10 @@ navigate(`/PdfTest/${order._id}`)
                   role="cell"
                 >
                   <button
-                  //   onClick={() => handleDelete(e._id, e.firstName)}
+                  onClick={() => handleBill(e._id)}
                   >
-                    <Icon color="red" path={mdiDelete} size={1} />
+                    
+                    <Icon color="green" path={mdiCloudPrintOutline} size={1.5} />
                   </button>
                 </td>
               </tr>

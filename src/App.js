@@ -103,6 +103,8 @@ function App() {
           <Route path="/ProviderOrders" element={<ProviderOrders />} />
           <Route path="/ProductPageProvider/:id/:relatedId" element={<ProductPageProvider />} />
           <Route path="/PdfTest/:orderId" element={<PdfTest />} />
+          <Route path="/UserPdfBill/:orderId" element={<UserPdfBill />} />
+
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>
       </Router>

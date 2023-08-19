@@ -11,14 +11,14 @@ const UserStartedOrders = ({UserStartedOrdersData}) => {
   const handleShow = (order) =>{
     setSelectedOrder(order.itemsCartData)
     }
-  const handleUpdate = (orderId) =>{
+  const handleBill = (orderId) =>{
     navigate(`/UserPdfBill/${orderId}`)     
     }
   return (
     <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(50vh)]   ">
     <div className="relative flex items-center justify-between pt-4">
       <div className="text-xl font-bold text-navy-700 dark:text-white">
-        Pending Orders
+        Started Orders
       </div>
     </div>
 
@@ -148,7 +148,7 @@ const UserStartedOrders = ({UserStartedOrdersData}) => {
                   role="cell"
                 >
                   <button
-                    onClick={() => handleUpdate(e._id)}
+                    onClick={() => handleBill(e._id)}
                   >
                    
                   <Icon  color="blue" path={mdiCloudPrintOutline} size={1.5} />

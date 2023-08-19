@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { generatePDF } from './pdfUtils';
 import { Card ,Button} from '@material-tailwind/react';
 import { useEffect } from 'react';
@@ -20,7 +20,34 @@ const { data: OrderData  } = useSelector(
     dispatch(fetchOrder(orderId))
     }
   }, [dispatch,orderId]);
+  
+  const [Subtotal ,setSubtotal]=useState(0)
+  const [orderTime ,setOrderTime]=useState("")
+  const [startDeliverTime ,setStartDeliverTime]=useState("")
+  const [deliveredTime ,setDeliveredTime]=useState("")
 
+  useEffect(()=>{
+    if(OrderData){
+      const totalCost = OrderData?.itemsCartDataLocal?.reduce((acc, product) => acc + (product.salePrice * product.quantity), 0);
+      setSubtotal(totalCost)
+      setOrderTime(OrderData.orderTime ?OrderData.orderTime : "")
+      setStartDeliverTime(OrderData.startDeliverTime ?OrderData.startDeliverTime : "")
+      setDeliveredTime(OrderData.deliveredTime ?OrderData.deliveredTime : "")
+
+      console.log([orderTime,startDeliverTime,deliveredTime])
+
+    //   const date1 = new Date(OrderData.startDeliverTime);
+    //   const date2 = new Date(OrderData.orderTime);
+    //  const timeDifference = date1 -date2 ; 
+
+    // const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    // const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    // const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    // const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+  
+    }
+
+  },[OrderData])
 
   return (
     <section  className="py-20 bg-gray-100">
@@ -76,6 +103,18 @@ const { data: OrderData  } = useSelector(
                    <p className="mt-2 text-sm font-normal text-slate-700">Due</p>
                    <p>00.00.00</p>
                  </div>
+                 <div className="text-sm font-light text-slate-500">
+                   <p>Oreder Time</p>
+                   <p>{orderTime}</p>
+                 </div>
+                 <div className="text-sm font-light text-slate-500">
+                   <p>Start Drive Time</p>
+                   <p>{startDeliverTime ? startDeliverTime : "Pending"}</p>
+                 </div>
+                 <div className="text-sm font-light text-slate-500">
+                   <p>Delivered Time</p>
+                   <p>{deliveredTime ? deliveredTime : "Pending"}</p>
+                 </div>
                </div>
              </div>
            </div>
@@ -120,17 +159,17 @@ const { data: OrderData  } = useSelector(
                        {order.Name}
                      </div>
                      <div className="mt-0.5 text-slate-500 sm:hidden">
-                       1 unit at ${order.price}
+                       1 unit at ${order.salePrice}
                      </div>
                    </td>
                    <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
                      {order.quantity}
                    </td>
                    <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                     ${order.price} USD
+                     ${order.salePrice} USD
                    </td>
                    <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                     ${order.price*order.quantity} USD
+                     ${order.salePrice*order.quantity} USD
                    </td>
                  </tr>
    
@@ -156,7 +195,7 @@ const { data: OrderData  } = useSelector(
                        Subtotal
                      </th>
                      <td className="pt-6 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                       $0.00
+                       ${Subtotal}
                      </td>
                    </tr>
                    <tr>

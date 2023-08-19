@@ -90,7 +90,7 @@ const [ProductStikersDataState,setProductStikersDataState] =useState([])
   // }, [RelatedItemData, ItemData]);
 
   useEffect(() => {
-    if (selectedProduct._id) {
+    if (selectedProduct?._id) {
       dispatch(fetchProductStikers(selectedProduct._id))
     }
   }, [dispatch, selectedProduct]);

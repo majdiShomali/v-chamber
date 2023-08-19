@@ -27,19 +27,19 @@ const Gallery = ({ProductStikersData,updateSelectedProductSticker}) => {
   // },[ProductStikersData,selectedProductSticker])
 
   return (
-    <div className=" w-full h-full">
+    <div className="w-full h-full">
     <Carousel
       showThumbs={false}
       selectedItem={activeIndex}
       onChange={handleSlideChange}
     >
       {ProductStikersData?.map((item) => (
-        <div key={item.id} className=" w-full h-full ">
-          <div className="w-full h-full  ">
+        <div key={item.id} className="w-full h-full ">
+          <div className="w-full max-h-[30rem] flex items-center justify-center"> {/* Use flex utilities to center the image */}
             <img
               src={`${ImagesUrl}/${item.image}`}
               alt={item.image}
-              className="w-full h-full  "
+              className="h-full max-w-full  " 
             />
           </div>
         </div>
@@ -67,11 +67,13 @@ const Gallery = ({ProductStikersData,updateSelectedProductSticker}) => {
         }
   
         .carousel .control-arrow:hover {
-          background-color: gray; // Change the hover background color if needed
+          background-color: gray;
         }
       `}
     </style>
   </div>
+  
+  
   
   
   
