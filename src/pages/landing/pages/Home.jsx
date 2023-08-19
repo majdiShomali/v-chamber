@@ -6,14 +6,14 @@ import Brand from "../components/Brand";
 import Categories from "../components/Categories";
 import ProductOfTheWeek from "../components/ProductOfTheWeek";
 // import Gallery from './Gallery';
-
+import CookieComponent from "../../../CookieComponent";
 
 
 const Home = () => {
   return (
     <>
     {/* <Gallery/> */}
-
+       {/* <CookieComponent/> */}
       <HeroSection /> 
       <Categories />
       <TopProducts />

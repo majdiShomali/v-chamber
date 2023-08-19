@@ -16,6 +16,7 @@ import UserProfile from "./pages/user/UserProfile";
 import CartPage from "./pages/user/CartPage";
 import ForgetPassword from "./pages/registration/ForgetPassword"
 import Payment from "./pages/user/Payment";
+import PaymentCash from "./pages/user/PaymentCash";
 import ItemsStore from "./pages/user/ItemsStore";
 import ProductPage from "./pages/user/ProductPage";
 import AllCategories from "./pages/user/AllCategories";
@@ -80,6 +81,7 @@ function App() {
             <Route path="/AllCategories" element={<AllCategories />} />
          <Route path="/Store" element={<ItemsStore />} />
           <Route path="/Payment" element={<Payment />} />
+          <Route path="/PaymentCash" element={<PaymentCash />} />
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/UserPdfBill/:orderId" element={<UserPdfBill />} />
         {/*     <Route path="/ProductPageSkeleton" element={<ProductPageSkeleton />} /> */}

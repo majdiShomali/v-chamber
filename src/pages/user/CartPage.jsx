@@ -121,6 +121,11 @@ const CartPage = () => {
 // }
 
 
+  const [selectedOption, setSelectedOption] = useState('radio_1'); // Set the initial selected option
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.id);
+  };
   return (
     <>
 
@@ -216,13 +221,14 @@ const CartPage = () => {
 
           <form className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6  flex flex-col justify-center items-center">
             <div className="relative w-full">
-              <input
-                className="peer hidden"
-                id="radio_1"
-                type="radio"
-                name="radio"
-                defaultChecked=""
-              />
+            <input
+          className="peer hidden"
+          id="radio_1"
+          type="radio"
+          name="radio"
+          checked={selectedOption === 'radio_1'}
+          onChange={handleRadioChange}
+        />
               <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
               <label
                 className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
@@ -242,13 +248,14 @@ const CartPage = () => {
               </label>
             </div>
             <div className="relative w-full">
-              <input
-                className="peer hidden"
-                id="radio_2"
-                type="radio"
-                name="radio"
-                defaultChecked=""
-              />
+            <input
+          className="peer hidden"
+          id="radio_2"
+          type="radio"
+          name="radio"
+          checked={selectedOption === 'radio_2'}
+          onChange={handleRadioChange}
+        />
               <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
               <label
                 className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
@@ -267,13 +274,28 @@ const CartPage = () => {
                 </div>
               </label>
             </div>
-
-            <Button className="bg-[#ffc439] normal-case w-full lg:w-1/2 text-xl hover:scale-105 hover:shadow-none">  <span className="text-[#003087]">Pay</span><span className="text-[#009cde]">Pal</span> </Button>
-           <Link to="/Payment" className="w-full lg:w-1/2">
-           <Button
-           
-           className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  Debit or Credit Card </Button>
-           </Link>
+       {selectedOption ==="radio_1" ? 
+       <>
+          <Button className="bg-[#ffc439] normal-case w-full lg:w-1/2 text-xl hover:scale-105 hover:shadow-none">  <span className="text-[#003087]">Pay</span><span className="text-[#009cde]">Pal</span> </Button>
+          <Link to="/Payment" className="w-full lg:w-1/2">
+          <Button          
+          className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  Debit or Credit Card </Button>
+          </Link>
+          </>
+       
+       :
+       <>
+       
+         <Link to="/PaymentCash" className="w-full lg:w-1/2">
+          <Button          
+          className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  Place Order </Button>
+          </Link>
+       
+       </>
+       
+       
+       }
+         
 
           </form>
         </div>

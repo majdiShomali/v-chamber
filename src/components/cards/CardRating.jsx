@@ -2,12 +2,15 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 // import TotalRating from "./TotalRating";
 import Swal from "sweetalert2";
+import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
+import { useDispatch, useSelector } from "react-redux";
 
 // import { useParams } from "react-router-dom";
 // import { UserContext } from "../../context/userContext";
 
 
 const CardRating = ({Item,CardId,UserId}) => {
+  const dispatch =useDispatch()
     // const { id } = useParams();
     // const { user, setUser } = useContext(UserContext);
     const starCount = 5; // Total number of stars
@@ -56,6 +59,7 @@ const CardRating = ({Item,CardId,UserId}) => {
         await axios.put(`http://localhost:5000/api/updateProductRate/${CardId}`, updatedProduct);
         showSuccessAlert(newrate)
         setRatingStatus(true)
+        dispatch(fetchRelatedItem(Item.categoryId))
       } catch (error) {
         console.error("Error updating user:", error);
       }

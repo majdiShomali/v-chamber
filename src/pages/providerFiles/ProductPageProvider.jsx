@@ -43,7 +43,7 @@ const ProductPageProvider = () => {
     // error: fetchItemError,
   } = useSelector((state) => state.fetchCategories);
   const {
-    // loading: isProductStikersLoading,
+    loading: isProductStikersLoading,
     data: ProductStikersData,
     // error: fetchProductStikersError,
   } = useSelector((state) => state.fetchProductStikers);
@@ -95,7 +95,7 @@ const [ProductStikersDataState,setProductStikersDataState] =useState([])
     <>
 
 
-      {isRelatedItemLoading && isCategoriesLoading && isItemLoading ? (
+      {isRelatedItemLoading && isCategoriesLoading && isItemLoading && isProductStikersLoading ? (
         // <ProductPageSkeleton />
         <>
         loading...
@@ -199,7 +199,9 @@ const [ProductStikersDataState,setProductStikersDataState] =useState([])
                   <AddJuice item={ItemData} />
                 ) : null} */}
                   <AddJuice item={ItemData} />
+                  {RelatedItemData?.length > 0 ?
                   <AddSticker item={ItemData} selectedProduct={selectedProduct}/>
+                  : null}
                 <h2 className="text-2xl font-bold mb-2">
                   {selectedProductSticker?.Name}
                 </h2>

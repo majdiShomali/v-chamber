@@ -6,6 +6,11 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 const Gallery = ({ProductStikersData,updateSelectedProductSticker,selectedProductSticker}) => {
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
   const [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+ if(ProductStikersData.length === 1){
+  setActiveIndex(0)
+ }
+  },[ProductStikersData])
   const handleSlideChange = (index) => {
     setActiveIndex(index);
     updateSelectedProductSticker(ProductStikersData[index]);
@@ -22,19 +27,19 @@ const Gallery = ({ProductStikersData,updateSelectedProductSticker,selectedProduc
   // },[ProductStikersData,selectedProductSticker])
 
   return (
-    <div className=" w-full h-full relative">
+    <div className=" w-full h-full">
     <Carousel
       showThumbs={false}
       selectedItem={activeIndex}
       onChange={handleSlideChange}
     >
       {ProductStikersData?.map((item) => (
-        <div key={item.id} className="">
-          <div className="w-full h-full ">
+        <div key={item.id} className=" w-full h-full ">
+          <div className="w-full h-full  ">
             <img
               src={`${ImagesUrl}/${item.image}`}
               alt={item.image}
-              className="w-full h-full object-cover"
+              className="w-full h-full  "
             />
           </div>
         </div>
