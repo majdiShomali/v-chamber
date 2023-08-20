@@ -32,13 +32,13 @@ const HeroImageOne = () => {
             Products
           </Button>
           </HashLink>
-          <HashLink smooth={true} to="#SaleProducts">
+          <HashLink smooth={true} to="#Track">
           <Button
             className="mb-10 border-solid border-purple-500 border-2  bg-purple-500 hover:bg-purple-500 hover:scale-105 text-[#ffffff]"
             variant="text"
           >
             
-            Top Sale
+            Track Payment
           </Button>
           </HashLink>
       {/* <a

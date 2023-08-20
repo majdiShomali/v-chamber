@@ -23,6 +23,7 @@ import AllCategories from "./pages/user/AllCategories";
 import ItemStoreCategory from "./pages/user/ItemStoreCategory";
 import UserPdfBill from "./pages/user/pdf/UserPdfBill";
 import PayPalPayment from "./pages/user/PayPalPayment";
+import TrackSection from "./pages/user/components/TrackSection";
 //---------------------provider-------------------------//
 
 import ProviderHome from "./pages/providerFiles/ProviderHome";
@@ -72,6 +73,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/PayPalPayment" element={<PayPalPayment />} />
+          <Route path="/TrackSection" element={<TrackSection />} />
           <Route path="/Signup/:type" element={<SignUp />} />
            <Route index element={<Home />} />
            <Route path="/AboutUs" element={<AboutUs />} />

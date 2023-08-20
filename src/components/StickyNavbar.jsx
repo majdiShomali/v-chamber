@@ -133,6 +133,21 @@ export default function StickyNavbar() {
           Contact
         </HashLink>
       </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <HashLink
+          onClick={() => setOpenNav(false)}
+          to="/TrackSection#"
+          smooth={true}
+          className="flex items-center"
+        >
+          Track 
+        </HashLink>
+      </Typography>
     </ul>
   );
 
