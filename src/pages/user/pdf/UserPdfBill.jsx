@@ -98,10 +98,10 @@ const { data: OrderData  } = useSelector(
                    <p>00.00.00</p>
                  </div>
                  <div className="text-sm font-light text-slate-500">
-                   <p className="text-sm font-normal text-slate-700">Terms</p>
-                   <p>0 Days</p>
-                   <p className="mt-2 text-sm font-normal text-slate-700">Due</p>
-                   <p>00.00.00</p>
+                   <p className="text-sm font-normal text-slate-700">Payment status</p>
+                   <p>{OrderData.status ? "paid" : "not paid yet"}</p>
+                   <p className="mt-2 text-sm font-normal text-slate-700">Payment Id</p>
+                   <p>{OrderData.paymentMethodId}</p>
                  </div>
                  <div className="text-sm font-light text-slate-500">
                    <p>Oreder Time</p>

@@ -70,7 +70,7 @@ const PaymentCash = () => {
     event.preventDefault();
     setLoading(true);
     try {
-
+      const currentDate0 = new Date();
 
       // Send payment information to your server using Axios
       const response = await axios.post(`${ApiUrl}/chargeCash`, {
@@ -81,6 +81,7 @@ const PaymentCash = () => {
         state:  state ,
         address: address  ,
         amount: totalPrice, 
+        orderTime:currentDate0,
         itemsCartData:itemsCartData,
         itemsCartDataLocal:JSON.parse(localStorage.getItem("itemsQ")),
       });

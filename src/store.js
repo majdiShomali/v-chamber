@@ -28,8 +28,12 @@ import fetchUserOrdersStartedReducer from "./actions/orders/userOrders/GetUserOr
 import fetchUserOrdersDoneReducer from "./actions/orders/userOrders/GetUserOrdersDone"
 
 import fetchProductStikersReducer from "./actions/stickers/GetProductStickers"
+
+import fetchPriceReducer from "./actions/calculatePrice/GetPrice"
 const store = configureStore({
   reducer: {
+     fetchPrice:fetchPriceReducer,
+
      fetchCategories:fetchCategoryItemsReducer,
      FavoriteItems:fetchFavItemsReducer,
      fetchItemsCart:fetchItemsCartReducer,

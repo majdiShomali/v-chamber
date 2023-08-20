@@ -8,6 +8,7 @@ const UserPendingOrders = ({UserPendingOrdersData}) => {
   const [selectedOrder, setSelectedOrder] = useState([])
   const handleShow = (order) =>{
     setSelectedOrder(order.itemsCartData)
+    console.log(order);
     }
 
     const navigate =useNavigate()

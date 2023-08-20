@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 import CartBill from "./pdf/CartBill";
 import {CartContext} from "../../context/cartContext"
+import PaymentComponent from "./components/PaymentComponent";
 
 const CartPage = () => {
   // const ApiUrl= process.env.REACT_APP_API_URL
@@ -126,6 +127,15 @@ const CartPage = () => {
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.id);
   };
+
+
+
+
+
+  useEffect(() => {
+   
+  },[itemsCartData,cartNavRefresh])
+
   return (
     <>
 
@@ -276,10 +286,12 @@ const CartPage = () => {
             </div>
        {selectedOption ==="radio_1" ? 
        <>
-          <Button className="bg-[#ffc439] normal-case w-full lg:w-1/2 text-xl hover:scale-105 hover:shadow-none">  <span className="text-[#003087]">Pay</span><span className="text-[#009cde]">Pal</span> </Button>
-          <Link to="/Payment" className="w-full lg:w-1/2">
+          {/* <Button className="bg-[#ffc439] normal-case w-full lg:w-1/2 text-xl hover:scale-105 hover:shadow-none">  <span className="text-[#003087]">Pay</span><span className="text-[#009cde]">Pal</span> </Button> */}
+         
+        
+          <Link to="/PayPalPayment" className="w-full lg:w-1/2">
           <Button          
-          className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  Debit or Credit Card </Button>
+          className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  go to payment</Button>
           </Link>
           </>
        

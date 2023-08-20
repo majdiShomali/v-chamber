@@ -22,6 +22,7 @@ import ProductPage from "./pages/user/ProductPage";
 import AllCategories from "./pages/user/AllCategories";
 import ItemStoreCategory from "./pages/user/ItemStoreCategory";
 import UserPdfBill from "./pages/user/pdf/UserPdfBill";
+import PayPalPayment from "./pages/user/PayPalPayment";
 //---------------------provider-------------------------//
 
 import ProviderHome from "./pages/providerFiles/ProviderHome";
@@ -70,6 +71,7 @@ function App() {
         <StickyNavbar />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/PayPalPayment" element={<PayPalPayment />} />
           <Route path="/Signup/:type" element={<SignUp />} />
            <Route index element={<Home />} />
            <Route path="/AboutUs" element={<AboutUs />} />
