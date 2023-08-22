@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 
 import Gallery from "../landing/pages/Gallery";
 import { fetchProductStikers } from "../../actions/stickers/GetProductStickers";
+import { fetchCustomizedItems } from "../../actions/related/GetCustomizedProducts";
 
 import { CartContext } from "../../context/cartContext";
 import GallerySkelaton from "../landing/pages/GallerySkelaton";
@@ -32,17 +33,24 @@ const ProductPage = () => {
     data: AllRelatedItemData,
     // error: fetchAllRelatedItemError,
   } = useSelector((state) => state.fetchRelatedItems);
+
   const {
     loading: isOneRelatedItemLoading,
     data: OneRelatedItemData,
     // error: fetchOneRelatedItemError,
   } = useSelector((state) => state.fetchOneRelatedItem);
 
+  // const {
+  //   loading: isProductStikersLoading,
+  //   data: ProductStikersData,
+  //   // error: fetchProductStikersError,
+  // } = useSelector((state) => state.fetchProductStikers);
+
   const {
-    loading: isProductStikersLoading,
-    data: ProductStikersData,
-    // error: fetchProductStikersError,
-  } = useSelector((state) => state.fetchProductStikers);
+    loading: isCustomizedItemsLoading,
+    data:  CustomizedItemsData,
+    // error: fetchCustomizedItemsError,
+  } = useSelector((state) => state.fetchCustomizedItems);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -77,28 +85,39 @@ const ProductPage = () => {
     }
   }, [OneRelatedItemData]);
 
-  const [selectedProductSticker, setSelectedProductSticker] = useState({});
-  const [ProductStikersDataState, setProductStikersDataState] = useState([]);
-
   useEffect(() => {
-    if (selectedProduct._id) {
-      dispatch(fetchProductStikers(selectedProduct._id));
+    if (selectedProduct?._id && selectedProduct ) {
+      const data={
+        id:selectedProduct?._id,
+        customizedToId:selectedProduct?.customizedToId} 
+        dispatch(fetchCustomizedItems(data))
     }
-  }, [dispatch, selectedProduct]);
+  }, [selectedProduct]);
 
-  useEffect(() => {
-    if (ProductStikersData.length > 0 && selectedProduct) {
-      setSelectedProductSticker({ ...selectedProduct });
-      setProductStikersDataState([selectedProduct, ...ProductStikersData]);
-    } else if (ProductStikersData.length === 0 && selectedProduct) {
-      setSelectedProductSticker({ ...selectedProduct });
-      setProductStikersDataState([{ ...selectedProduct }]);
-    }
-  }, [ProductStikersData, selectedProduct]);
+console.log(CustomizedItemsData)
 
-  const updateSelectedProductSticker = (value) => {
-    setSelectedProductSticker(value);
-  };
+  // const [selectedProductSticker, setSelectedProductSticker] = useState({});
+  // const [ProductStikersDataState, setProductStikersDataState] = useState([]);
+
+  // useEffect(() => {
+  //   if (selectedProduct._id) {
+  //     dispatch(fetchProductStikers(selectedProduct._id));
+  //   }
+  // }, [dispatch, selectedProduct]);
+
+  // useEffect(() => {
+  //   if (ProductStikersData.length > 0 && selectedProduct) {
+  //     setSelectedProductSticker({ ...selectedProduct });
+  //     setProductStikersDataState([selectedProduct, ...ProductStikersData]);
+  //   } else if (ProductStikersData.length === 0 && selectedProduct) {
+  //     setSelectedProductSticker({ ...selectedProduct });
+  //     setProductStikersDataState([{ ...selectedProduct }]);
+  //   }
+  // }, [ProductStikersData, selectedProduct]);
+
+  // const updateSelectedProductSticker = (value) => {
+  //   setSelectedProductSticker(value);
+  // };
 
   const handleAddToCart = (card) => {
     const storedItems = localStorage.getItem("items")
@@ -174,7 +193,7 @@ const ProductPage = () => {
 
   return (
     <>
-{ isItemLoading && isOneRelatedItemLoading && isProductStikersLoading ? 
+{ isItemLoading && isOneRelatedItemLoading  ? 
 
 null
 
@@ -196,10 +215,15 @@ selectedProduct={selectedProduct}
       
       <div className=" relative rounded-lg bg-gray-500 mb-4 w-96 h-96">
                  
-    <Gallery
+    {/* <Gallery
     ProductStikersData={ProductStikersDataState}
     updateSelectedProductSticker={updateSelectedProductSticker}
     selectedProductSticker={selectedProductSticker}
+  /> */}
+
+  <img className="w-full h-full"
+  alt="aa"
+  src={`${ImagesUrl}/${selectedProduct.image}`}
   />
     
   
@@ -224,7 +248,7 @@ selectedProduct={selectedProduct}
     </div>
     <div className="md:flex-1 px-4">
       <h2 className="text-2xl font-bold mb-2">
-        {selectedProductSticker?.Name}
+        {selectedProduct?.Name}
       </h2>
       <p className="text-gray-600 text-sm mb-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -235,7 +259,7 @@ selectedProduct={selectedProduct}
         <div className="mr-4">
           <span className="font-bold text-gray-700">Price:</span>
           <span className="text-gray-600">
-            ${selectedProductSticker?.price}
+            ${selectedProduct?.salePrice}
           </span>
         </div>
         <div>
@@ -252,7 +276,7 @@ selectedProduct={selectedProduct}
           Product Description:
         </span>
         <p className="text-gray-600 text-sm mt-2">
-          {selectedProductSticker?.description}
+          {selectedProduct?.description}
         </p>
       </div>
 
@@ -271,7 +295,7 @@ selectedProduct={selectedProduct}
           <div className="mt-5">
            
             <div className="flex flex-wrap items-center mt-2">
-              {AllRelatedItemData?.map((product) => {
+              {CustomizedItemsData?.map((product) => {
                 return (
                   <img
                     src={`${ImagesUrl}/${product.image}`}
@@ -305,10 +329,10 @@ selectedProduct={selectedProduct}
         <div className="w-1/2 px-2">
           {selectedProduct?.totalQuantity !== 0 ? (
             <>
-              {allIdsInCart?.includes(selectedProductSticker?._id) ? (
+              {allIdsInCart?.includes(selectedProduct?._id) ? (
                 <button
                   onClick={() =>
-                    handleAddToCart(selectedProductSticker)
+                    handleAddToCart(selectedProduct)
                   }
                   className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
                 >
@@ -317,7 +341,7 @@ selectedProduct={selectedProduct}
               ) : (
                 <button
                   onClick={() =>
-                    handleAddToCart(selectedProductSticker)
+                    handleAddToCart(selectedProduct)
                   }
                   className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
                 >
@@ -336,19 +360,19 @@ selectedProduct={selectedProduct}
         <div className="w-1/2 px-2">
           {localStorage.auth !== undefined ? (
             <>
-              { localFavId?.indexOf( selectedProductSticker?._id)
+              { localFavId?.indexOf( selectedProduct?._id)
                !== -1
         
               ? (
                 <button
-                  onClick={() => handleFAv(selectedProductSticker)}
+                  onClick={() => handleFAv(selectedProduct)}
                   className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
                 >
                   remove from Wishlist
                 </button>
               ) : (
                 <button
-                  onClick={() => handleFAv(selectedProductSticker)}
+                  onClick={() => handleFAv(selectedProduct)}
                   className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
                 >
                   Add to Wishlist

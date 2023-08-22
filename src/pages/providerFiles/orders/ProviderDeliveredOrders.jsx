@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDeliverdOrders } from '../../../actions/orders/GetDeliverdOrders' 
 import Icon from "@mdi/react";
 import { mdiCloudPrintOutline, mdiDelete } from "@mdi/js";
-import Pagination from "@mui/material/Pagination";
+// import Pagination from "@mui/material/Pagination";
 // import {fetchOrder}  from "../../../actions/orders/GetOrder"
 import { mdiCarOutline } from '@mdi/js';
+import DynamicPagenation from "../../../components/pagenation/DynamicPagenation";
 
 import { useNavigate } from 'react-router-dom';
-
+import TimeFilter from '../components/inputs/ordersFilters/TimeFilter';
+import DynamicSearch from '../../../components/search/DynamicSearch';
 const ProviderDeliveredOrders = () => {
 
  const navigate =useNavigate()
@@ -25,48 +27,17 @@ const ProviderDeliveredOrders = () => {
      },[dispatch])
 
 
-//-----------------------search------------------------//
+
+const [currentTimeSelectedData, setCurrentTimeSelectedData] = useState([]);
+useEffect(() =>{
+  setCurrentTimeSelectedData(DeliverdOrdersData)
+},[DeliverdOrdersData])
 
 
-// const [persons, setPersons] = useState([]);
-// const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
-
-
-
-// const filterDataByNameUsers = (searchTermUsers) => {
-//   const filteredDataUsers = persons.filter((item) =>
-//     item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
-//   );
-//   setFilterDataUsers(filteredDataUsers);
-//   console.log(filteredDataUsers);
-//   setCurrentPageUsers(1);
-// };
-
-const [currentPageUsers, setCurrentPageUsers] = useState(1);
-let totalItemsUsers;
-
-let totalPagesUsers;
-
-let slicedArrayUsers;
-
-const itemsPerPage = 2;
-
-totalItemsUsers = DeliverdOrdersData.length;
-
-totalPagesUsers = Math.ceil(totalItemsUsers / itemsPerPage);
-
-const startIndexUsers = (currentPageUsers - 1) * itemsPerPage;
-
-const endIndexUsers = startIndexUsers + itemsPerPage;
-
-slicedArrayUsers = DeliverdOrdersData.slice(startIndexUsers, endIndexUsers);
-
-const handlePageChangeUsers = (event, pageNumber) => {
-  setCurrentPageUsers(pageNumber);
+const handleCurrentTimeSelected = (time) => {
+  setCurrentTimeSelectedData(time);
 };
-
-
 
 const handleUpdate = (order) =>{
 navigate(`/PdfTest/${order._id}`)
@@ -75,6 +46,15 @@ const handleBill = (orderId) =>{
   navigate(`/UserPdfBill/${orderId}`)     
   }
 
+  const [arrayToPagenation, setArrayToPagenation] = useState([]);
+  
+  const UpdateArrayToPagenation = (value) => {
+    setArrayToPagenation(value)
+  }
+
+  const handleCurrentSearch = (search) => {
+    setArrayToPagenation(search)
+  };
 
   return (
     <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(50vh)]   ">
@@ -84,22 +64,12 @@ const handleBill = (orderId) =>{
       </div>
     </div>
 
-    <form>
-      <div className="relative mt-5">
-        <input
-          type="text"
-          id="search"
-          className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search"
-          required=""
-          // value={searchTermUsers}
-          // onChange={(e) => {
-          //   setSearchTermUsers(e.target.value);
-          //   filterDataByNameUsers(e.target.value);
-          // }}
-        />
+    <div className='flex items-center w-full justify-between'>
+      <div className="relative w-full ">
+ <      DynamicSearch onSelectChange={handleCurrentSearch} SearchedArray={DeliverdOrdersData}/>
       </div>
-    </form>
+      <TimeFilter  onSelectChange={handleCurrentTimeSelected} DeliverdOrdersData={DeliverdOrdersData}/>
+    </div>
 
     <div className="mt-8 overflow-x-scroll xl:overflow-hidden ">
       <table role="table" className="w-full">
@@ -165,7 +135,7 @@ const handleBill = (orderId) =>{
           </tr>
         </thead>
         <tbody>
-        {slicedArrayUsers?.map((e) => {
+        {arrayToPagenation?.map((e) => {
           return (
             
               <tr
@@ -248,7 +218,22 @@ const handleBill = (orderId) =>{
          </tbody>
       </table>
 
-      <div className="flex w-full justify-center mt-5">
+
+      <DynamicPagenation
+      itemsPerPageD= {3}
+      items={currentTimeSelectedData}
+      UpdateArrayToPagenation={UpdateArrayToPagenation}
+      />
+
+
+
+
+
+
+
+
+
+      {/* <div className="flex w-full justify-center mt-5">
         {
           <Pagination
             count={totalPagesUsers}
@@ -256,7 +241,7 @@ const handleBill = (orderId) =>{
             onChange={handlePageChangeUsers}
           />
         }
-      </div>
+      </div> */}
     </div>
   </div>
   )

@@ -14,6 +14,7 @@ import AddSticker from "./productsAdd/AddSticker";
 import {fetchProductStikers} from "../../actions/stickers/GetProductStickers"
 import Gallery from "../landing/pages/Gallery";
 import { fetchOneRelatedItem } from "../../actions/related/GetOneRelatedItem";
+import AddCustomizedProduct from "./productsAdd/AddCustomizedProduct";
 
 const ProductPageProvider = () => {
   // const ApiUrl = process.env.REACT_APP_API_URL;
@@ -220,7 +221,8 @@ const [ProductStikersDataState,setProductStikersDataState] =useState([])
                 ) : null} */}
                   <AddJuice item={ItemData} />
                   {RelatedItemData?.length > 0 ?
-                  <AddSticker item={ItemData} selectedProduct={selectedProduct}/>
+                  // <AddSticker item={ItemData} selectedProduct={selectedProduct}/>
+                  <AddCustomizedProduct item={ItemData} selectedProduct={selectedProduct}/>
                   : null}
                 <h2 className="text-2xl font-bold mb-2">
                   {selectedProductSticker?.Name}

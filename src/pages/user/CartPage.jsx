@@ -230,7 +230,7 @@ const CartPage = () => {
           <p className="text-gray-400">select a suitable payment method.</p>
 
           <form className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6  flex flex-col justify-center items-center">
-            <div className="relative w-full">
+            {/* <div className="relative w-full">
             <input
           className="peer hidden"
           id="radio_1"
@@ -283,11 +283,9 @@ const CartPage = () => {
                   </p>
                 </div>
               </label>
-            </div>
-       {selectedOption ==="radio_1" ? 
-       <>
-          {/* <Button className="bg-[#ffc439] normal-case w-full lg:w-1/2 text-xl hover:scale-105 hover:shadow-none">  <span className="text-[#003087]">Pay</span><span className="text-[#009cde]">Pal</span> </Button> */}
-         
+            </div> */}
+     
+       <>         
         
           <Link to="/PayPalPayment" className="w-full lg:w-1/2">
           <Button          
@@ -295,21 +293,18 @@ const CartPage = () => {
           </Link>
           </>
        
-       :
+      
        <>
        
-         <Link to="/PaymentCash" className="w-full lg:w-1/2">
-          <Button          
-          className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  Place Order </Button>
-          </Link>
+   
        
        </>
        
-       
-       }
+      
          
 
           </form>
+          
         </div>
 <CartBill
 items={items}

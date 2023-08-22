@@ -30,10 +30,12 @@ import fetchUserOrdersDoneReducer from "./actions/orders/userOrders/GetUserOrder
 import fetchProductStikersReducer from "./actions/stickers/GetProductStickers"
 
 import fetchPriceReducer from "./actions/calculatePrice/GetPrice"
+import fetchCustomizedItemsReducer from "./actions/related/GetCustomizedProducts"
+
 const store = configureStore({
   reducer: {
      fetchPrice:fetchPriceReducer,
-
+     fetchCustomizedItems:fetchCustomizedItemsReducer,
      fetchCategories:fetchCategoryItemsReducer,
      FavoriteItems:fetchFavItemsReducer,
      fetchItemsCart:fetchItemsCartReducer,
