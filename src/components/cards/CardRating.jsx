@@ -42,7 +42,8 @@ const CardRating = ({Item,CardId,UserId}) => {
   
     const handleStarClick = async (starIndex) => {
       setFilledStars(starIndex + 1);
-  
+      const ApiUrl = process.env.REACT_APP_API_URL;
+
       let ids = Item.UsersIdRate.length > 0 ?  [...Item.UsersIdRate,UserId]  : [UserId]
       let newrate =Item.rate.length  > 0   ? [...Item.rate,starIndex + 1]      :    [starIndex + 1]  
       const  sum=   Item.rate.length === 0 ? (5+newrate[0]) :  newrate?.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0);
@@ -56,7 +57,7 @@ const CardRating = ({Item,CardId,UserId}) => {
         };
      
       // const NupdatedRecipe= 
-        await axios.put(`http://localhost:5000/api/updateProductRate/${CardId}`, updatedProduct);
+        await axios.put(`${ApiUrl}/updateProductRate/${CardId}`, updatedProduct);
         showSuccessAlert(newrate)
         setRatingStatus(true)
         dispatch(fetchRelatedItem(Item.categoryId))

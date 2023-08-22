@@ -35,14 +35,13 @@ const Categories = () => {
 
   return (
     <div className="bg-white mt-3 shadow-lg">
-      <section id="food">
+      <section id="category">
         <br />
         <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
           All categories
         </h2>
-        <div className="flex flex-wrap items-center justify-center mb-10 lg:mx-14 gap-5"  
-        data-aos="zoom-out"
-        data-aos-duration="1000"
+        <div className="flex flex-wrap items-center justify-center mb-10 lg:mx-0 gap-5"  
+      data-aos="fade-up" data-aos-duration="1000"
         >
           {topCategories?.map((category) => {
             return (

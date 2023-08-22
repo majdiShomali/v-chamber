@@ -1,24 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchOneItem } from "../../actions/category/GetOneItem";
 import { fetchRelatedItem } from "../../actions/related/GetRelatedItems";
 import { fetchOneRelatedItem } from "../../actions/related/GetOneRelatedItem";
-import { updateFavItems } from "../../actions/related/FavoriteItems";
 import { UserContext } from "../../context/userContext";
-import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import CardRating from "../../components/cards/CardRating";
-import { Link } from "react-router-dom";
-
-import Gallery from "../landing/pages/Gallery";
-import { fetchProductStikers } from "../../actions/stickers/GetProductStickers";
 import { fetchCustomizedItems } from "../../actions/related/GetCustomizedProducts";
-
 import { CartContext } from "../../context/cartContext";
-import GallerySkelaton from "../landing/pages/GallerySkelaton";
 import ProductPageSneek from "./components/ProductPageSneek";
+
 const ProductPage = () => {
   const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
 
@@ -69,9 +61,7 @@ const ProductPage = () => {
   }, [dispatch, relatedId, AllRelatedItemData]);
 
   const [selectedImage, setSelectedImage] = useState("");
-  // const [favRef, setFavRef] = useState([]);
 
-  // const { user, setUser } = useContext(UserContext);
   const { user } = useContext(UserContext);
   const [allIdsInCart, setItemsAllIdsInCart] = useState([]);
 
@@ -94,10 +84,7 @@ const ProductPage = () => {
     }
   }, [selectedProduct]);
 
-console.log(CustomizedItemsData)
 
-  // const [selectedProductSticker, setSelectedProductSticker] = useState({});
-  // const [ProductStikersDataState, setProductStikersDataState] = useState([]);
 
   // useEffect(() => {
   //   if (selectedProduct._id) {
@@ -193,12 +180,12 @@ console.log(CustomizedItemsData)
 
   return (
     <>
-{ isItemLoading && isOneRelatedItemLoading  ? 
+{ isItemLoading && isOneRelatedItemLoading   ? 
 
-null
+<ProductPageSkeleton/>
 
 :
-
+<>
 <div className="bg-gray-100 py-8 min-h-[90vh] flex items-center justify-center flex-col lg:flex-row">
 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -215,11 +202,7 @@ selectedProduct={selectedProduct}
       
       <div className=" relative rounded-lg bg-gray-500 mb-4 w-96 h-96">
                  
-    {/* <Gallery
-    ProductStikersData={ProductStikersDataState}
-    updateSelectedProductSticker={updateSelectedProductSticker}
-    selectedProductSticker={selectedProductSticker}
-  /> */}
+ 
 
   <img className="w-full h-full"
   alt="aa"
@@ -388,7 +371,7 @@ selectedProduct={selectedProduct}
   </div>
 </div>
 </div>
-
+</>
 
 }
 

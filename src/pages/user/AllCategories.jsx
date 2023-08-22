@@ -39,7 +39,7 @@ const AllCategories = () => {
         All categories 
       </h2>
 
-      <div className="flex flex-wrap items-center justify-center mb-10 lg:mx-20 gap-5"  
+      <div className="flex flex-wrap items-center justify-center mb-10 lg:mx-0 gap-5"  
       
       
       >
@@ -48,7 +48,7 @@ const AllCategories = () => {
        return (
           <div
           onClick={() => handleKitchenTypeSelection(category._id)}
-          className="lg:w-1/3 sm:w-1/4 md:w-1/3  hover:scale-110 hover:cursor-pointer"
+          className="lg:w-1/4 sm:w-1/4 md:w-1/3  hover:scale-110 hover:cursor-pointer"
           
           >
           <div className="relative rounded-lg overflow-hidden">
