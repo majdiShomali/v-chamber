@@ -192,7 +192,7 @@ export default function LogIn() {
             />
           </div>
 
-          {!isGreater ? (
+          {/* {!isGreater ? (
             <>
               <div className="flex items-center justify-center flex-col">
                 <div className="my-5">
@@ -215,7 +215,7 @@ export default function LogIn() {
                 </button>
               </div>
             </>
-          ) : (
+          ) : ( */}
             <>
               <div className="mt-12 flex flex-col items-center">
                 <h1 className="text-2xl xl:text-3xl font-extrabold">Sign-In</h1>
@@ -346,7 +346,7 @@ export default function LogIn() {
                 </div>
               </div>
             </>
-          )}
+          {/* )} */}
         </div>
         <div className="flex-1 bg-indigo-100 text-center hidden lg:flex imageSign bg-cover bg-center bg-no-repeat ">
           <img
