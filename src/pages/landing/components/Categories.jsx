@@ -40,7 +40,7 @@ const Categories = () => {
         <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
           All categories
         </h2>
-        <div className="flex flex-wrap items-center justify-center mb-10 lg:mx-20 gap-5"  
+        <div className="flex flex-wrap items-center justify-center mb-10 lg:mx-14 gap-5"  
         data-aos="zoom-out"
         data-aos-duration="1000"
         >
@@ -49,7 +49,7 @@ const Categories = () => {
               <div
                 key={category._id}
                 onClick={() => handleKitchenTypeSelection(category._id)}
-                className="lg:w-1/3 sm:w-1/4 md:w-1/3  hover:scale-110 hover:cursor-pointer"
+                className="lg:w-1/4 sm:w-1/4 md:w-1/3  hover:scale-110 hover:cursor-pointer"
              
             >
                 <div className="relative rounded-lg overflow-hidden">
