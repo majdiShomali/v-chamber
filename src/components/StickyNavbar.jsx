@@ -332,7 +332,8 @@ export default function StickyNavbar() {
       <Collapse open={openNav}>
         {navList}
         {localStorage.auth !== undefined ?  
-        <Link to="/UserProfile">
+        <>
+          <Link to="/UserProfile">
           <Button
           onClick={() => setOpenNav(false)}
           variant="gradient"
@@ -344,6 +345,31 @@ export default function StickyNavbar() {
           <span>Profile</span>
         </Button>
         </Link>
+
+
+          <Button
+          onClick={() => {
+            
+            setOpenNav(false)
+            localStorage.removeItem("auth");
+            window.location.href = `${ReactUrl}/`;
+          
+          
+          }
+          
+          
+          }
+          variant="gradient"
+          size="sm"
+          fullWidth
+          className="mb-2"
+          color="purple"
+        >
+          <span>Log-Out</span>
+        </Button>
+
+        </>
+      
         
         
         :
