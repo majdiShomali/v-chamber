@@ -53,7 +53,7 @@ function PaymentComponent() {
         captureDetails:captureDetails,
         amount: (localStorage.getItem('fetchPriceData')), 
         itemsCartData:(JSON.parse(localStorage.getItem('itemsCartData'))),
-
+        deliveryAddress:localStorage.deliveryAddress
       });
       console.log("Backend response:", response.data);
     } catch (error) {

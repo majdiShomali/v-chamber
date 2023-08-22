@@ -3,8 +3,17 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Signup() {
+
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
   const ApiUrl = process.env.REACT_APP_API_URL;
   const ReactUrl = process.env.REACT_APP_API_REACT_URL;
 
@@ -33,26 +42,26 @@ export default function Signup() {
     validateName(name);
     validatePassword(password);
     validateEmail(email.toLowerCase());
-    validatePhone(phone);
+    // validatePhone(phone);
 
     if (
       validateName(name) &&
       validatePassword(password) &&
-      validateEmail(email.toLowerCase()) &&
-      validatePhone(phone)
+      validateEmail(email.toLowerCase())
+      // validatePhone(phone)
     ) {
       const userData = {
         userName: name,
         email: email.toLowerCase(),
         password: password,
         phone: phone,
+        DateOfBirth:selectedDate,
         role: type === "user" ? 0 : 2,
       };
       console.log(userData);
       try {
         // Send the data to the server using an HTTP POST request
         const response = await axios.post(`${ApiUrl}/users`, userData);
-        console.log(response.data);
         setVerifyEmail(false);
         setemail(response.data.email);
         setUser(response.data);
@@ -151,6 +160,7 @@ export default function Signup() {
                   />
                   <p className="text-red-500">{emailp}</p>
                  
+
                       <input
                         className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                         type="text"
@@ -159,6 +169,16 @@ export default function Signup() {
                         onChange={(e) => setName(e.target.value)}
                       />
                       <p className="text-red-500">{namep}</p>
+
+         <div className="">
+         <DatePicker
+  selected={selectedDate}
+  required
+  onChange={handleDateChange}
+  placeholderText="date of Birth" 
+  className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+/>
+    </div>
                       <input
                         className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                         type="tel"
@@ -249,6 +269,10 @@ export default function Signup() {
                       Sign-In Here
                     </Link>
                   </p>
+
+
+
+                  
                 </div>
               </div>
             </form>

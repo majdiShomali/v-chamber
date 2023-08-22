@@ -39,22 +39,27 @@ const AllCategories = () => {
         All categories 
       </h2>
 
-      <div className="flex flex-wrap items-center justify-center mb-10 mx-20">
+      <div className="flex flex-wrap items-center justify-center mb-10 lg:mx-20 gap-5"  
+      
+      
+      >
         
         {arrayToPagenation?.map((category)=>{
        return (
           <div
           onClick={() => handleKitchenTypeSelection(category._id)}
-          className="w-full sm:w-1/2 md:w-1/3 p-4 hover:scale-110 hover:cursor-pointer">
+          className="lg:w-1/3 sm:w-1/4 md:w-1/3  hover:scale-110 hover:cursor-pointer"
+          
+          >
           <div className="relative rounded-lg overflow-hidden">
             <img
-              className="w-full h-64 object-cover object-center"
-              src={`${ImagesUrl}/${category.image}`}
-              alt="vegetables" />
+                    className="lg:w-full w-32 h-28 lg:h-64 object-cover object-center"
+                    src={`${ImagesUrl}/${category.image}`}
+              alt="category" />
             <div className="absolute inset-0 bg-black opacity-60"></div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
+                <h2 className="text-1xl font-semibold text-white uppercase lg:text-4xl">
                 {category.category}
                 
                  

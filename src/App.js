@@ -72,7 +72,7 @@ function App() {
         <StickyNavbar />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/PayPalPayment" element={<PayPalPayment />} />
+          <Route path="/PayPalPayment/:deliveryAddress" element={<PayPalPayment />} />
           <Route path="/TrackSection" element={<TrackSection />} />
           <Route path="/Signup/:type" element={<SignUp />} />
            <Route index element={<Home />} />

@@ -56,7 +56,7 @@ const SneekPeeksShipping = () => {
             <span className="font-semibold text-gray-900">Shipping</span>
           </li>
           
-          <Link to ="/Payment">
+          
           <li className="flex items-center space-x-3 text-left sm:space-x-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@ const SneekPeeksShipping = () => {
             </Link>
             
             <span className="font-semibold text-gray-500">Payment</span>
-          </li></Link>
+          </li>
         </ul>
       </div>
     </div>

@@ -1,7 +1,7 @@
-import { Button } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import React from "react";
 import { useState, useEffect,useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SneekPeeksShipping from "../../components/SneekPeeksShipping";
 // import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -122,19 +122,27 @@ const CartPage = () => {
 // }
 
 
-  const [selectedOption, setSelectedOption] = useState('radio_1'); // Set the initial selected option
+  const [deliveryAddress, setDeliveryAddress] = useState('')
+  const [addressError, setAddressError] = useState('');
 
-  const handleRadioChange = (event) => {
-    setSelectedOption(event.target.id);
-  };
+ const navigate = useNavigate()
+const handlePaymentRequest =(e)=>{
+  e.preventDefault()
+  if (!deliveryAddress.trim()) {
+    setAddressError('Please provide a delivery address');
+    return;
+  }else{
+  localStorage.setItem('deliveryAddress', deliveryAddress)
+ navigate(`/PayPalPayment/${deliveryAddress}`)
 
+  }
+}
 
-
-
-
-  useEffect(() => {
-   
-  },[itemsCartData,cartNavRefresh])
+useEffect(()=>{
+  if (localStorage.deliveryAddress){
+    setDeliveryAddress(localStorage.deliveryAddress)
+  }
+},[])
 
   return (
     <>
@@ -227,83 +235,34 @@ const CartPage = () => {
         <div className="flex flex-col w-full lg:w-1/2 lg:p-5 lg:m-5">
         <div >
           <p className="text-xl font-medium">Payment Methods</p>
-          <p className="text-gray-400">select a suitable payment method.</p>
+          <p className="text-gray-400">enter the delivery address to pay</p>
 
-          <form className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6  flex flex-col justify-center items-center">
-            {/* <div className="relative w-full">
-            <input
-          className="peer hidden"
-          id="radio_1"
-          type="radio"
-          name="radio"
-          checked={selectedOption === 'radio_1'}
-          onChange={handleRadioChange}
-        />
-              <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
-              <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
-                htmlFor="radio_1"
-              >
-                <img
-                  className="w-14 object-contain"
-                  src="/images/naorrAeygcJzX0SyNI4Y0.png"
-                  alt=""
-                />
-                <div className="ml-5">
-                  <span className="mt-2 font-semibold">Pay Online</span>
-                  <p className="text-slate-500 text-sm leading-6">
-                    Delivery: 2-4 Days
-                  </p>
-                </div>
-              </label>
-            </div>
-            <div className="relative w-full">
-            <input
-          className="peer hidden"
-          id="radio_2"
-          type="radio"
-          name="radio"
-          checked={selectedOption === 'radio_2'}
-          onChange={handleRadioChange}
-        />
-              <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
-              <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
-                htmlFor="radio_2"
-              >
-                <img
-                  className="w-14 object-contain"
-                  src="/images/oG8xsl3xsOkwkMsrLGKM4.png"
-                  alt=""
-                />
-                <div className="ml-5">
-                  <span className="mt-2 font-semibold">Pay on Delivery</span>
-                  <p className="text-slate-500 text-sm leading-6">
-                    Delivery: 2-4 Days
-                  </p>
-                </div>
-              </label>
-            </div> */}
-     
-       <>         
-        
-          <Link to="/PayPalPayment" className="w-full lg:w-1/2">
-          <Button          
-          className="bg-[#2c2e2f] normal-case w-full  text-xl hover:scale-105 hover:shadow-none text-white">  go to payment</Button>
-          </Link>
-          </>
-       
-      
-       <>
-       
+          <form
+      className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6  flex flex-col justify-center items-center"
+    >
+      <Input
+        label="Delivery Address"
+        size="1.5"
+        required
+        onChange={(e) => setDeliveryAddress(e.target.value)}
+        value={deliveryAddress}
+      />
+      {addressError && <p className="text-red-500">{addressError}</p>}
+      <Button
+        type="submit"
+        className="bg-[#2c2e2f] normal-case w-full text-xl hover:scale-105 hover:shadow-none text-white"
+        onClick={handlePaymentRequest}
+      >
+        Payment
+      </Button>
+    </form>  
    
        
-       </>
+      
        
       
          
 
-          </form>
           
         </div>
 <CartBill

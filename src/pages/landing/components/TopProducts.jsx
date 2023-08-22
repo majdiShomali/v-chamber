@@ -41,7 +41,7 @@ const TopProducts = () => {
 
           <div id='TopProducts' 
           
-          className="py-5 lg:h-[100vh] flex justify-center items-center flex-col  ">
+          className="py-5 lg:min-h-[100vh] flex justify-center items-center flex-col  ">
       <div className=" max-w-xl text-center">
       <h1 className="text-3xl text-purple-500 font-extrabold sm:text-5xl">
        Top Products
