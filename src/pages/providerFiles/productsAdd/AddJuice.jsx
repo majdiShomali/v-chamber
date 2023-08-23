@@ -15,6 +15,8 @@ import JuiceSizeInput from "../components/inputs/JuiceSizeInput";
 import JuiceNikotinInput from "../components/inputs/JuiceNikotinInput";
 import JuiceTypeInput from "../components/inputs/JuiceTypeInput";
 import JuiceFlavorInput from "../components/inputs/JuiceFlavorInput"
+import Swal from "sweetalert2";
+
 const AddJuice = ({ item }) => {
   const ApiUrl = process.env.REACT_APP_API_URL;
   const { user } = useContext(UserContext);
@@ -82,7 +84,10 @@ const AddJuice = ({ item }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+        if(productImage && salePrice <=price ){
 
+
+       
     const formData = new FormData();
     formData.append("Name", name);
     formData.append("category", item?.category);
@@ -110,6 +115,20 @@ const AddJuice = ({ item }) => {
       .catch(function (error) {
         console.log(error);
       });
+
+  }else{
+    
+    alert("Sale Price < Price  and image", "error");
+  }
+  };
+
+  const showAlert = (message, icon) => {
+    Swal.fire({
+      title: icon === "success" ? "Success" : "Error",
+      text: message,
+      icon: icon,
+      confirmButtonText: "OK",
+    });
   };
 
   return (

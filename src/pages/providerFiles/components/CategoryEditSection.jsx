@@ -17,6 +17,9 @@ import AddJuiceSize from "../AddGeneralInfo/AddJuiceSize";
 import AddJuiceNikotin from "../AddGeneralInfo/AddJuiceNikotin";
 import AddJuiceType from "../AddGeneralInfo/AddJuiceType";
 import AddJuiceFlavor from "../AddGeneralInfo/AddJuiceFlavor";
+import EditCompany from "../AddGeneralInfo/editGeneralInfo/EditCompany";
+import EditJuiceFlavor from "../AddGeneralInfo/editGeneralInfo/EditJuiceFlavor";
+
 const CategoryEditSection = ({ ItemData }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -65,6 +68,7 @@ const CategoryEditSection = ({ ItemData }) => {
 
           <div className="">
             <AddCompany item={ItemData} />
+            
             <div className="flex flex-wrap gap-3 p-1">
               {allCompaniesByCategory?.map((company) => {
                 return (
@@ -72,6 +76,7 @@ const CategoryEditSection = ({ ItemData }) => {
                     className="p-1 cursor-pointer hover:scale-105"
                     key={company._id}
                   >
+                    <EditCompany item={company} ItemData={ItemData} />
                     {company.Name}
                   </Card>
                 );
@@ -88,6 +93,7 @@ const CategoryEditSection = ({ ItemData }) => {
                     className="p-1 cursor-pointer hover:scale-105"
                     key={juice._id}
                   >
+
                     {juice.size}
                   </Card>
                 );
@@ -103,6 +109,8 @@ const CategoryEditSection = ({ ItemData }) => {
                     className="p-1 cursor-pointer hover:scale-105"
                     key={juice._id}
                   >
+                <EditJuiceFlavor item={juice} ItemData={ItemData} />
+
                     {juice.flavor}
                   </Card>
                 );

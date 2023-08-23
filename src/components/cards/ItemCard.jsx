@@ -246,11 +246,11 @@ const ItemCard = ({Items}) => {
                           {card?.price > card?.salePrice ? 
                           <div className="flex items-center">
                           <span className="text-xl  font-semibold line-through text-gray-500 mr-3">{card?.price} $</span>
-                          <span className="text-xl text-white font-bold">{card?.salePrice} $ </span>
+                          <span className="text-xl text-white font-bold">${card?.salePrice}  </span>
                           </div>                      
                           :
                           <div className="text-xl text-white font-semibold mt-1">
-                          {card?.price} $
+                          ${card?.price} 
                            </div>                         
                           }
                          
