@@ -7,12 +7,25 @@ import { UserContext } from "../../context/userContext";
 import Swal from "sweetalert2";
 import ProductPageSkeleton from "../../components/Skeleton/ProductPageSkeleton";
 import CardRating from "../../components/cards/CardRating";
-import { fetchCustomizedItems } from "../../actions/related/GetCustomizedProducts";
 import { CartContext } from "../../context/cartContext";
 import ProductPageSneek from "./components/ProductPageSneek";
+import axios from "axios";
 
 const ProductPage = () => {
   const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
+  const ApiUrl = process.env.REACT_APP_API_URL;
+
+  const [LinkedItems, setLinkedItems] = useState([]);
+
+  const getLinked = async (id) => {
+    try {
+      const response = await axios.get(`${ApiUrl}/getLinkProduct/${id}`);
+      console.log(response.data);
+      setLinkedItems(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // const ApiUrl = process.env.REACT_APP_API_URL;
   // const ReactUrl = process.env.REACT_APP_API_REACT_URL;
@@ -32,17 +45,7 @@ const ProductPage = () => {
     // error: fetchOneRelatedItemError,
   } = useSelector((state) => state.fetchOneRelatedItem);
 
-  // const {
-  //   loading: isProductStikersLoading,
-  //   data: ProductStikersData,
-  //   // error: fetchProductStikersError,
-  // } = useSelector((state) => state.fetchProductStikers);
-
-  const {
-    loading: isCustomizedItemsLoading,
-    data:  CustomizedItemsData,
-    // error: fetchCustomizedItemsError,
-  } = useSelector((state) => state.fetchCustomizedItems);
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -76,15 +79,14 @@ const ProductPage = () => {
   }, [OneRelatedItemData]);
 
   useEffect(() => {
-    if (selectedProduct?._id && selectedProduct ) {
-      const data={
-        id:selectedProduct?._id,
-        customizedToId:selectedProduct?.customizedToId} 
-        dispatch(fetchCustomizedItems(data))
+    if (selectedProduct?._id && selectedProduct) {
+      getLinked(selectedProduct?._id);
+      const data = {
+        id: selectedProduct?._id,
+        customizedToId: selectedProduct?.customizedToId,
+      };
     }
   }, [selectedProduct]);
-
-
 
   // useEffect(() => {
   //   if (selectedProduct._id) {
@@ -150,9 +152,10 @@ const ProductPage = () => {
     }
   };
 
-  const [localFavId,setLocalId]=useState([])
+  const [localFavId, setLocalId] = useState([]);
   const handleFAv = async (card) => {
-    const UsersIdFavorite = JSON.parse(localStorage.getItem("itemsIdFav")) || [];
+    const UsersIdFavorite =
+      JSON.parse(localStorage.getItem("itemsIdFav")) || [];
     const UsersFavorite = JSON.parse(localStorage.getItem("itemsFav")) || [];
     const indexToRemove = UsersIdFavorite.indexOf(card._id);
 
@@ -165,7 +168,7 @@ const ProductPage = () => {
       UsersFavorite.push(card);
       showSuccessAlert("added to favorites");
     }
-    setLocalId(UsersIdFavorite)
+    setLocalId(UsersIdFavorite);
     localStorage.setItem("itemsIdFav", JSON.stringify(UsersIdFavorite));
     localStorage.setItem("itemsFav", JSON.stringify(UsersFavorite));
   };
@@ -180,40 +183,24 @@ const ProductPage = () => {
 
   return (
     <>
-{ isItemLoading && isOneRelatedItemLoading   ? 
+      {isItemLoading && isOneRelatedItemLoading ? (
+        <ProductPageSkeleton />
+      ) : (
+        <>
+          <div className="bg-gray-100 py-8 min-h-[90vh] flex items-center justify-center flex-col lg:flex-row">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <ProductPageSneek selectedProduct={selectedProduct} />
 
-<ProductPageSkeleton/>
+              <div className="flex flex-col md:flex-row -mx-4">
+                <div className="md:flex-1 px-4">
+                  <div className=" relative rounded-lg bg-gray-500 mb-4 w-96 h-96">
+                    <img
+                      className="w-full h-full"
+                      alt="aa"
+                      src={`${ImagesUrl}/${selectedProduct.image}`}
+                    />
 
-:
-<>
-<div className="bg-gray-100 py-8 min-h-[90vh] flex items-center justify-center flex-col lg:flex-row">
-<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-
-<ProductPageSneek
-selectedProduct={selectedProduct}
-/>
-
-
-  <div className="flex flex-col md:flex-row -mx-4">
-    <div className="md:flex-1 px-4">
-
-
-      
-      <div className=" relative rounded-lg bg-gray-500 mb-4 w-96 h-96">
-                 
- 
-
-  <img className="w-full h-full"
-  alt="aa"
-  src={`${ImagesUrl}/${selectedProduct.image}`}
-  />
-    
-  
-
-  
-
-      {/* <div className="absolute top-3 right-3">
+                    {/* <div className="absolute top-3 right-3">
         {localStorage.auth && user?._id && selectedProduct?._id ? (
           <CardRating
             Item={selectedProduct}
@@ -223,168 +210,126 @@ selectedProduct={selectedProduct}
         ) : null}
       </div>
        */}
-    </div>
-      
+                  </div>
+                </div>
+                <div className="md:flex-1 px-4">
+                  <h2 className="text-2xl font-bold mb-2">
+                    {selectedProduct?.Name}
+                  </h2>
+                  <p className="text-gray-600 text-sm mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    sed ante justo. Integer euismod libero id mauris malesuada
+                    tincidunt.
+                  </p>
+                  <div className="flex mb-4">
+                    <div className="mr-4">
+                      <span className="font-bold text-gray-700">Price:</span>
+                      <span className="text-gray-600">
+                        ${selectedProduct?.salePrice}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="font-bold text-gray-700">
+                        Availability:
+                      </span>
+                      <span className="text-gray-600">In Stock</span>
+                    </div>
+                  </div>
 
-   
-    
-    </div>
-    <div className="md:flex-1 px-4">
-      <h2 className="text-2xl font-bold mb-2">
-        {selectedProduct?.Name}
-      </h2>
-      <p className="text-gray-600 text-sm mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-        sed ante justo. Integer euismod libero id mauris malesuada
-        tincidunt.
-      </p>
-      <div className="flex mb-4">
-        <div className="mr-4">
-          <span className="font-bold text-gray-700">Price:</span>
-          <span className="text-gray-600">
-            ${selectedProduct?.salePrice}
-          </span>
-        </div>
-        <div>
-          <span className="font-bold text-gray-700">
-            Availability:
-          </span>
-          <span className="text-gray-600">In Stock</span>
-        </div>
-      </div>
+                  <div>
+                    <span className="font-bold text-gray-700">
+                      Product Description:
+                    </span>
+                    <p className="text-gray-600 text-sm mt-2">
+                      {selectedProduct?.description}
+                    </p>
+                  </div>
 
+                  <span className="font-bold text-gray-700">
+                    Related Products
+                  </span>
 
-      <div>
-        <span className="font-bold text-gray-700">
-          Product Description:
-        </span>
-        <p className="text-gray-600 text-sm mt-2">
-          {selectedProduct?.description}
-        </p>
-      </div>
+                  <div className="w-full flex flex-wrap  items-center ">
+                    {selectedProduct?.image ? (
+                      <>
+                        <div className="mt-5">
+                          <div className="flex flex-wrap items-center mt-2">
+                            {LinkedItems?.map((product) => {
+                              return (
+                                <img
+                                  src={`${ImagesUrl}/${product.image}`}
+                                  alt={product.image}
+                                  className="w-20 mx-3 h-20 rounded-full shadow-md object-cover hover:scale-105 cursor-pointer "
+                                  onClick={() => {
+                                    // setProductStikersDataState([product])
+                                    setSelectedProduct(product);
+                                    // setSelectedImage(product.image);
+                                  }}
+                                />
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
 
-
-
-
-
-      <span className="font-bold text-gray-700">
-              Related Products
-            </span>
-
-<div className="w-full flex flex-wrap  items-center ">
-
-{selectedProduct?.image ? (
-        <>
-          <div className="mt-5">
-           
-            <div className="flex flex-wrap items-center mt-2">
-              {CustomizedItemsData?.map((product) => {
-                return (
-                  <img
-                    src={`${ImagesUrl}/${product.image}`}
-                    alt={product.image}
-                    className="w-20 mx-3 h-20 rounded-full shadow-md object-cover hover:scale-105 cursor-pointer "
-                    onClick={() => {
-                      // setProductStikersDataState([product])
-                      setSelectedProduct(product);
-                      // setSelectedImage(product.image);
-                    }}
-                  />
-                );
-              })}
+                  <div className="flex -mx-2 my-10">
+                    <div className="w-1/2 px-2">
+                      {selectedProduct?.totalQuantity !== 0 ? (
+                        <>
+                          {allIdsInCart?.includes(selectedProduct?._id) ? (
+                            <button
+                              onClick={() => handleAddToCart(selectedProduct)}
+                              className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
+                            >
+                              Remove from Cart
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleAddToCart(selectedProduct)}
+                              className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
+                            >
+                              Add to Cart
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-full bg-red-400 text-center text-white py-2 px-4 rounded-full font-bold ">
+                            OUT OF STOCK
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div className="w-1/2 px-2">
+                      {localStorage.auth !== undefined ? (
+                        <>
+                          {localFavId?.indexOf(selectedProduct?._id) !== -1 ? (
+                            <button
+                              onClick={() => handleFAv(selectedProduct)}
+                              className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
+                            >
+                              remove from Wishlist
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleFAv(selectedProduct)}
+                              className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
+                            >
+                              Add to Wishlist
+                            </button>
+                          )}
+                        </>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </>
-      ) : null}
-</div>
-
-
-
-
-
-
-
-
-
-
-
-  <div className="flex -mx-2 my-10">
-        <div className="w-1/2 px-2">
-          {selectedProduct?.totalQuantity !== 0 ? (
-            <>
-              {allIdsInCart?.includes(selectedProduct?._id) ? (
-                <button
-                  onClick={() =>
-                    handleAddToCart(selectedProduct)
-                  }
-                  className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
-                >
-                  Remove from Cart
-                </button>
-              ) : (
-                <button
-                  onClick={() =>
-                    handleAddToCart(selectedProduct)
-                  }
-                  className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
-                >
-                  Add to Cart
-                </button>
-              )}
-            </>
-          ) : (
-            <>
-              <div className="w-full bg-red-400 text-center text-white py-2 px-4 rounded-full font-bold ">
-                OUT OF STOCK
-              </div>
-            </>
-          )}
-        </div>
-        <div className="w-1/2 px-2">
-          {localStorage.auth !== undefined ? (
-            <>
-              { localFavId?.indexOf( selectedProduct?._id)
-               !== -1
-        
-              ? (
-                <button
-                  onClick={() => handleFAv(selectedProduct)}
-                  className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
-                >
-                  remove from Wishlist
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleFAv(selectedProduct)}
-                  className="w-full bg-gray-400 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-gray-300"
-                >
-                  Add to Wishlist
-                </button>
-              )}
-            </>
-          ) : null}
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-</div>
-</div>
-</>
-
-}
-
-
-    
-
-   
-
-  
-
-
-     
-
+      )}
     </>
   );
 };

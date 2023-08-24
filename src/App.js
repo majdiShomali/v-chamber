@@ -32,7 +32,7 @@ import ProviderOrders from "./pages/providerFiles/orders/ProviderOrders";
 // import ProductPageSkeleton from "./components/Skeleton/ProductPageSkeleton";
 import ProductPageProvider from "./pages/providerFiles/ProductPageProvider";
 import ProviderNavBar from "./pages/providerFiles/components/ProviderNavBar";
-
+import AllProductsProvider from "./pages/providerFiles/productsAdd/linkProducts/pages/AllProductsProvider";
 
 import PdfTest from "./pages/providerFiles/CreatePDF/PdfTest";
 // import axios from "axios";
@@ -102,6 +102,7 @@ function App() {
         <Routes>
           <Route index element={<ProviderHome />} />
            <Route path="/AboutUs" element={<AboutUs />} />
+           <Route path="/AllProductsProvider" element={<AllProductsProvider />} />
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/UserProfile" element={<ProviderProfile />} />
           <Route path="/ProviderOrders" element={<ProviderOrders />} />

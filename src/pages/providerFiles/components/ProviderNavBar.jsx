@@ -87,6 +87,20 @@ const ProviderNavBar = () => {
       >
         <Link
           onClick={() => setOpenNav(false)}
+          to="/AllProductsProvider"
+          className="flex items-center"
+        >
+          AllProducts
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link
+          onClick={() => setOpenNav(false)}
           to="/AboutUs"
           className="flex items-center"
         >
