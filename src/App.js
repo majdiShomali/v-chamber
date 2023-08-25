@@ -36,7 +36,7 @@ import AllProductsProvider from "./pages/providerFiles/productsAdd/linkProducts/
 
 import PdfTest from "./pages/providerFiles/CreatePDF/PdfTest";
 // import axios from "axios";
-
+import UploadImageTest from "./UploadImageTest";
 
 
 function App() {
@@ -109,6 +109,7 @@ function App() {
           <Route path="/ProductPageProvider/:id/:relatedId" element={<ProductPageProvider />} />
           <Route path="/PdfTest/:orderId" element={<PdfTest />} />
           <Route path="/UserPdfBill/:orderId" element={<UserPdfBill />} />
+          <Route path="/io" element={<UploadImageTest />} />
 
           <Route path="/*" element={<NoPage404 />} /> 
         </Routes>

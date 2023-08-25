@@ -118,7 +118,7 @@ const ItemCardProvider = ({ Items }) => {
                         
                          
                       
-
+                          {console.log(`${ImagesUrl}/${card.image}`)}
                         <img
                           src={`${ImagesUrl}/${card.image}`}
                           alt="Just a flower"
