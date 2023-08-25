@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Add custom text to year dropdown options */
+.react-datepicker__year-option {
+    position: relative;
+
+}
+
+.react-datepicker__year-option a {
+    position: relative;
+    display: block; /* Ensure the anchor takes up the full width of the option */
+    padding: 5px; /* Adjust padding as needed */
+    text-decoration: none; /* Remove underline */
+    text-indent: 0em;
+}
+
+.react-datepicker__year-option a::before {
+    content: "O "; /* Add your custom text here */
+    font-weight: bold; /* Adjust font style as needed */
+
+    text-indent: 0em;
+}
+
+
+
+

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useEffect } from "react";
 
 export default function LogIn() {
@@ -66,6 +65,7 @@ export default function LogIn() {
     } else {
       setIsGreater(false);
       localStorage.setItem("selectedDateStatus", false);
+      alert("your under the age limit")
 
     }
   };
@@ -199,12 +199,18 @@ export default function LogIn() {
                   Please enter your Birthday Date To login
                 </div>
                 <DatePicker
-                  selected={selectedDate}
-                  required
-                  onChange={handleDateChange}
-                  placeholderText="date of Birth"
-                  className="w-96 px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                />
+        selected={selectedDate}
+        onChange={handleDateChange}
+        placeholderText="Date of Birth"
+        showYearDropdown
+        dateFormat="MM/dd/yyyy"
+        className="w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white custom-datepicker"
+      />
+           <button
+        className="react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"
+        onClick={() => alert('You clicked the upcoming years button')}
+      >
+      </button>
 
                 <button
                   type="button"
