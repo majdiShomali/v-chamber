@@ -4,15 +4,16 @@ const bcrypt = require('bcrypt');
 
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
-
+const NODEMAILER_USER=process.env.NODEMAILER_USER
+const NODEMAILER_PASS=process.env.NODEMAILER_PASS
 
 const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: "arabicrecipes65@gmail.com",
-      pass: "qlnnagwjsettapld",
-    },
-  });
+  service: "Gmail",
+  auth: {
+    user: NODEMAILER_USER,
+    pass: NODEMAILER_PASS,
+  },
+});
 
   const allForgetUsers = async (req, res) => {
     const { email } = req.body;
@@ -39,7 +40,7 @@ const transporter = nodemailer.createTransport({
   
       // Send the PIN code to the user's email
       const mailOptions = {
-        from: "arabicrecipes65@gmail.com",
+        from: NODEMAILER_USER,
         to: email,
         subject: "Password Reset PIN Code",
         text: `Your PIN code for password reset is: ${pinCode}`,

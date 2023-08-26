@@ -6,6 +6,10 @@ const userSchema = new Schema({
         type : String,
         required : true
     },
+    DateOfBirth: {
+        type : String,
+        required : true
+    },
     email: {
         type : String,
         required : true
@@ -36,10 +40,23 @@ const userSchema = new Schema({
         required : false,
         default : false
     },
+    flag:{
+        type : Boolean,
+        required : false,
+        default : false
+    },
     resetPin:{
         type : Number,
         required : false,
     },
+    pinCode:{
+        type : Number,
+        required : false,
+    },
+    UsersIdFavorite: {
+        type: Array,
+        required: false,
+      },
     },
      {timestamps : true}
     )
