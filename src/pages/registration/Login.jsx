@@ -43,7 +43,6 @@ export default function LogIn() {
       } else {
         setIsGreater(false);
         localStorage.setItem("selectedDateStatus", false);
-
       }
     }
   }, []);
@@ -65,8 +64,7 @@ export default function LogIn() {
     } else {
       setIsGreater(false);
       localStorage.setItem("selectedDateStatus", false);
-      alert("your under the age limit")
-
+      alert("your under the age limit");
     }
   };
 
@@ -192,33 +190,40 @@ export default function LogIn() {
             />
           </div>
 
-           {!isGreater ? (
+          {!isGreater ? (
             <>
               <div className="flex items-center justify-center flex-col">
                 <div className="my-5">
                   Please enter your Birthday Date To login
                 </div>
                 <DatePicker
-        selected={selectedDate}
-        onChange={handleDateChange}
-        placeholderText="Date of Birth"
-        showYearDropdown
-        dateFormat="MM/dd/yyyy"
-        className="w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white custom-datepicker"
-      />
-           <button
-        className="react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"
-        onClick={() => alert('You clicked the upcoming years button')}
-      >
-      </button>
+                  selected={selectedDate}
+                  onChange={handleDateChange}
+                  placeholderText="Date of Birth"
+                  showYearDropdown
+                  dateFormat="MM/dd/yyyy"
+                  className="w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white custom-datepicker"
+                />
+                <button
+                  className="react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"
+                  onClick={() => alert("You clicked the upcoming years button")}
+                ></button>
 
                 <button
                   type="button"
-                  className="mt-5 w-96 bg-purple-500 tracking-wide font-semibold text-white  py-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  className="mt-5 w-60 bg-purple-500 tracking-wide font-semibold text-white  py-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   onClick={handleLogIn}
                 >
-                  <span className="ml-3">Go to logIn </span>
+                  <span className="">Go to logIn </span>
                 </button>
+                <Link to="/Signup/user">
+                <button
+                  type="button"
+                  className="mt-5 w-60 bg-purple-500 tracking-wide font-semibold text-white  py-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                >
+                  <span className="">Go to Sign-Up </span>
+                </button>
+                </Link>
               </div>
             </>
           ) : (

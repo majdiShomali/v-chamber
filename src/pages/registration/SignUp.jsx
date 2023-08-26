@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Input } from "@material-tailwind/react";
 
 export default function Signup() {
-
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDatep, setSelectedDatep] = useState("");
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -36,6 +37,29 @@ export default function Signup() {
   const [verifyEmail, setVerifyEmail] = useState(true);
   const [user, setUser] = useState({});
 
+  const validateData = (selectedDate) => {
+    // Create a date object for the given date
+    const inputDate = new Date(selectedDate);
+
+    // Calculate the date 18 years ago from the current date
+    const today = new Date();
+    const eighteenYearsAgo = new Date(today);
+    eighteenYearsAgo.setFullYear(today.getFullYear() - 18);
+
+    // Compare the input date with the calculated date
+    if (inputDate < eighteenYearsAgo) {
+      setSelectedDatep("")
+      return true;
+    } else {
+      setSelectedDatep("your under the age limit")
+      return false;
+    }
+  };
+
+
+
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -43,11 +67,13 @@ export default function Signup() {
     validatePassword(password);
     validateEmail(email.toLowerCase());
     // validatePhone(phone);
+    validateData(selectedDate)
 
     if (
       validateName(name) &&
       validatePassword(password) &&
-      validateEmail(email.toLowerCase())
+      validateEmail(email.toLowerCase()) &&
+      validateData(selectedDate)
       // validatePhone(phone)
     ) {
       const userData = {
@@ -55,10 +81,9 @@ export default function Signup() {
         email: email.toLowerCase(),
         password: password,
         phone: phone,
-        DateOfBirth:selectedDate,
-        role: type === "user" ? 0 : 2,
+        DateOfBirth: selectedDate,
+        role: type === "user" ? 0 : 0,
       };
-      console.log(userData);
       try {
         // Send the data to the server using an HTTP POST request
         const response = await axios.post(`${ApiUrl}/users`, userData);
@@ -89,7 +114,7 @@ export default function Signup() {
       setemailp("! E-mail must be in a valid format such as example@gmail.com");
       return false;
     } else {
-      setemail("");
+      setemailp("");
       return true;
     }
   }
@@ -148,61 +173,72 @@ export default function Signup() {
             <form onSubmit={handleSubmit}>
               <div className="w-full flex-1 mt-8">
                 <div className="mx-auto max-w-xs">
-                 
-                {verifyEmail ? (
+                  {verifyEmail ? (
                     <>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setemail(e.target.value)}
-                  />
-                  <p className="text-red-500">{emailp}</p>
-                 
-
-                      <input
-                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                    <div className="my-3">
+                      <Input
+                        className=""
+                        size="lg"
+                        type="email"
+                        label="Email"
+                        value={email}
+                        onChange={(e) => setemail(e.target.value)}
+                        required
+                      />
+                      <p className="text-red-500">{emailp}</p>
+                      </div>
+                      <div className="my-3">
+                      <Input
+                        className=""
+                        size="lg"
                         type="text"
-                        placeholder="Full Name"
+                        label="Full Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        required
                       />
                       <p className="text-red-500">{namep}</p>
-
-         <div className="">
-         <DatePicker
-  selected={selectedDate}
-  required
-  onChange={handleDateChange}
-  placeholderText="date of Birth" 
-  className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-/>
-    </div>
-                      <input
-                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                      </div>
+                      <div className="">
+                        <DatePicker
+                          selected={selectedDate}
+                          onChange={handleDateChange}
+                          placeholderText="Date of Birth *"
+                          showYearDropdown
+                          dateFormat="MM/dd/yyyy"
+                          className="w-full pr-32 px-5 py-3 rounded-lg font-medium  border border-gray-500 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
+                          required
+                        />                      
+                        <p className="text-red-500">{selectedDatep}</p>
+                      </div>
+                      <div className="my-3">
+                      <Input
+                        className=""
+                        size="lg"
                         type="tel"
-                        placeholder="07xxxxxxxx"
+                        label="phone number"
                         value={phone}
                         onChange={(e) => setphone(e.target.value)}
+                        required
                       />
                       <p className="text-red-500">{phonep}</p>
-
-                      <input
-                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                      </div>
+                      <div className="my-3">
+                      <Input
+                        className=""
+                        size="lg"
                         type="password"
-                        placeholder="Password"
+                        label="Password"
                         value={password}
                         onChange={(e) => setpassword(e.target.value)}
+                        required
                       />
                       <p className="text-red-500">{passwordp}</p>
+                      </div>
                     </>
                   ) : (
                     <>
-                
-                     <p className=" ">
-                         PIN code sent to {email}
-                      </p>
+                      <p className=" ">PIN code sent to {email}</p>
                       <input
                         className="w-full mt-5 px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
                         type="number"
@@ -212,7 +248,6 @@ export default function Signup() {
                         required
                       />
                       <p className="text-red-500">{Pinp}</p>
-                  
                     </>
                   )}
                   {verifyEmail ? (
@@ -269,10 +304,6 @@ export default function Signup() {
                       Sign-In Here
                     </Link>
                   </p>
-
-
-
-                  
                 </div>
               </div>
             </form>

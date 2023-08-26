@@ -36,7 +36,7 @@ const CategoryCardProvider = ({itemsData}) => {
           key={category._id}
           
             className="w-full sm:w-1/2 md:w-1/3 p-4 hover:scale-105   relative">
-           {category?.ProviderId === user?._id ?
+           {/* {category?.ProviderId === user?._id ? */}
            <>
                    <EditCategoryCardProvider
             category={category}           
@@ -47,7 +47,9 @@ const CategoryCardProvider = ({itemsData}) => {
            
            </>
            
-           : null} 
+           {/* : null
+           } */}
+
     
           
           <div className="relative rounded-lg overflow-hidden"
