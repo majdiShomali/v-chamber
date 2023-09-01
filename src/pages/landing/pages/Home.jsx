@@ -8,6 +8,7 @@ import ProductOfTheWeek from "../components/ProductOfTheWeek";
 // import Gallery from './Gallery';
 import CookieComponent from "../../../CookieComponent";
 
+
 const Home = () => {
   return (
     <>
