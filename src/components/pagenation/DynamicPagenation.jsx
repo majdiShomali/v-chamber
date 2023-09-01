@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Pagination from "@mui/material/Pagination";
 import { useState } from 'react';
 
-const DynamicPagenation = ({itemsPerPageD,items,UpdateArrayToPagenation}) => {
+const DynamicPagenation = ({itemsPerPageD,items,UpdateArrayToPagenation,UpdateCurrentPage,CurrentPageNum}) => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -10,16 +10,19 @@ const DynamicPagenation = ({itemsPerPageD,items,UpdateArrayToPagenation}) => {
     let totalPages;
     const itemsPerPage = itemsPerPageD;
     totalItems = items?.length;
-    totalPages = Math.ceil(totalItems / itemsPerPage);
+    // totalPages = Math.ceil(totalItems / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
   
+    totalPages = Math.ceil(CurrentPageNum / itemsPerPage);
+
     const handlePageChange = (event, pageNumber) => {
         setCurrentPage(pageNumber);
+        UpdateCurrentPage(pageNumber)
       };
 
       useEffect(() => {
-        UpdateArrayToPagenation(items?.slice(startIndex, endIndex))
+        UpdateArrayToPagenation(items)
       },[items,startIndex,endIndex])
  
   return (

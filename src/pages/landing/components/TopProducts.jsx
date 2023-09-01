@@ -7,7 +7,7 @@ import { fetchAllRelatedItems } from "../../../actions/related/GetAllRelatedItem
 import { Button } from '@material-tailwind/react';
 // import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-
+import NewCard from '../../../components/cards/NewCard';
 const TopProducts = () => {
 
     const dispatch = useDispatch();
@@ -53,8 +53,12 @@ const TopProducts = () => {
       <div className="mt-8 flex flex-wrap justify-center gap-4">
       </div>
     </div>
-    <ItemCard 
+    {/* <ItemCard 
     Items={topProducts}
+    /> */}
+
+    <NewCard
+     Items={topProducts}
     />
 
     <div className='w-full flex items-center justify-center'>

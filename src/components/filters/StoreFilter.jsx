@@ -4,8 +4,9 @@ import AllSaleInput from './inputs/AllSaleInput';
 import AllCategoryInput from './inputs/AllCategoryInput';
 import AllCompanyInput from './inputs/AllCompanyInput';
 import { useState,useEffect } from 'react';
+import axios from 'axios';
 
-const StoreFilter = ({ProductItems,updateFilteredArray}) => {
+const StoreFilter = ({updateFilteredArray,CurrentPage,UpdateCurrentPageNum}) => {
 
 
     const [selectedCompany, setSelectedCompanyValue] = useState("");
@@ -30,32 +31,35 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
 
 
     const [searchTermProduct, setSearchTermProduct] = useState("");
-    const filterDataByNameProduct = (ProductName) => {
-        const newFilter = ProductItems?.filter((item) => {
-          return item.Name?.toLowerCase().includes(ProductName.toLowerCase());
-        });
-        updateFilteredArray(newFilter);
-      };
+ 
 
 
   useEffect(() => {
-    if (ProductItems) {
-      let newFilter = ProductItems?.filter((item) => {
-        return (
-          item.category?.toLowerCase().includes(selectedCategory.toLowerCase()) &&
-          item.company?.toLowerCase().includes(selectedCompany.toLowerCase())
-             && item.type?.toLowerCase().includes(selectedType.toLowerCase()) 
-        );
-      });
-      if(selectedSale){
-         newFilter = newFilter.filter((item)=> {return item.price > item.salePrice})   
-      }   
-      updateFilteredArray(newFilter);
-    }
-  }, [selectedCategory, selectedCompany,selectedSale,selectedType,ProductItems]);
+      getBy(selectedCategory,selectedCompany,selectedType,selectedSale)
+  }, [selectedCategory, selectedCompany,selectedSale,selectedType,CurrentPage,searchTermProduct]);
 
+  const ApiUrl= process.env.REACT_APP_API_URL
 
+ const getBy = async(selectedCategory,selectedCompany,selectedType,selectedSale) =>{
+  try {
+        console.log(selectedCategory,selectedCompany,selectedType,selectedSale)
+           const data = {
+            category:selectedCategory,
+            company:selectedCompany,
+            type:selectedType,
+            sale:selectedSale,
+            searchWord:searchTermProduct,
+            CurrentPage:CurrentPage ? CurrentPage :1 ,
+           }
+        const response = await axios.post(`${ApiUrl}/allRelatedItemsBy`,data)
+              updateFilteredArray(response.data.data);
+              UpdateCurrentPageNum(response.data.totalItems)
+              console.log(response.data)
 
+  } catch (error) {
+    console.log(error.message)
+  }
+ }
 
   return (
     <div className="flex justify-center py-8 mx-5 ">
@@ -80,7 +84,6 @@ const StoreFilter = ({ProductItems,updateFilteredArray}) => {
             value={searchTermProduct}
             onChange={(e) => {
               setSearchTermProduct(e.target.value);
-              filterDataByNameProduct(e.target.value);
             }}
           />
         </div>
