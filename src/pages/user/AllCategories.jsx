@@ -5,6 +5,9 @@ import { fetchCategoryItems } from "../../actions/category/GetCategoryItems";
 import { useEffect, useState } from 'react'
 // import { HashLink } from 'react-router-hash-link';
 import DynamicPagenation from '../../components/pagenation/DynamicPagenation';
+
+
+const itemsPerPage = 6;
 const AllCategories = () => {
 
     const navigate = useNavigate();
@@ -16,19 +19,40 @@ const AllCategories = () => {
   
     const dispatch = useDispatch();
     const {
-      // loading: isLoading,
+      loading: isLoading,
       data: itemsData,
       // error: fetchError,
     } = useSelector((state) => state.fetchCategories);
   
     useEffect(() => {
-      dispatch(fetchCategoryItems());
+      const data ={
+        itemsPerPage:itemsPerPage,
+        CurrentPage:"1"
+      }
+      dispatch(fetchCategoryItems(data));
     }, [dispatch]);
   
     const [arrayToPagenation, setArrayToPagenation] = useState([]);
     const UpdateArrayToPagenation = (value) => {
       setArrayToPagenation(value)
     }
+    const [CurrentPageNum, setCurrentPageNum] = useState(0);
+
+    const UpdateCurrentPage = (value) => {
+      const data ={
+        itemsPerPage:itemsPerPage,
+        CurrentPage:value
+      }
+      dispatch(fetchCategoryItems(data));
+    }
+
+
+  useEffect(()=>{
+  if(itemsData){
+    setCurrentPageNum(itemsData.totalItems)
+  }
+  },[itemsData])
+
   return (
     <>
     <div className="bg-white mt-3 shadow-lg h-screen">
@@ -43,8 +67,9 @@ const AllCategories = () => {
       
       
       >
+        {isLoading ? null : <>
         
-        {arrayToPagenation?.map((category)=>{
+          {arrayToPagenation?.map((category)=>{
        return (
           <div
           onClick={() => handleKitchenTypeSelection(category._id)}
@@ -77,15 +102,24 @@ const AllCategories = () => {
        )
         })}
         
+        
+        
+        
+        
+        </>}
+    
+        
 
 
 
       </div>
 
       <DynamicPagenation
-      itemsPerPageD= {6}
-      items={itemsData}
+      itemsPerPageD= {itemsPerPage}
+      items={itemsData.data}
       UpdateArrayToPagenation={UpdateArrayToPagenation}
+      UpdateCurrentPage={UpdateCurrentPage}
+      CurrentPageNum={CurrentPageNum}
       />
     </section>
 

@@ -14,16 +14,19 @@ import axios from "axios";
 const ProductPage = () => {
   const { cartNavRefresh, setCartNavRefresh } = useContext(CartContext);
   const ApiUrl = process.env.REACT_APP_API_URL;
-
+   const [isItemsLoading ,setIsItemsLoading] =useState(false)
   const [LinkedItems, setLinkedItems] = useState([]);
 
   const getLinked = async (id) => {
+    setIsItemsLoading(true)
     try {
       const response = await axios.get(`${ApiUrl}/getLinkProduct/${id}`);
       console.log(response.data);
       setLinkedItems(response.data);
     } catch (error) {
       console.error(error);
+    }finally{
+      setIsItemsLoading(false)
     }
   };
 
@@ -193,24 +196,43 @@ const ProductPage = () => {
 
               <div className="flex flex-col md:flex-row -mx-4">
                 <div className="md:flex-1 px-4">
-                  <div className=" relative rounded-lg bg-gray-500 mb-4 w-96 h-96">
-                    <img
-                      className="w-full h-full"
-                      alt="aa"
-                      src={`${ImagesUrl}/${selectedProduct.image}`}
-                    />
 
-                    {/* <div className="absolute top-3 right-3">
-        {localStorage.auth && user?._id && selectedProduct?._id ? (
-          <CardRating
-            Item={selectedProduct}
-            CardId={selectedProduct?._id}
-            UserId={user?._id}
-          />
-        ) : null}
-      </div>
-       */}
-                  </div>
+                { isItemsLoading ? 
+                
+                
+                <div className=" relative rounded-lg bg-gray-500 mb-4 w-96 h-96 animate-pulse flex items-center justify-center">
+            
+            <svg className="w-36 h-36 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z"/>
+            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+               </svg>
+
+              </div>  
+                
+                
+                
+                :
+                
+                
+                
+                
+                <div className=" relative rounded-lg bg-gray-500 mb-4 w-96 h-96">
+                <img
+                  className="w-full h-full"
+                  alt="aa"
+                  src={`${ImagesUrl}/${selectedProduct.image}`}
+                />
+
+
+              </div>
+                
+                
+                
+                
+                }
+
+
+       
                 </div>
                 <div className="md:flex-1 px-4">
                   <h2 className="text-2xl font-bold mb-2">
@@ -248,8 +270,28 @@ const ProductPage = () => {
                   <span className="font-bold text-gray-700">
                     Related Products
                   </span>
+{ isItemsLoading ?
 
-                  <div className="w-full flex flex-wrap  items-center ">
+
+<div className="flex mt-5">
+<div className="w-20 mx-3 h-20 rounded-full shadow-md  animate-pulse bg-gray-500  flex items-center justify-center ">
+
+<svg className="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z"/>
+            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+               </svg>
+
+</div>
+
+ </div>
+
+
+
+: 
+<>
+
+
+<div className="w-full flex flex-wrap  items-center ">
                     {selectedProduct?.image ? (
                       <>
                         <div className="mt-5">
@@ -271,8 +313,19 @@ const ProductPage = () => {
                           </div>
                         </div>
                       </>
-                    ) : null}
+                    ) :
+                    
+            null
+                    
+                    }
                   </div>
+
+
+
+</>
+
+
+}
 
                   <div className="flex -mx-2 my-10">
                     <div className="w-1/2 px-2">

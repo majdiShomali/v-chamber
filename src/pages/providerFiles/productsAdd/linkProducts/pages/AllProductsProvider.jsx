@@ -95,6 +95,36 @@ const AllProductsProvider = () => {
 //     }
 //     },[selectedIdToLink])
 
+
+
+
+
+
+
+
+const [CurrentPageNum, setCurrentPageNum] = useState(1);
+
+const UpdateCurrentPage = (value) => {
+  // const data ={
+  //   itemsPerPage:itemsPerPage,
+  //   CurrentPage:value
+  // }
+  // dispatch(fetchCategoryItems(data));
+}
+
+
+// useEffect(()=>{
+// if(AllRelatedItems){
+// setCurrentPageNum(itemsData.totalItems)
+// }
+// },[AllRelatedItems])
+
+
+
+
+
+
+
   return (
     <>
       <StoreFilter
@@ -238,6 +268,8 @@ const AllProductsProvider = () => {
         itemsPerPageD={100}
         items={selectedFilterdItems}
         UpdateArrayToPagenation={UpdateArrayToPagenation}
+        UpdateCurrentPage={UpdateCurrentPage}
+        CurrentPageNum={CurrentPageNum}
       />
     </>
   );

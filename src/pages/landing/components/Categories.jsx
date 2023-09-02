@@ -26,11 +26,15 @@ const Categories = () => {
   } = useSelector((state) => state.fetchCategories);
 
   useEffect(() => {
-    dispatch(fetchCategoryItems());
+    const data ={
+      itemsPerPage:"6",
+      CurrentPage:"1"
+    }
+    dispatch(fetchCategoryItems(data));
   }, [dispatch]);
 
   useEffect(() => {
-    setTopCategories(itemsData.slice(-6));
+    setTopCategories(itemsData.data);
   }, [itemsData]);
 
   return (

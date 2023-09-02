@@ -5,8 +5,8 @@ const ApiUrl= process.env.REACT_APP_API_URL
 
 export const fetchCategoryItems = createAsyncThunk(
   "CategoryItems/fetchCategoryItems",
-  async () => {
-    const response = await axios.get(`${ApiUrl}/allItems`);
+  async (data) => {
+    const response = await axios.get(`${ApiUrl}/allItems/${data.itemsPerPage}/${data.CurrentPage}`);
     return response.data;
   }
 );

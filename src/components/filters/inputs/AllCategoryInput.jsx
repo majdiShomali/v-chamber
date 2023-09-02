@@ -11,9 +11,12 @@ const AllCategoryInput = ({ onSelectChange }) => {
   } = useSelector((state) => state.fetchCategories);
 
   useEffect(() =>{
-    dispatch(fetchCategoryItems())
+    const data ={
+      itemsPerPage:"20",
+      CurrentPage:"1"
+    }
+    dispatch(fetchCategoryItems(data));
   },[dispatch])
-
 
     const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -30,13 +33,18 @@ const AllCategoryInput = ({ onSelectChange }) => {
   >
      <option 
         value="">All categories</option>
-    {CategoriesData?.map((category)=>{
-      return(
-        <option 
+ 
+  {CategoriesData?.data?.map((category) => {
+    return (
+      <option
         key={category._id}
-        value={category.category}>{category.category}</option>
-      )
-    })}
+        value={category.category}
+      >
+        {category.category}
+      </option>
+    );
+  })}
+
   
 
   </select>

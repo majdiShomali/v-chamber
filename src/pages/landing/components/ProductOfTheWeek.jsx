@@ -5,6 +5,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import {fetchAllRelatedItems} from "../../../actions/related/GetAllRelatedItems"
 import { useNavigate } from 'react-router-dom';
 import ItemCard from '../../../components/cards/ItemCard';
+import NewCard from '../../../components/cards/NewCard';
 const ProductOfTheWeek = () => {
   const ImagesUrl = process.env.REACT_APP_IMAGES_URL;
 
@@ -45,21 +46,21 @@ setProductOfTheWeek(highestRated)
       >
         <div
         
-        className="mb-12 md:mt-12 lg:mt-0 lg:mb-0 ">
-          <div className="block rounded-lg bg-[hsla(0,0%,100%,0.55)] px-2 py-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-[hsla(0,0%,5%,0.55)] dark:shadow-black/20 md:px-12 lg:-mr-16 backdrop-blur-[30px]">
+        className="mb-12 md:mt-12 lg:mt-0 lg:mb-0 lg:-mr-10">
+          <div className="block rounded-lg bg-[hsla(0,0%,100%,0.55)] px-2 py-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-[hsla(0,0%,5%,0.55)] dark:shadow-black/20  lg:-mr-16 backdrop-blur-[30px]">
             <h1 className="mt-2 mb-5 text-2xl font-bold tracking-tight md:text-3xl xl:text-4xl">
               Product <br />
               <span className="text-primary">Of the Week</span>
             </h1>
           </div>
         </div>
-        <div className="md:mb-12 lg:mb-0">
+        <div className="">
           {/* <img
            src={`${ImagesUrl}/${productOfTheWeek?.image}`}      
              className="w-80 h-96  rounded-lg shadow-lg dark:shadow-black/20"
             alt={productOfTheWeek?.image}
           /> */}
-          <ItemCard
+          <NewCard
           Items={[productOfTheWeek]}
           />
         </div>

@@ -35,7 +35,11 @@ const ProviderHome = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCategoryItems());
+    const data ={
+      itemsPerPage:"6",
+      CurrentPage:"1"
+    }
+    dispatch(fetchCategoryItems(data));
   }, [dispatch]);
 
   // const [item, setItem] = useState([]);
@@ -151,7 +155,7 @@ const ProviderHome = () => {
         </Card>
       </section>
 
-      <CategoryCardProvider itemsData={allItemData} />
+      <CategoryCardProvider itemsData={allItemData.data} />
       {/*     
     <ItemCardProvider
       Items={item}
