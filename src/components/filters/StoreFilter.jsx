@@ -6,7 +6,7 @@ import AllCompanyInput from './inputs/AllCompanyInput';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 
-const StoreFilter = ({updateFilteredArray,CurrentPage,UpdateCurrentPageNum}) => {
+const StoreFilter = ({updateFilteredArray,CurrentPage,UpdateCurrentPageNum,itemsPerPage}) => {
 
 
     const [selectedCompany, setSelectedCompanyValue] = useState("");
@@ -50,6 +50,7 @@ const StoreFilter = ({updateFilteredArray,CurrentPage,UpdateCurrentPageNum}) => 
             sale:selectedSale,
             searchWord:searchTermProduct,
             CurrentPage:CurrentPage ? CurrentPage :1 ,
+            itemsPerPage:itemsPerPage,
            }
         const response = await axios.post(`${ApiUrl}/allRelatedItemsBy`,data)
               updateFilteredArray(response.data.data);

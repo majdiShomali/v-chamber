@@ -5,7 +5,7 @@ const ApiUrl= process.env.REACT_APP_API_URL
 
 export const fetchAllRelatedItems = createAsyncThunk(
   "AllRelatedItems/fetchAllRelatedItems",
-  async () => {
+  async (data) => {
     const response = await axios.get(`${ApiUrl}/RelatedItemsAll`);
     return response.data;
   }

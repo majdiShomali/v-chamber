@@ -9,6 +9,7 @@ import StoreFilter from "../../components/filters/StoreFilter";
 import DynamicPagenation from "../../components/pagenation/DynamicPagenation";
 import ItemCardSkelaton from "../../components/cards/ItemCardSkelaton";
 import axios from "axios";
+const itemsPerPage =20;
 const ItemsStore = () => {
 
   const [selectedFilterdItems, setSelectedFilterdItems] = useState([]);
@@ -31,14 +32,14 @@ const ItemsStore = () => {
 
   return (
     <>
-      <StoreFilter  updateFilteredArray={handleSelectChange} CurrentPage={CurrentPage} UpdateCurrentPageNum={UpdateCurrentPageNum} />
+      <StoreFilter  updateFilteredArray={handleSelectChange} CurrentPage={CurrentPage} UpdateCurrentPageNum={UpdateCurrentPageNum} itemsPerPage={itemsPerPage} />
 
       <div className=" lg:min-h-[50vh] flex  flex-col">       
         <ItemCard Items={arrayToPagenation} />      
       </div>
 
       <DynamicPagenation
-      itemsPerPageD= {2}
+      itemsPerPageD= {itemsPerPage}
       items={selectedFilterdItems}
       UpdateArrayToPagenation={UpdateArrayToPagenation}
       UpdateCurrentPage={UpdateCurrentPage}

@@ -19,7 +19,9 @@ import AddJuiceType from "../AddGeneralInfo/AddJuiceType";
 import AddJuiceFlavor from "../AddGeneralInfo/AddJuiceFlavor";
 import EditCompany from "../AddGeneralInfo/editGeneralInfo/EditCompany";
 import EditJuiceFlavor from "../AddGeneralInfo/editGeneralInfo/EditJuiceFlavor";
-
+import EditJuiceNikotin from "../AddGeneralInfo/editGeneralInfo/EditJuiceNikotin";
+import EditJuiceSize from "../AddGeneralInfo/editGeneralInfo/EditJuiceSize";
+import EditJuiceType from "../AddGeneralInfo/editGeneralInfo/EditJuiceType"
 const CategoryEditSection = ({ ItemData }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -93,6 +95,7 @@ const CategoryEditSection = ({ ItemData }) => {
                     className="p-1 cursor-pointer hover:scale-105"
                     key={juice._id}
                   >
+         <EditJuiceSize item={juice} ItemData={ItemData} />
 
                     {juice.size}
                   </Card>
@@ -126,6 +129,8 @@ const CategoryEditSection = ({ ItemData }) => {
                     className="p-1 cursor-pointer hover:scale-105"
                     key={juice._id}
                   >
+                <EditJuiceType item={juice} ItemData={ItemData} />
+
                     {juice.type}
                   </Card>
                 );
@@ -142,6 +147,8 @@ const CategoryEditSection = ({ ItemData }) => {
         className="p-1 cursor-pointer hover:scale-105"
         key={juice._id}
       >
+      <EditJuiceNikotin item={juice} ItemData={ItemData} />
+
         {juice.nikotin}
       </Card>
     );
