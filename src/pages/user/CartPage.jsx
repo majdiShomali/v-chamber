@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart } from "../../actions/related/GetItemsCart";
 import CartBill from "./pdf/CartBill";
 import {CartContext} from "../../context/cartContext"
-import PaymentComponent from "./components/PaymentComponent";
+// import PaymentComponent from "./components/PaymentComponent";
 
 const CartPage = () => {
   // const ApiUrl= process.env.REACT_APP_API_URL

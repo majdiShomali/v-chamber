@@ -44,8 +44,7 @@ const NewCard = ({Items}) => {
     //   <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
     //     افضل الوصفات
     //   </h2>
-
-      <div className=" w-full flex  flex-wrap gap-5 justify-center items-center">
+<>
         {Items?.map((card) => {
           const imgUrl =`${ImagesUrl}/${card?.image}`
           return (
@@ -120,8 +119,8 @@ const NewCard = ({Items}) => {
             </div>
           );
         })}
-        
-       </div>
+        </>
+      
     // </div>
   );
 };

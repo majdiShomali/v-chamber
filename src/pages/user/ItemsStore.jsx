@@ -9,6 +9,7 @@ import StoreFilter from "../../components/filters/StoreFilter";
 import DynamicPagenation from "../../components/pagenation/DynamicPagenation";
 import ItemCardSkelaton from "../../components/cards/ItemCardSkelaton";
 import axios from "axios";
+import NewCard from "../../components/cards/NewCard"
 const itemsPerPage =20;
 const ItemsStore = () => {
 
@@ -34,8 +35,11 @@ const ItemsStore = () => {
     <>
       <StoreFilter  updateFilteredArray={handleSelectChange} CurrentPage={CurrentPage} UpdateCurrentPageNum={UpdateCurrentPageNum} itemsPerPage={itemsPerPage} />
 
-      <div className=" lg:min-h-[50vh] flex  flex-col">       
-        <ItemCard Items={arrayToPagenation} />      
+      <div className=" lg:min-h-[50vh] flex  flex-col">  
+
+        <div  className=" w-full flex  flex-wrap gap-5 justify-center items-center">
+        <NewCard Items={arrayToPagenation} />    
+        </div>  
       </div>
 
       <DynamicPagenation

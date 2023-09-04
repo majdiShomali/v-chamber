@@ -89,7 +89,7 @@ const StoreFilter = ({updateFilteredArray,CurrentPage,UpdateCurrentPageNum,items
           />
         </div>
 
-        <div className="flex my-5 w-1/2">
+        <div className="flex my-5 w-full lg:w-1/2">
           <AllCompanyInput onSelectChange={handleSelectCompanyChange} />
           <AllCategoryInput onSelectChange={handleSelectCategoryChange} />
           <AllSaleInput onSelectChange={handleSelectSaleChange} />

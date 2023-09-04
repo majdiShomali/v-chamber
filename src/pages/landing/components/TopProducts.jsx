@@ -8,6 +8,10 @@ import { Button } from '@material-tailwind/react';
 // import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import NewCard from '../../../components/cards/NewCard';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // Import the AOS styles
+AOS.init();
 const TopProducts = () => {
 
     const dispatch = useDispatch();
@@ -56,10 +60,12 @@ const TopProducts = () => {
     {/* <ItemCard 
     Items={topProducts}
     /> */}
+      <div data-aos="fade-up" data-aos-duration="1000" className=" w-full flex  flex-wrap gap-5 justify-center items-center">
 
     <NewCard
      Items={topProducts}
     />
+       </div>
 
     <div className='w-full flex items-center justify-center'>
       <HashLink smooth={true} to="/Store#">
