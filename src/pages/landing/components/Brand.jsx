@@ -6,6 +6,7 @@ const Brand = () => {
       {/* ====== Brands Section Start */}
       <section className="bg-white w-full   ">
       
+      
         <div className=" flex flex-col h-[40vh] justify-center items-center w-full">  
         <p className="text-5xl text-wrap text-center mb-20"> most popular companies</p>        
           <div className="flex flex-wrap ">
