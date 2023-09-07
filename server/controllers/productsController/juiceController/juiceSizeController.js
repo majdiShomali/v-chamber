@@ -36,8 +36,23 @@ const errorHandler = (error, req, res) => {
         errorHandler(error, req, res);
       });
   };
+
+
+  const updateJuiceSize = async (req, res) => {
+    try {
+     const Id = req.params.id;
+     const  Data  = req.body;
+     console.log(Id,Data);
+     const updated = await JuiceSize.findByIdAndUpdate(Id, Data, { new: true });
+     console.log(updated);
+     res.json(updated);
+    } catch (error) {
+     errorHandler(error, req, res);
+    }
+  }
 module.exports = {
     allJuiceSize,
     addJuiceSize,
-    JuiceSizeByCategory
+    JuiceSizeByCategory,
+    updateJuiceSize
 }; 

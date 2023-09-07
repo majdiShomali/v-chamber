@@ -8,6 +8,7 @@ const uploadMiddleware = require('../middleware/uploadMiddleware'); // Correct i
 router.post("/api/price", relatedItemsController.price);
 
 router.post("/api/allCartItems", relatedItemsController.allCartItems);
+router.post("/api/allRelatedItemsBy", relatedItemsController.allRelatedItemsBy);
 router.get("/api/RelatedItemsAll", relatedItemsController.RelatedItemsAll);
 router.post("/api/addRelatedItem",uploadMiddleware, relatedItemsController.addRelatedItem);
 router.get("/api/allRelatedItems/:id", relatedItemsController.allRelatedItems);

@@ -53,11 +53,6 @@ if(AllProducts.length > 0 && items.length > 0) {
   });
   let sum = AllProducts.reduce((total, item) => total + (item.salePrice * item.quantity), 0);
 
-  console.log("AllProducts");
-  console.log(AllProducts);
-  console.log("AllProducts");
-
-
     res.status(200).json({truePrice:sum,trueProducts:AllProducts} );
   }else{
     res.status(500).json({ error: "No Items In cart" });
@@ -101,8 +96,98 @@ const allRelatedItems = (req, res) => {
 };
 
 
+const allRelatedItemsBy = (req, res) => {
+  const { category, company, type, sale, CurrentPage,searchWord,itemsPerPage } = req.body;
+  const matchQuery = {};
+
+  if (category) { matchQuery.category = category; }
+  if (company) { matchQuery.company = company; }
+  if (type) { matchQuery.type = type; }
+
+  const aggregationPipeline = [
+    {
+      $match: matchQuery
+    }
+  ];
+
+  if (sale == "sale") {
+    aggregationPipeline.push({
+      $match: {
+        $expr: {
+          $lt: ["$salePrice", "$price"]
+        }
+      }
+    });
+  } 
+  
+  // else {
+  //   aggregationPipeline.push({
+  //     $match: {
+  //       $expr: {
+  //         $eq: ["$salePrice", "$price"]
+  //       }
+  //     }
+  //   });
+  // }
+
+  if (searchWord) {
+    aggregationPipeline.push({
+      $match: {
+        Name: { $regex: searchWord, $options: 'i' } // Case-insensitive search for Name field
+      }
+    });
+  }
+
+  
+
+  // Add $count stage to count the total number of matching documents
+  aggregationPipeline.push({
+    $count: "totalItems"
+  });
+
+  RelatedItems.aggregate(aggregationPipeline)
+    .then((countData) => {
+      // Check if there are any results
+      if (countData.length === 0) {
+        return res.json({ totalItems: 0, data: [] });
+      }
+
+      // Extract the total number of items from the countData
+      const totalItems = countData[0].totalItems;
+
+      // Calculate the number of documents to skip based on the page number
+      const skipCount = (CurrentPage - 1) * itemsPerPage;
+
+      // Remove the $count stage from the pipeline
+      aggregationPipeline.pop();
+
+      // Add $skip and $limit stages for pagination
+      aggregationPipeline.push(
+        { $skip: skipCount },
+        { $limit: itemsPerPage }
+      );
+
+      // Execute the aggregation pipeline again to get the paginated data
+      RelatedItems.aggregate(aggregationPipeline)
+        .then((paginatedData) => {
+          res.json({ totalItems, data: paginatedData });
+        })
+        .catch((error) => {
+          errorHandler(error, req, res);
+        });
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
+
+
+
+
 const RelatedItemsAll = (req, res) => {
-    RelatedItems.find()
+  RelatedItems.find()
+    .sort({ rating: -1 }) // Sort by rating in descending order (highest to lowest)
+    .limit(4) // Limit the results to the top 4 items
     .then((data) => { 
       res.json(data);
     })
@@ -110,6 +195,7 @@ const RelatedItemsAll = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+
 
 const OneRelatedItem = (req, res) => {
     const id = req.params.id;
@@ -298,7 +384,7 @@ module.exports = {
     CustomizedItems,
     LinkProduct,
     getLinkProduct,
-
+    allRelatedItemsBy
 }; 
 
 

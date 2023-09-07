@@ -4,7 +4,7 @@ const itemCategoryController = require("../controllers/itemCategoryController");
 const upload = require("../middleware/handleImage")
 const uploadMiddleware = require('../middleware/uploadMiddleware'); // Correct import
 
-router.get("/api/allItems", itemCategoryController.allItems);
+router.get("/api/allItems/:itemsPerPage/:CurrentPage", itemCategoryController.allItems);
 router.get("/api/OneItem/:id", itemCategoryController.OneItem);
 router.get("/api/ProviderItems/:id", itemCategoryController.ProviderItems);
 

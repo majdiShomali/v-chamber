@@ -35,8 +35,22 @@ const JuiceTypeByCategory = (req, res) => {
     });
 };
 
+const updateJuiceType = async (req, res) => {
+  try {
+   const Id = req.params.id;
+   const  Data  = req.body;
+   console.log(Id,Data);
+   const updated = await JuiceType.findByIdAndUpdate(Id, Data, { new: true });
+   console.log(updated);
+   res.json(updated);
+  } catch (error) {
+   errorHandler(error, req, res);
+  }
+}
+
 module.exports = {
   allJuiceType,
   addJuiceType,
-  JuiceTypeByCategory
+  JuiceTypeByCategory,
+  updateJuiceType,
 };

@@ -1,14 +1,59 @@
 // 1- calling the model
 const ItemCategory = require("../models/itemsCategory");
 const RelatedItems =require("../models/relatedItems")
+
+const errorHandler = (error, req, res) => {
+  console.error("An error occurred:", error);
+  res.status(500).json({ error: "Internal Server Error" });
+};
+
+
 const allItems = (req, res) => {
-  ItemCategory.find()
-    .then((data) => { 
-      res.json(data);
-    })
-    .catch((error) => {
-      errorHandler(error, req, res);
-    });
+  const itemsPerPage = parseInt(req.params.itemsPerPage, 10);
+  const CurrentPage = parseInt(req.params.CurrentPage, 10);
+
+ const aggregationPipeline = [];
+  // Add $count stage to count the total number of matching documents
+  aggregationPipeline.push({
+    $count: "totalItems"
+  });
+
+  ItemCategory.aggregate(aggregationPipeline)
+  .then((countData) => {
+    // Check if there are any results
+    if (countData.length === 0) {
+      return res.json({ totalItems: 0, data: [] });
+    }
+
+    // Extract the total number of items from the countData
+    const totalItems = countData[0].totalItems;
+
+    // Calculate the number of documents to skip based on the page number
+    const skipCount = (CurrentPage - 1) * itemsPerPage;
+
+    // Remove the $count stage from the pipeline
+    aggregationPipeline.pop();
+
+    // Add $skip and $limit stages for pagination
+    aggregationPipeline.push(
+      { $skip: skipCount },
+      { $limit: itemsPerPage }
+    );
+
+    // Execute the aggregation pipeline again to get the paginated data
+    ItemCategory.aggregate(aggregationPipeline)
+      .then((paginatedData) => {
+        res.json({ totalItems, data: paginatedData });
+      })
+      .catch((error) => {
+        errorHandler(error, req, res);
+      });
+  })
+  .catch((error) => {
+    errorHandler(error, req, res);
+  });
+
+
 };
 
 const ProviderItems = (req, res) => {
